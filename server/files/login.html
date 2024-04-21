@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edith</title>
+   <!-- <script src="edith.js"></script> -->
+</head>
+
+<body>
+    <form>
+        <input type="hidden" name="imdbID" id="imdbID">
+        <div>
+            <label for="Title">Title</label>
+            <input type="text" name="Title" id="Title" required>
+        </div>
+        <div>
+            <label for="Released">Released</label>
+            <input type="date" name="Released" id="Released" required>
+        </div>
+        <div>
+            <label for="Runtime">Runtime</label>
+            <input type="number" min="0" name="Runtime" id="Runtime" required>
+        </div>
+        <div>
+            <label for="Plot">Plot</label>
+            <textarea row="5" name="Plot" id="Plot" required></textarea>
+        </div>
+        <div>
+            <label for="Poster">Poster</label>
+            <input type="url" name="Poster" id="Poster" required>
+        </div>
+        <div>
+            <label for="Metascore">Metascore</label>
+            <input type="number" min="0" max="100" name="Metascore" id="Metascore" required>
+        </div>
+        <div>
+            <label for="imdbRating">imdbRating</label>
+            <input type="number" min="0" max="10" step="0.1" name="imdbRating" id="imdbRating" required>
+        </div>
+        <div>
+            <label for="Genres">Genres</label>
+            <select name="Genres" id="Genres" required multiple>
+                <option value="Action">Action</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Animation">Animation</option>
+                <option value="Biography">Biography</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Crime">Crime</option>
+                <option value="Documentary">Documentary</option>
+                <option value="Drama">Drama</option>
+                <option value="Family">Family</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Film Noir">Film Noir</option>
+                <option value="History">History</option>
+                <option value="Horror">Horror</option>
+                <option value="Music">Music</option>
+                <option value="Musical">Musical</option>
+                <option value="Mystery">Mystery</option>
+                <option value="Romance">Romance</option>
+                <option value="Sci-Fi">Sci-Fi</option>
+                <option value="Short Film">Short Film</option>
+                <option value="Sport">Sport</option>
+                <option value="Superhero">Superhero</option>
+                <option value="Thriller">Thriller</option>
+                <option value="War">War</option>
+                <option value="Western">Western</option>
+            </select>
+        </div>
+        <div>
+            <label for="Directors">Directors</label>
+            <input type="text" name="Directors" id="Directors" required>
+        </div>
+        <div>
+            <label for="Writers">Writers</label>
+            <input type="text" name="Writers" id="Writers" required>
+        </div>
+        <div>
+            <label for="Actors">Actors</label>
+            <input type="text" name="Actors" id="Actors" required>
+        </div>
+
+        <div>
+            <button onclick="putMovie()" type="button">Save</button>
+            <button onclick="goToIndex()" type="button">Cancel</button>
+        </div>
+        
+    </form>
+  </body>
+</html>

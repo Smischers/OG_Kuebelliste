@@ -13,6 +13,14 @@ main {
 
 /* Classes */
 
+.title {
+    padding-left: 20px;
+    margin-top: 15px;
+    font-family: 'Amatic SC', cursive;
+    font-style: oblique;
+    color: black;
+}
+
 .logo {
     margin-left: 25%;
     max-width: 4%;
@@ -29,7 +37,27 @@ main {
     color: white !important;
 }
 
-.tab a:hover {}
+.tab a:hover {
+    background-color: #00acc1 !important;
+}
+
+.noPadding {
+    padding: 0px !important;
+}
+
+.center {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.hover:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.highlight a:hover {
+    background-color: #00acc1 !important;
+}
 
 
 /* Structure, IDs */

@@ -1,0 +1,35 @@
+/* Selector */
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+
+/* Classes */
+
+.logo {
+    margin-left: 25%;
+    max-width: 4%;
+
+}
+
+.section {
+    margin-right: 4% !important;
+    width: 14%;
+}
+
+.tab a {
+    font-size: 140% !important;
+    color: white !important;
+}
+
+.tab a:hover {}
+
+
+/* Structure, IDs */

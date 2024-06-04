@@ -14,7 +14,7 @@ main {
 /* Classes */
 
 .title {
-    padding-left: 20px;
+    padding-left: 15px;
     margin-top: 0px;
     font-family: 'Amatic SC', cursive;
     font-style: oblique;
@@ -22,10 +22,17 @@ main {
 }
 
 .logo {
+    float: left;
     margin-left: 6px;
-    height: 4%;
+    height: 1%;
     max-height: 80px;
-    margin-top: 25px;
+    margin-top: 5px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
+
+.clear {
+    clear: both;
 }
 
 .section {

@@ -15,19 +15,21 @@ main {
 
 .title {
     padding-left: 20px;
-    margin-top: 15px;
+    margin-top: 0px;
     font-family: 'Amatic SC', cursive;
     font-style: oblique;
     color: black;
 }
 
 .logo {
-    margin-left: 25%;
-    max-width: 4%;
+    margin-left: 6px;
+    height: 4%;
+    max-height: 80px;
+    margin-top: 25px;
 }
 
 .section {
-    margin-right: 4% !important;
+    margin-right: 3% !important;
     width: 14%;
     margin-top: 2px !important;
 }

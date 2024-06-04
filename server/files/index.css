@@ -24,12 +24,12 @@ main {
 .logo {
     margin-left: 25%;
     max-width: 4%;
-
 }
 
 .section {
     margin-right: 4% !important;
     width: 14%;
+    margin-top: 2px !important;
 }
 
 .tab a {

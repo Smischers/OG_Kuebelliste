@@ -13,7 +13,7 @@
 
 <body>
   <header>
-    <nav class="card-panel  nav-extended" style="padding: 0; margin-top: 0;">
+    <nav class="card-panel  nav-extended" style="padding: 0; margin-top: 0; margin-bottom: 0;">
 
       <!-- TITEL - LOGO -->
       <div class="nav-wrapper">
@@ -30,17 +30,17 @@
       </div>
 
       <!-- MENU SECTIONS -->
-      <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black;">
-        <ul class="tabs tabs-transparent">
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 Vcenter" href="#test1"
-              style="padding-top: 5px !important;">Anime</a></li>
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 Vcenter" href="#test2"
-              style="padding-top: 5px !important;">Manga</a></li>
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 Vcenter" href="#test3"
-              style="padding-top: 5px !important;">Restaurants</a>
+      <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black">
+        <ul class="tabs tabs-transparent" style="height: 38px">
+          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader"
+              href="#test1">Anime</a></li>
+          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader"
+              href="#test2">Manga</a></li>
+          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader"
+              href="#test3">Restaurants</a>
           </li>
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 Vcenter" href="#test4"
-              style="padding-top: 5px !important;">ESO Dungeons</a>
+          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader" href="#test4">ESO
+              Dungeons</a>
           </li>
         </ul>
       </div>
@@ -56,14 +56,15 @@
 
           <li>
             <div class="row" v-for="item in items" :key="item.id">
-              <div v-for="card in item" :key="card.id" class="col s3">
+              <div v-for="card in item" :key="card.id" class="col s2.5">
                 <a href="google.com">
-                  <div class="card" style="width: 170px; height: 220px;">
+                  <div class="card hoverable" style="width: 170px; height: 220px;">
                     <div class="card-image">
                       <img :src=card.picture style="width:170px; height:150px;">
                     </div>
                     <div class="card-content">
-                      <span class="card-title center" style="font-size: 18.5px !important;"><b>{{ card.name }}</b></span>
+                      <span class="card-title center"
+                        style="font-size: 18.5px !important; color: black !important;"><b>{{ card.name }}</b></span>
                     </div>
                   </div>
                 </a>
@@ -88,7 +89,7 @@
             // Simulate an API call
             const fetchedItems = [
               {
-                id: 1, name: "ESO Dungeons", picture: "https://steamuserimages-a.akamaihd.net/ugc/2429005885783068604/A2E9DC1A68A0EE4803F30AE7441CB7235B4C02E4/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
+                id: 1, name: "ESO Dungeons", picture: "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
               },
               {
                 id: 2, name: "AnimeList", picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
@@ -97,7 +98,7 @@
                 id: 3, name: "Restaurants", picture: "https://www.restaurant-lamer.de/wp-content/uploads/2022/06/lamer_aquarium.jpg",
               },
               {
-                id: 4, name: "ESO Dungeons", picture: "https://steamuserimages-a.akamaihd.net/ugc/2429005885783068604/A2E9DC1A68A0EE4803F30AE7441CB7235B4C02E4/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
+                id: 4, name: "ESO Dungeons", picture: "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
               },
               {
                 id: 5, name: "AnimeList", picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
@@ -106,7 +107,7 @@
                 id: 6, name: "Restaurants", picture: "https://www.restaurant-lamer.de/wp-content/uploads/2022/06/lamer_aquarium.jpg",
               },
               {
-                id: 7, name: "ESO Dungeons", picture: "https://steamuserimages-a.akamaihd.net/ugc/2429005885783068604/A2E9DC1A68A0EE4803F30AE7441CB7235B4C02E4/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
+                id: 7, name: "ESO Dungeons", picture: "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
               },
               {
                 id: 8, name: "AnimeList", picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
@@ -116,13 +117,12 @@
               }
             ];
             fetchedItems.push({
-              id: fetchedItems.length + 1, name: "New List", picture: "../resources/plus.jpg",
+              id: fetchedItems.length + 1, name: "New List", picture: "../resources/Plus_symbol.png",
             })
 
-
             const rows = [];
-            for (let i = 0; i < fetchedItems.length; i += 4) {
-              rows.push(fetchedItems.slice(i, i + 4));
+            for (let i = 0; i < fetchedItems.length; i += 5) {
+              rows.push(fetchedItems.slice(i, i + 5));
             }
             this.items = rows;
             //else this.items = []
@@ -134,9 +134,9 @@
     </script>
   </main>
 
-  <footer class="page-footer cyan darken-3">
-    <div class="container" style="margin:auto; width: 50vw;">
-      <div class="row center">
+  <footer class="page-footer cyan darken-3 noPadding">
+    <div class="container" style="width: 50vw; height: 50px;">
+      <div class="row center" style="margin-bottom:0px; height: 0px; padding-top: 15px;">
         <div class="col s12 m6 l3 noPadding hover">Home</div>
         <div class="col s12 m6 l3 noPadding hover">About</div>
         <div class="col s12 m6 l3 noPadding hover">FAQ</div>
@@ -149,8 +149,8 @@
           12-columns-wide on small screens  -->
       </div>
     </div>
-    <div class="footer-copyright">
-      <div class="container center">
+    <div class="footer-copyright noPadding" style="height: 40px">
+      <div class="container center" style="height: 40px; padding-top: 10px;">
         © 2024 Kübelliste
       </div>
     </div>

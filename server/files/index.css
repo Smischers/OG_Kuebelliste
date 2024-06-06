@@ -8,6 +8,7 @@ body {
 
 main {
     flex: 1 0 auto;
+    padding: 20px 15px;
 }
 
 
@@ -37,8 +38,14 @@ main {
 
 .section {
     margin-right: 3% !important;
-    width: 14%;
+    width: 12%;
     margin-top: 2px !important;
+    height: 35px;
+}
+
+.secHeader {
+    padding-top: 0px !important;
+    font-size: 1%;
 }
 
 .tab a {

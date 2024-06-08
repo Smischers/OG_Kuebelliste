@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const data = require('./dataModel.js');
+const endpoints=require('./files/Endpoints.js')
 
 const app = express();
 
@@ -11,14 +12,9 @@ app.use(bodyParser.json());
 // Serve static content in directory 'files'
 app.use(express.static(path.join(__dirname, 'files')));
 
-// Nicht mein Problem machts ihr Backend Boys
-app.get('/list', function (req, res) {
-  res.send(data)
-})
-
-app.get('/list/:listname',function (req,res){
-  
-})
+app.get('/list', endpoints.getList)
+app.get('/list/:listname',endpoints.getListByName)
+app.get('/listIcons',endpoints.getListNamesIcons)
 
 app.listen(3000)
 

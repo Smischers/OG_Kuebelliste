@@ -12,10 +12,13 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'files')));
 
 // Nicht mein Problem machts ihr Backend Boys
-app.get('/', function (req, res) {
-  res.sendStatus(403)
+app.get('/list', function (req, res) {
+  res.send(data)
 })
 
+app.get('/list/:listname',function (req,res){
+  
+})
 
 app.listen(3000)
 

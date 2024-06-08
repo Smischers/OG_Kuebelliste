@@ -13,6 +13,6 @@ window.onload = function () {
       );
     }
   };
-  xhr.open("GET", "/movies");
+  xhr.open("GET", "/");
   xhr.send();
 };

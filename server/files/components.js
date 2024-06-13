@@ -1,6 +1,6 @@
 Vue.component('list-card', {
   props: ['name', 'imgsrc'],
-  template: `<a href="google.com">
+  template: `<a href="listview.html">
                   <div class="card hoverable" style="width: 170px; height: 220px;">
                     <div class="card-image">
                       <img :src=imgsrc style="width:170px; height:150px;">

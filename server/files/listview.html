@@ -24,7 +24,8 @@
 
         <!-- SIGN UP - LOGIN -->
         <ul class="right hide-on-med-and-down" style="padding-top: 10px;">
-          <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="register.html">Sign up</a></li>
+          <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="register.html">Sign up</a>
+          </li>
           <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="login.html">Login</a></li>
         </ul>
         <div class="clear"></div>
@@ -51,17 +52,35 @@
   <main>
     <!-- here comes data -->
     <div id="app">
-      <button @click="fetchItems">Fetch Items</button>
       <ul>
         <div class="row center">
 
           <li>
-            <div class="center" v-for="item in rowChunks" :key="index">
-              <div v-for="card in item" :key="index" class="col s2.5">
+            <div class="center" v-for="list in items" :key="index">
 
-                <list-card :name=card.name :imgsrc=card.picture></list-card>
+              <div v-for="(value, category) in list" :key="index" class="col s2.5" style="width: 100%;">
+                <p class="waves-effect waves-light btn cyan darken-3 category">{{ category }}</p>
 
+                <table v-if="value.length !== 0" style="margin-bottom: 3%; border: 1.7px solid #a8a8a8">
+                  <thead>
+                    <tr>
+                      <th style="width: 20%;">Name</th>
+                      <th style="width: 10%;">Rating</th>
+                      <th style="width: 60%;">Description</th>
+                      <th style="width: 10%;">Deadline</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="entry in value" :key="index">
+                      <td>{{ entry.name }}</td>
+                      <td>{{ entry.rating }}</td>
+                      <td>{{ entry.description }}</td>
+                      <td>{{ entry.deadline }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+
             </div>
           </li>
 
@@ -79,15 +98,7 @@
         },
         computed: {
           rowChunks() {
-            this.resizeEvent;
-            const chunkSize = Math.floor(window.innerWidth / 225);
-            const result = [];
-            console.log(chunkSize)
-            for (let i = 0; i < this.items.length; i += chunkSize) {
-              result.push(this.items.slice(i, i + chunkSize));
-            }
-            
-            return result;
+
           },
         },
         methods: {
@@ -95,45 +106,28 @@
             // Simulate an API call
             const fetchedItems = [
               {
-                name: "ESO Dungeons", picture: "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
+                "To-Do": [{
+                  name: "Coral Aerie", rating: "0 / 6", description: "Coral Aerie has 7 bosses: 3 main bosses with each having a hardmode, 4 secret bosses and trashmob packs.", deadline: "30.03.2024",
+                },
+                {
+                  name: "Spindelclutch II", rating: "3 / 6", description: "Spindleclutch II has 6 bosses: 3 main bosses, 3 mini-boss encounters and trashmob packs.", deadline: "25.03.2024",
+                }]
               },
               {
-                name: "AnimeList", picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
+                "Done": [{
+                  name: "Spindelclutch I", rating: "6 / 6", description: "Spindleclutch I has 5 bosses: 2 main bosses, 3 mini-boss encounters and trashmob packs.", deadline: "16.03.2024",
+                }]
               },
               {
-                name: "Restaurants", picture: "https://www.restaurant-lamer.de/wp-content/uploads/2022/06/lamer_aquarium.jpg",
+                "Test": []
               },
-              {
-                name: "ESO Dungeons", picture: "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
-              },
-              {
-                name: "AnimeList", picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
-              },
-              {
-                name: "Restaurants", picture: "https://www.restaurant-lamer.de/wp-content/uploads/2022/06/lamer_aquarium.jpg",
-              },
-              {
-                name: "ESO Dungeons", picture: "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
-              },
-              {
-                name: "AnimeList", picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
-              },
-              {
-                name: "Restaurants", picture: "https://www.restaurant-lamer.de/wp-content/uploads/2022/06/lamer_aquarium.jpg",
-              }
             ];
-            fetchedItems.push({
-              id: fetchedItems.length + 1, name: "New List", picture: "../resources/Plus_symbol.png",
-            })
 
             this.items = fetchedItems
           },
-          handleResize() {
-            this.resizeEvent++;
-          },
         },
         mounted() {
-          window.addEventListener('resize', this.handleResize);
+          this.fetchItems();
         }
       });
 

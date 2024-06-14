@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="index.css" />
-  
+
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
 
@@ -19,18 +19,14 @@
       <navbar></navbar>
     </header>
 
-    <nav style="background: none;">
-      <div class="nav-wrapper" style="padding-left: 15px;">
-        <div class="col s12">
-          <a href="index.html" class="breadcrumb">Menu</a>
-          <a href="#!" class="breadcrumb">{{ listName }}</a>
-        </div>
-      </div>
-    </nav>
+    <div class="nav-wrapper col s12" style="padding-left: 16px; line-height: 56px;">
+      <a href="index.html" class="breadcrumb">Menu</a>
+      <a href="#!" class="breadcrumb">{{ listName }}</a>
+    </div>
 
     <main>
       <!-- here comes data -->
-      <ul>
+      <ul style="margin-top: 0px;">
         <div class="row center">
 
           <li>

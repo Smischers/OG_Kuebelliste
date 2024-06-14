@@ -1,6 +1,7 @@
 Vue.component('navbar', {
   /*html*/
-  template: `<nav class="card-panel  nav-extended" style="padding: 0; margin-top: 0; margin-bottom: 0;">
+  template: `
+      <nav class="card-panel  nav-extended" style="padding: 0; margin-top: 0; margin-bottom: 0;">
 
         <!-- TITEL - LOGO -->
         <div class="nav-wrapper">
@@ -36,13 +37,13 @@ Vue.component('navbar', {
             </li>
           </ul>
         </div>
-      </nav>
-    </header>`
+      </nav>`
 });
 
 Vue.component('kuebelfooter', {
   /*html*/
-  template: `<footer class="page-footer cyan darken-3 noPadding">
+  template: `
+  <footer class="page-footer cyan darken-3 noPadding">
     <div class="container" style="width: 50vw; height: 50px;">
       <div class="row center" style="margin-bottom:0px; height: 0px; padding-top: 15px;">
         <div class="col s12 m6 l3 noPadding hover">Home</div>

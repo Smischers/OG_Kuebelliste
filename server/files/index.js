@@ -1,7 +1,7 @@
 window.onload = function () {
   const xhr = new XMLHttpRequest();
   xhr.onload = function () {
-    const bodyElement = document.querySelector("body");
+    /*const bodyElement = document.querySelector("body");
     if (xhr.status == 200) {
 
     } else {
@@ -12,7 +12,6 @@ window.onload = function () {
         xhr.statusText
       );
     }
+    */
   };
-  xhr.open("GET", "/movies");
-  xhr.send();
 };

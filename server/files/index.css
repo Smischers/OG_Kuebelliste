@@ -1,0 +1,127 @@
+/* Selector */
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+    padding: 20px 15px;
+}
+
+
+/* Classes */
+
+.title {
+    padding-left: 15px;
+    margin-top: 0px;
+    font-family: 'Amatic SC', cursive;
+    font-style: oblique;
+    color: black;
+}
+
+.logo {
+    float: left;
+    margin-left: 6px;
+    height: auto;
+    max-height: 5em;
+    width: auto;
+    max-width: 90vw;
+    margin-top: 5px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
+
+.clear {
+    clear: both;
+}
+
+.navSections {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden !important;
+}
+
+.section {
+    margin-right: 2em !important;
+    width: 15%;
+    height: 38px !important;
+}
+
+.secHeader {
+    margin-top: 0px !important;
+    font-size: 1.2em !important;
+    color: white !important;
+}
+
+.search {
+    height: 38px !important;
+    width: 27.5% !important;
+    margin-right: 1%;
+}
+
+.searchHeader {
+    height: 38px !important;
+    width: 85% !important;
+    margin-bottom: 0 !important;
+    padding-left: 6px !important;
+    background-color: #e0f2f1 !important;
+    border-top-right-radius: 2px !important;
+    border-bottom-right-radius: 2px !important;
+    border-right: 1px solid #00838f !important;
+}
+
+.searchHeader::placeholder {
+    color: #00838f;
+    font-style: italic;
+}
+
+.searchIcon {
+    background-color: #00838f;
+    height: 38px !important;
+    width: 38px !important;
+    margin-right: 0 !important;
+    margin-left: 15px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    font-size: 1.5em !important;
+    
+}
+
+.tab a:hover {
+    background-color: #00acc1 !important;
+}
+
+.noPadding {
+    padding: 0px !important;
+}
+
+.center {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.hover:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.highlight a:hover {
+    background-color: #00acc1 !important;
+}
+
+.category {
+    float: left;
+}
+
+.breadcrumb:before {
+    color: black;
+}
+
+.breadcrumb, .breadcrumb:last-child {
+   color: black;
+}
+
+/* Structure, IDs */

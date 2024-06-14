@@ -14,6 +14,4 @@ window.onload = function () {
     }
     */
   };
-  xhr.open("GET", "/movies");
-  xhr.send();
 };

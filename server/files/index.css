@@ -25,8 +25,10 @@ main {
 .logo {
     float: left;
     margin-left: 6px;
-    height: 1%;
-    max-height: 80px;
+    height: auto;
+    max-height: 5em;
+    width: auto;
+    max-width: 90vw;
     margin-top: 5px;
     padding-bottom: 0px;
     padding-left: 0px;
@@ -36,16 +38,53 @@ main {
     clear: both;
 }
 
+.navSections {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden !important;
+}
+
 .section {
-    margin-right: 3% !important;
-    width: 12%;
-    margin-top: 2px !important;
-    height: 35px;
+    margin-right: 4% !important;
+    width: 15%;
+    height: 38px !important;
 }
 
 .secHeader {
-    padding-top: 0px !important;
-    font-size: 1%;
+    margin-top: 0px !important;
+}
+
+.search {
+    height: 38px !important;
+    width: 25% !important;
+}
+
+.searchHeader {
+    height: 38px !important;
+    width: 85% !important;
+    margin-bottom: 0 !important;
+    padding-left: 6px !important;
+    background-color: #e0f2f1 !important;
+    border-top-right-radius: 2px !important;
+    border-bottom-right-radius: 2px !important;
+    border-right: 1px solid #00838f !important;
+}
+
+.searchHeader::placeholder {
+    color: #00838f;
+    font-style: italic;
+}
+
+.searchIcon {
+    background-color: #00838f;
+    height: 38px !important;
+    width: 38px !important;
+    margin-right: 0 !important;
+    margin-left: 15px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    font-size: 1.5em !important;
+    
 }
 
 .tab a {
@@ -78,7 +117,6 @@ main {
 .category {
     float: left;
 }
-
 
 
 /* Structure, IDs */

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="index.css" />
   <script src="index.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script src="components.js"></script>
 </head>
@@ -32,16 +33,20 @@
 
       <!-- MENU SECTIONS -->
       <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black">
-        <ul class="tabs tabs-transparent" style="height: 38px">
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader"
+        <ul class="tabs tabs-transparent navSections" style="height: 38px">
+          <li class="tab section"><a class="secHeader waves-effect waves-light btn cyan darken-3" style="font-size: 1.2em !important;"
               href="#test1">Anime</a></li>
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader"
+          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader" style="font-size: 1.2em !important;"
               href="#test2">Manga</a></li>
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader"
+          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader" style="font-size: 1.2em !important;"
               href="#test3">Restaurants</a>
           </li>
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader" href="#test4">ESO
+          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader" style="font-size: 1.2em !important;" href="#test4">ESO
               Dungeons</a>
+          </li>
+          <li class="search">
+            <i class="material-icons left center searchIcon valign-wrapper">search</i>
+            <input type="text" placeholder="Search Anime, Manga, and more ..." class="searchHeader">
           </li>
         </ul>
       </div>

@@ -5,68 +5,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kübelliste!</title>
-  <link rel="stylesheet" href="index.css" />
-  <script src="index.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="index.css" />
+
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-  <script src="components.js"></script>
 </head>
 
 <body>
-  <header>
-    <nav class="card-panel  nav-extended" style="padding: 0; margin-top: 0; margin-bottom: 0;">
+  <div id="app">
+    <header>
+      <!-- NAVBAR -->
+      <navbar></navbar>
+    </header>
 
-      <!-- TITEL - LOGO -->
-      <div class="nav-wrapper">
-        <a href="index.html">
-          <img src="../resources/logoSVG.png" class="logo" title="Kübelliste Logo" alt="To-Do Liste in Kübel">
-        </a>
-
-        <!-- SIGN UP - LOGIN -->
-        <ul class="right hide-on-med-and-down" style="padding-top: 10px;">
-          <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="register.html">Sign up</a>
-          </li>
-          <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="login.html">Login</a></li>
-        </ul>
-        <div class="clear"></div>
-      </div>
-
-      <!-- MENU SECTIONS -->
-      <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black">
-        <ul class="tabs tabs-transparent navSections" style="height: 38px;">
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader" style="font-size: 1.2em !important;"
-              href="#test1">Anime</a></li>
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader" style="font-size: 1.2em !important;"
-              href="#test2">Manga</a></li>
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader" style="font-size: 1.2em !important;"
-              href="#test3">Restaurants</a>
-          </li>
-          <li class="tab section"><a class="waves-effect waves-light btn cyan darken-3 secHeader" style="font-size: 1.2em !important;" href="#test4">ESO
-              Dungeons</a>
-          </li>
-          <li class="search">
-            <i class="material-icons left center searchIcon valign-wrapper">search</i>
-            <input type="text" placeholder="Search Anime, Manga, and more ..." class="searchHeader">
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-  <nav>
-    <div class="nav-wrapper" style="padding-left: 15px;">
-      <div class="col s12">
-        <a href="#!" class="breadcrumb">Menu</a>
-        <a href="#!" class="breadcrumb">ESO Dungeons</a>
-      </div>
+    <div class="nav-wrapper col s12" style="padding-left: 16px; line-height: 56px;">
+      <a href="index.html" class="breadcrumb">Menu</a>
+      <a href="#!" class="breadcrumb">{{ listName }}</a>
     </div>
-  </nav>
 
-  <main>
-    <!-- here comes data -->
-    <div id="app">
-      <ul>
+    <main>
+      <!-- here comes data -->
+      <ul style="margin-top: 0px;">
         <div class="row center">
 
           <li>
@@ -100,76 +60,58 @@
 
         </div>
       </ul>
+    </main>
 
-    </div>
+    <!-- OUR FOOTER-->
+    <kuebelfooter></kuebelfooter>
 
-    <script>
-      new Vue({
-        el: '#app',
-        data: {
-          resizeEvent: 0,
-          items: []
-        },
-        computed: {
-          rowChunks() {
+  </div>
 
-          },
-        },
-        methods: {
-          fetchItems() {
-            // Simulate an API call
-            const fetchedItems = [
-              {
-                "To-Do": [{
-                  name: "Coral Aerie", rating: "0 / 6", description: "Coral Aerie has 7 bosses: 3 main bosses with each having a hardmode, 4 secret bosses and trashmob packs.", deadline: "30.03.2024",
-                },
-                {
-                  name: "Spindelclutch II", rating: "3 / 6", description: "Spindleclutch II has 6 bosses: 3 main bosses, 3 mini-boss encounters and trashmob packs.", deadline: "25.03.2024",
-                }]
+  <script src="components.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        listName: "test",
+        items: []
+      },
+      computed: {
+      },
+      methods: {
+        fetchItems() {
+          // Simulate an API call
+          const fetchedItems = [
+            {
+              "To-Do": [{
+                name: "Coral Aerie", rating: "0 / 6", description: "Coral Aerie has 7 bosses: 3 main bosses with each having a hardmode, 4 secret bosses and trashmob packs.", deadline: "30.03.2024",
               },
               {
-                "Done": [{
-                  name: "Spindelclutch I", rating: "6 / 6", description: "Spindleclutch I has 5 bosses: 2 main bosses, 3 mini-boss encounters and trashmob packs.", deadline: "16.03.2024",
-                }]
-              },
-              {
-                "Test": []
-              },
-            ];
+                name: "Spindelclutch II", rating: "3 / 6", description: "Spindleclutch II has 6 bosses: 3 main bosses, 3 mini-boss encounters and trashmob packs.", deadline: "25.03.2024",
+              }]
+            },
+            {
+              "Done": [{
+                name: "Spindelclutch I", rating: "6 / 6", description: "Spindleclutch I has 5 bosses: 2 main bosses, 3 mini-boss encounters and trashmob packs.", deadline: "16.03.2024",
+              }]
+            },
+            {
+              "Test": []
+            },
+          ];
 
-            this.items = fetchedItems
-          },
+          this.items = fetchedItems
         },
-        mounted() {
-          this.fetchItems();
-        }
-      });
+      },
+      mounted() {
+        this.fetchItems();
+
+        const params = new URLSearchParams(window.location.search);
+        this.listName = params.get('listName');
+      }
+    });
 
 
-    </script>
-  </main>
-
-  <footer class="page-footer cyan darken-3 noPadding">
-    <div class="container" style="width: 50vw; height: 50px;">
-      <div class="row center" style="margin-bottom:0px; height: 0px; padding-top: 15px;">
-        <div class="col s12 m6 l3 noPadding hover">Home</div>
-        <div class="col s12 m6 l3 noPadding hover">About</div>
-        <div class="col s12 m6 l3 noPadding hover">FAQ</div>
-        <div class="col s12 m6 l3 noPadding hover">Cookie</div>
-        <div class="col s12 m6 l3 noPadding hover">Sign up</div>
-        <div class="col s12 m6 l3 noPadding hover">Login</div>
-        <!-- This content will be:
-          9-columns-wide on large screens,
-          8-columns-wide on medium screens,
-          12-columns-wide on small screens  -->
-      </div>
-    </div>
-    <div class="footer-copyright noPadding" style="height: 40px">
-      <div class="container center" style="height: 40px; padding-top: 10px;">
-        © 2024 Kübelliste
-      </div>
-    </div>
-  </footer>
+  </script>
 </body>
 
 </html>

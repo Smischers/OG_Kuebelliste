@@ -52,12 +52,14 @@ main {
 
 .secHeader {
     margin-top: 0px !important;
+    font-size: 1.2em !important;
+    color: white !important;
 }
 
 .search {
     height: 38px !important;
-    width: 20% !important;
-    flex-grow: 1;
+    width: 27.5% !important;
+    margin-right: 1%;
 }
 
 .searchHeader {
@@ -88,11 +90,6 @@ main {
     
 }
 
-.tab a {
-    font-size: 140% !important;
-    color: white !important;
-}
-
 .tab a:hover {
     background-color: #00acc1 !important;
 }
@@ -119,5 +116,12 @@ main {
     float: left;
 }
 
+.breadcrumb:before {
+    color: black;
+}
+
+.breadcrumb, .breadcrumb:last-child {
+   color: black;
+}
 
 /* Structure, IDs */

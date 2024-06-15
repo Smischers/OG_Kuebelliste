@@ -5,6 +5,10 @@ main {
     padding: 21px 21px;
 }
 
+td {
+    padding-right: 3%;
+}
+
 
 /* Structure, IDs */
 
@@ -12,6 +16,13 @@ main {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+}
+
+#editItem {
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 0px;
+    padding-top: 5px !important;
 }
 
 
@@ -152,4 +163,19 @@ main {
 .breadcrumb,
 .breadcrumb:last-child {
     color: black;
+}
+
+td.trunc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: normal;
+    max-height: 45px !important;
+    line-height: 22.5px !important;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }

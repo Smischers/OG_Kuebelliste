@@ -10,7 +10,7 @@ Vue.component('navbar', {
           </a>
 
           <!-- SIGN UP - LOGIN -->
-          <ul class="right hide-on-med-and-down" style="padding-top: 10px;">
+          <ul class="right hide-on-med-and-down" style="padding-top: 10px; padding-right: 6px;">
             <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="register.html">Sign up</a>
             </li>
             <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="login.html">Login</a></li>
@@ -19,7 +19,7 @@ Vue.component('navbar', {
         </div>
 
         <!-- MENU SECTIONS -->
-        <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black">
+        <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black; padding-left: 21px; padding-right: 21px;">
           <ul class="tabs tabs-transparent navSections" style="height: 38px;">
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
                 href="#test1">Anime</a></li>

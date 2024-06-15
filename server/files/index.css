@@ -1,30 +1,25 @@
 /* Selector */
 
-body {
+main {
+    flex: 1 0 auto;
+    padding: 21px 21px;
+}
+
+
+/* Structure, IDs */
+
+#app {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
 
-main {
-    flex: 1 0 auto;
-    padding: 20px 15px;
-}
-
 
 /* Classes */
 
-.title {
-    padding-left: 15px;
-    margin-top: 0px;
-    font-family: 'Amatic SC', cursive;
-    font-style: oblique;
-    color: black;
-}
-
 .logo {
     float: left;
-    margin-left: 6px;
+    margin-left: 13px;
     height: auto;
     max-height: 5em;
     width: auto;
@@ -45,13 +40,25 @@ main {
 }
 
 .section {
-    margin-right: 2em !important;
+    /*margin-right: 4em !important;*/
     width: 15%;
     height: 38px !important;
 }
 
+.section:first-of-type {
+    margin-right: auto !important;
+}
+
+.section:nth-last-child(2) {
+    margin-left: auto !important;
+}
+
+.section:nth-of-type(2) {
+    margin-right: auto !important;
+}
+
 .secHeader {
-    margin-top: 0px !important;
+    margin: 0px !important;
     font-size: 1.2em !important;
     color: white !important;
 }
@@ -59,12 +66,15 @@ main {
 .search {
     height: 38px !important;
     width: 27.5% !important;
-    margin-right: 1%;
+    margin-right: 0px;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
 }
 
 .searchHeader {
-    height: 38px !important;
-    width: 85% !important;
+    height: 100% !important;
+    width: calc(100% - 38px) !important;
     margin-bottom: 0 !important;
     padding-left: 6px !important;
     background-color: #e0f2f1 !important;
@@ -80,14 +90,33 @@ main {
 
 .searchIcon {
     background-color: #00838f;
-    height: 38px !important;
+    height: 100% !important;
     width: 38px !important;
     margin-right: 0 !important;
-    margin-left: 15px;
+    margin-left: 0px;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     font-size: 1.5em !important;
-    
+    display: flex;
+}
+
+/* Media query for mobile devices or 200% zoom */
+@media (max-width: 1000px) {
+    .section {
+        margin-right: 2em !important;
+    }
+
+    .section:first-of-type {
+        margin-right: 2em !important;
+    }
+
+    .section:nth-last-child(3) {
+        margin-left: 2em !important;
+    }
+
+    .section:nth-last-child(2) {
+        margin-right: 0 !important;
+    }
 }
 
 .tab a:hover {
@@ -120,8 +149,7 @@ main {
     color: black;
 }
 
-.breadcrumb, .breadcrumb:last-child {
-   color: black;
+.breadcrumb,
+.breadcrumb:last-child {
+    color: black;
 }
-
-/* Structure, IDs */

@@ -3,6 +3,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const data = require('./dataModel.js');
 const endpoints = require('./files/Endpoints.js')
+//Source for User Login: https://www.youtube.com/watch?v=Ud5xKCYQTjM
+//Source for JWT: https://www.youtube.com/watch?v=mbsmsi7l3r4
+
 const express = require('express')
 /* const path = require('path')
 const bodyParser = require('body-parser')
@@ -116,12 +119,11 @@ app.post('/login', (req, res) => {
 
   const user = { name: username }
 
-  //Create a Accress Token from .env File and save the user data in it
+  //Create a Access Token from .env File and save the user data in it
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
   res.json({ accessToken: accessToken })
 })
 
-//Middleware function to
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
 

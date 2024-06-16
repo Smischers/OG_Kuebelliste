@@ -1,35 +1,34 @@
 /* Selector */
 
-body {
+main {
+    flex: 1 0 auto;
+    padding: 21px 40px;
+}
+
+td {
+    padding-right: 3%;
+}
+
+
+/* Structure, IDs */
+
+#app {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
 
-main {
-    flex: 1 0 auto;
-    padding: 20px 15px;
-}
-
 
 /* Classes */
 
-.title {
-    padding-left: 15px;
-    margin-top: 0px;
-    font-family: 'Amatic SC', cursive;
-    font-style: oblique;
-    color: black;
-}
-
 .logo {
     float: left;
-    margin-left: 6px;
+    margin-left: 32px;
     height: auto;
     max-height: 5em;
     width: auto;
     max-width: 90vw;
-    margin-top: 5px;
+    margin-top: 12px;
     padding-bottom: 0px;
     padding-left: 0px;
 }
@@ -45,13 +44,25 @@ main {
 }
 
 .section {
-    margin-right: 2em !important;
+    /*margin-right: 4em !important;*/
     width: 15%;
     height: 38px !important;
 }
 
+.section:first-of-type {
+    margin-right: auto !important;
+}
+
+.section:nth-last-child(2) {
+    margin-left: auto !important;
+}
+
+.section:nth-of-type(2) {
+    margin-right: auto !important;
+}
+
 .secHeader {
-    margin-top: 0px !important;
+    margin: 0px !important;
     font-size: 1.2em !important;
     color: white !important;
 }
@@ -59,12 +70,15 @@ main {
 .search {
     height: 38px !important;
     width: 27.5% !important;
-    margin-right: 1%;
+    margin-right: 0px;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
 }
 
 .searchHeader {
-    height: 38px !important;
-    width: 85% !important;
+    height: 100% !important;
+    width: calc(100% - 38px) !important;
     margin-bottom: 0 !important;
     padding-left: 6px !important;
     background-color: #e0f2f1 !important;
@@ -80,14 +94,33 @@ main {
 
 .searchIcon {
     background-color: #00838f;
-    height: 38px !important;
+    height: 100% !important;
     width: 38px !important;
     margin-right: 0 !important;
-    margin-left: 15px;
+    margin-left: 0px;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     font-size: 1.5em !important;
-    
+    display: flex;
+}
+
+/* Media query for mobile devices or 200% zoom */
+@media (max-width: 1000px) {
+    .section {
+        margin-right: 2em !important;
+    }
+
+    .section:first-of-type {
+        margin-right: 2em !important;
+    }
+
+    .section:nth-last-child(3) {
+        margin-left: 2em !important;
+    }
+
+    .section:nth-last-child(2) {
+        margin-right: 0 !important;
+    }
 }
 
 .tab a:hover {
@@ -120,8 +153,81 @@ main {
     color: black;
 }
 
-.breadcrumb, .breadcrumb:last-child {
-   color: black;
+.breadcrumb,
+.breadcrumb:last-child {
+    color: black;
 }
 
-/* Structure, IDs */
+.breadcrumb:hover {
+    color: #00838f;
+}
+
+td.trunc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: normal;
+    max-height: 45px !important;
+    line-height: 22.5px !important;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.editItem {
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 0px;
+    padding-top: 5px !important;
+}
+
+.editItem a {
+    color: #00838f;
+}
+
+.editItem a:hover {
+    color: #00acc1;
+}
+
+.newEntry {
+    float: left;
+    background-color: white;
+    margin: 14px 0px 14px 5px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newEntry a {
+    color: #00838f;
+    height: 36px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newEntry a:hover {
+    color: #00acc1;
+}
+
+.newEntry a i {
+    font-size: 1.4em;
+}
+
+.listSettings {
+    vertical-align: middle;
+}
+
+.listSettings i {
+    font-size: 1.3em;
+    padding-left: 5px;
+    color: black;
+}
+
+.listSettings i:hover {
+    color: #00838f;
+}

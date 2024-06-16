@@ -1,3 +1,5 @@
+/* Selector */
+
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -25,6 +27,12 @@ button:hover {
     opacity: 0.8;
 }
 
+
+/* Structure, IDs */
+
+
+/* Classes */
+
 .cancelbtn {
     width: auto;
 }
@@ -33,7 +41,7 @@ button:hover {
     margin: 24px 0 12px 0;
 }
 
-img.avatar {
+img.logoLogin {
     width: 40%;
 }
 

@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="index.css" />
-
+  <link rel="icon" type="image/x-icon" href="../resources/Kübelliste_Icon.png">
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
 
@@ -19,37 +19,46 @@
       <navbar></navbar>
     </header>
 
-    <div class="nav-wrapper col s12" style="padding-left: 16px; line-height: 56px;">
-      <a href="index.html" class="breadcrumb">Menu</a>
+    <div class="nav-wrapper col s12" style="padding-left: 40px; line-height: 56px;">
+      <a href="index.html" class="breadcrumb">My Lists</a>
       <a href="#!" class="breadcrumb">{{ listName }}</a>
+      <a href="#" title="Edit list" class="listSettings"><i class="material-icons">settings</i></a>
     </div>
 
     <main>
       <!-- here comes data -->
       <ul style="margin-top: 0px;">
-        <div class="row center">
+        <div class="row">
 
           <li>
             <div class="center" v-for="list in items" :key="index">
 
-              <div v-for="(value, category) in list" :key="index" class="col s2.5" style="width: 100%;">
+              <div v-for="(value, category) in list" :key="index" class="col s2.5" style="width: 100%; padding: 0">
                 <p class="waves-effect waves-light btn cyan darken-3 category">{{ category }}</p>
+                <p class="waves-effect waves-light newEntry"><a href="#" title="Add new custom entry"><i
+                      class="material-icons">control_point</i></a></p>
 
                 <table v-if="value.length !== 0" style="margin-bottom: 3%; border: 2px solid #a8a8a8">
                   <thead>
                     <tr>
                       <th style="width: 20%;">Name</th>
-                      <th style="width: 10%;">Rating</th>
-                      <th style="width: 60%;">Description</th>
-                      <th style="width: 10%;">Deadline</th>
+                      <th style="width: 8%;">Rating</th>
+                      <th style="width: 67%;">Description</th>
+                      <th style="width: 5%;">Deadline</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="entry in value" :key="index">
-                      <td>{{ entry.name }}</td>
+                      <td><a :href="`listentry.html?listName=${listName}&listEntry=${entry.name}`"
+                          style="color: black;">{{ entry.name
+                          }}</a></td>
                       <td>{{ entry.rating }}</td>
-                      <td>{{ entry.description }}</td>
+                      <td class="trunc">{{ entry.description }}</td>
                       <td>{{ entry.deadline }}</td>
+                      <td class="editItem"><a href="#" title="Add to calendar"><i class="material-icons valign-wrapper"
+                            style="font-size: 1.2em;">event</i></a></td>
+                      <td class="editItem"><a href="#" title="Edit this item"><i class="material-icons valign-wrapper"
+                            style="font-size: 1.2em;">edit</i></a></td>
                     </tr>
                   </tbody>
                 </table>
@@ -83,15 +92,15 @@
           const fetchedItems = [
             {
               "To-Do": [{
-                name: "Coral Aerie", rating: "0 / 6", description: "Coral Aerie has 7 bosses: 3 main bosses with each having a hardmode, 4 secret bosses and trashmob packs.", deadline: "30.03.2024",
+                name: "Coral Aerie", rating: "0 / 6", description: "The Coral Aerie dungeon was added to the game with Update 33 Ascending Tide DLC. It features both Normal and Veteran modes, as well as Hardmodes for each boss and secret bosses. Players can either use the Group & Activity Finder in order to enter the dungeon as a 4 player group, or select it from the northern Summerset map. Coral Aerie has 7 bosses: 3 main bosses with each having a hardmode, 4 secret bosses and trashmob packs.", deadline: "30.03.2024",
               },
               {
-                name: "Spindelclutch II", rating: "3 / 6", description: "Spindleclutch II has 6 bosses: 3 main bosses, 3 mini-boss encounters and trashmob packs.", deadline: "25.03.2024",
+                name: "Spindelclutch II", rating: "3 / 6", description: "The storyline continues from the events of Spindleclutch I.", deadline: "25.03.2024",
               }]
             },
             {
               "Done": [{
-                name: "Spindelclutch I", rating: "6 / 6", description: "Spindleclutch I has 5 bosses: 2 main bosses, 3 mini-boss encounters and trashmob packs.", deadline: "16.03.2024",
+                name: "Spindelclutch I", rating: "6 / 6", description: "The cave is infested with spiders, although something more sinister lurks within. Praxin Douare wants your help clearing the cave of spiders and other possible threats. In Spindleclutch I, a constant, pervasive whispering sound is present throughout the dungeon, and only gets louder as you descend through the caves.", deadline: "16.03.2024",
               }]
             },
             {

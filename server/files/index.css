@@ -2,7 +2,7 @@
 
 main {
     flex: 1 0 auto;
-    padding: 21px 21px;
+    padding: 21px 40px;
 }
 
 td {
@@ -18,24 +18,17 @@ td {
     flex-direction: column;
 }
 
-#editItem {
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-bottom: 0px;
-    padding-top: 5px !important;
-}
-
 
 /* Classes */
 
 .logo {
     float: left;
-    margin-left: 13px;
+    margin-left: 32px;
     height: auto;
     max-height: 5em;
     width: auto;
     max-width: 90vw;
-    margin-top: 5px;
+    margin-top: 12px;
     padding-bottom: 0px;
     padding-left: 0px;
 }
@@ -165,6 +158,10 @@ td {
     color: black;
 }
 
+.breadcrumb:hover {
+    color: #00838f;
+}
+
 td.trunc {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -178,4 +175,59 @@ td.trunc {
     padding-bottom: 0px;
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.editItem {
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 0px;
+    padding-top: 5px !important;
+}
+
+.editItem a {
+    color: #00838f;
+}
+
+.editItem a:hover {
+    color: #00acc1;
+}
+
+.newEntry {
+    float: left;
+    background-color: white;
+    margin: 14px 0px 14px 5px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newEntry a {
+    color: #00838f;
+    height: 36px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newEntry a:hover {
+    color: #00acc1;
+}
+
+.newEntry a i {
+    font-size: 1.4em;
+}
+
+.listSettings {
+    vertical-align: middle;
+}
+
+.listSettings i {
+    font-size: 1.3em;
+    padding-left: 5px;
+    color: black;
+}
+
+.listSettings i:hover {
+    color: #00838f;
 }

@@ -11,6 +11,33 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const data = require('./dataModel.js') 
 const app = express()
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+
+ const swaggerDefinition = {
+  openapi: '5.0.1',
+  info: {
+      title: 'API Documentation',
+      version: '1.0.0',
+      description: 'API Documentation using Swagger',
+  },
+  servers: [
+      {
+          url: `http://localhost:3000`,
+      },
+  ],
+};
+ 
+
+const options = {
+  swaggerDefinition,
+  apis: ['server/files/server.js'
+],
+};
+
+const swaggerSpec = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 //Load the Token variables from .env to the Token creation here
 require('dotenv').config()
@@ -124,6 +151,7 @@ app.post('/login', async (req, res) => {
     res.status(500).send()
   }
 })
+
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']

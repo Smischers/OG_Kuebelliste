@@ -1,5 +1,5 @@
 GET http://localhost:3000/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA1NDYyfQ.O0XUFeXGiw33WiNgStncSfJgi6dRIbB3CoXCfwcEhlE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 
 ###
@@ -9,7 +9,7 @@ GET http://localhost:3000/users
 
 ###
 #Add user to the list (Register)
-POST http://localhost:3000/users
+POST http://localhost:3000/register
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 ###
 #Add second user to the list (Register)
-POST http://localhost:3000/users
+POST http://localhost:3000/register
 Content-Type: application/json
 
 {

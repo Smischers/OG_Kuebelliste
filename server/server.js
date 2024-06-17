@@ -72,7 +72,7 @@ app.get('/users', (req, res) => {
 })
 
 //Creating User / Hashing the Password / Save the Password in the Array
-app.post('/users', async (req, res) => {
+app.post('/register', async (req, res) => {
   try {
     //Salt makes every hashed password unique (at the beginn of the encr. passw.)
     const salt = await bcrypt.genSalt()

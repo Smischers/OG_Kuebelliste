@@ -6,7 +6,7 @@ Vue.component('navbar', {
         <!-- TITEL - LOGO -->
         <div class="nav-wrapper">
           <a href="index.html">
-            <img src="../resources/logoSVG.png" class="logo" title="Kübelliste Logo" alt="To-Do Liste in Kübel">
+            <img src="../resources/logoSVG.png" class="logo" title="Kübelliste Logo" alt="Logo: To-Do List in Bucket">
           </a>
 
           <!-- SIGN UP - LOGIN -->
@@ -19,7 +19,7 @@ Vue.component('navbar', {
         </div>
 
         <!-- MENU SECTIONS -->
-        <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black; padding-left: 40px; padding-right: 40px;">
+        <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black; padding-left: 40px; padding-right: 40px;" role="navigation">
           <ul class="tabs tabs-transparent navSections" style="height: 38px;">
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
                 href="#test1">Anime</a></li>
@@ -32,8 +32,13 @@ Vue.component('navbar', {
                 href="#test4">ESO Dungeons</a>
             </li>
             <li class="search hide-on-med-and-down">
-              <i class="material-icons left center searchIcon valign-wrapper">search</i>
-              <input type="text" placeholder="Search Anime, Manga, and more ..." class="searchHeader">
+              <button type="submit">
+                <i class="material-icons left center searchIcon valign-wrapper">search</i>
+              </button>
+              <form role ="search" action="/" method="get" class="searchHeader">
+                <label for="search">
+                  <input type="text" id="search" placeholder="Search Anime, Manga, and more ...">
+                </label>
             </li>
           </ul>
         </div>

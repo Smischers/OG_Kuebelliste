@@ -9,6 +9,11 @@ td {
     padding-right: 3%;
 }
 
+h1 {
+    margin-top: 0;
+    font-size: 250%;
+}
+
 
 /* Structure, IDs */
 
@@ -16,6 +21,17 @@ td {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+}
+
+#search {
+    height: 100%;
+    margin-bottom: 0 !important;
+    border-bottom: none;
+}
+
+#search::placeholder {
+    color: #00838f;
+    font-style: italic;
 }
 
 
@@ -76,6 +92,12 @@ td {
     align-items: center;
 }
 
+.search button {
+    border: none;
+    padding: 0;
+    height: 100%;
+}
+
 .searchHeader {
     height: 100% !important;
     width: calc(100% - 38px) !important;
@@ -85,11 +107,6 @@ td {
     border-top-right-radius: 2px !important;
     border-bottom-right-radius: 2px !important;
     border-right: 1px solid #00838f !important;
-}
-
-.searchHeader::placeholder {
-    color: #00838f;
-    font-style: italic;
 }
 
 .searchIcon {
@@ -102,6 +119,7 @@ td {
     border-bottom-left-radius: 2px;
     font-size: 1.5em !important;
     display: flex;
+    color: white;
 }
 
 /* Media query for mobile devices or 200% zoom */
@@ -160,6 +178,11 @@ td {
 
 .breadcrumb:hover {
     color: #00838f;
+}
+
+.breadcrumb h1 {
+    font-size: large;
+    display: inline;
 }
 
 td.trunc {

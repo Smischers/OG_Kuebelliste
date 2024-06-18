@@ -6,7 +6,7 @@ Vue.component('navbar', {
         <!-- TITEL - LOGO -->
         <div class="nav-wrapper">
           <a href="index.html">
-            <img src="../resources/logoSVG.png" class="logo" title="Kübelliste Logo" alt="Logo: To-Do List in Bucket">
+            <img src="resources/logoSVG.png" class="logo" title="Kübelliste Logo" alt="Logo: To-Do List in Bucket">
           </a>
 
           <!-- SIGN UP - LOGIN -->

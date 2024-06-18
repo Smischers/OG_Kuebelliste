@@ -24,10 +24,10 @@
         <div class="row center">
 
           <li>
-            <div class="center" v-for="item in rowChunks" :key="index">
-              <div v-for="card in item" :key="index" class="col s2.5">
+            <div class="center" v-for="item in rowChunks">
+              <div v-for="card in item" class="col s2.5">
 
-                <a :href="`listview.html?listName=${ card.name}`">
+                <a :href="`listview.html?listName=${ card.name }`">
                   <div class="card hoverable" style="width: 170px; height: 220px;">
                     <div class="card-image">
                       <img :src=card.picture style="width:170px; height:150px;">
@@ -66,7 +66,6 @@
           this.resizeEvent;
           const chunkSize = Math.floor(window.innerWidth / 225);
           const result = [];
-          console.log(chunkSize)
           for (let i = 0; i < this.items.length; i += chunkSize) {
             result.push(this.items.slice(i, i + chunkSize));
           }
@@ -76,41 +75,23 @@
       },
       methods: {
         fetchItems() {
-          // Simulate an API call
-          const fetchedItems = [
-            {
-              name: "ESO Dungeons", picture: "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
-            },
-            {
-              name: "AnimeList", picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
-            },
-            {
-              name: "Restaurants", picture: "https://www.restaurant-lamer.de/wp-content/uploads/2022/06/lamer_aquarium.jpg",
-            },
-            {
-              name: "ESO Dungeons", picture: "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
-            },
-            {
-              name: "AnimeList", picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
-            },
-            {
-              name: "Restaurants", picture: "https://www.restaurant-lamer.de/wp-content/uploads/2022/06/lamer_aquarium.jpg",
-            },
-            {
-              name: "ESO Dungeons", picture: "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
-            },
-            {
-              name: "AnimeList", picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
-            },
-            {
-              name: "Restaurants", picture: "https://www.restaurant-lamer.de/wp-content/uploads/2022/06/lamer_aquarium.jpg",
-            }
-          ];
-          fetchedItems.push({
-            id: fetchedItems.length + 1, name: "New List", picture: "../resources/Plus_symbol.png",
-          })
+          let fetchedItems = [];
 
-          this.items = fetchedItems
+          fetch("/list")
+            .then(res => res.json())
+            .then(data => {
+              fetchedItems = data;
+              fetchedItems.push({
+                name: "New List", picture: "../resources/Plus_symbol.png",
+              })
+            })
+            .then(list => {
+              this.items = fetchedItems
+              console.log(fetchedItems)
+            }
+            )
+            .catch(err => console.log(err));
+
         },
         handleResize() {
           this.resizeEvent++;

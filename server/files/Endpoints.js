@@ -63,19 +63,19 @@ exports.createEntry = function (req, res) {
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
-    if(indexList!=-1){
-        search=[];
-        data[indexList].headers.forEach(element=>search.push(Object.keys(element)[0]));
+    if (indexList != -1) {
+        search = [];
+        data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
         let indexCat = search.findIndex(element => element === req.params.categoryName);
         if (indexCat != -1) {
-            search=[];
+            search = [];
             data[indexList].headers[indexCat][req.params.categoryName].push(req.body[0]);
             res.sendStatus(200);
         } else {
             console.log("Category doesn´t exists");
             res.sendStatus(404);
         }
-    }else{
+    } else {
         console.log("List doesn´t exist");
         res.sendStatus(404);
     }

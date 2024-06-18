@@ -1,0 +1,38 @@
+GET http://localhost:3000/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
+
+
+###
+# Show the actual users
+GET http://localhost:3000/users
+
+
+###
+#Add user to the list (Register)
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "name": "Julian",
+    "password": "password"
+}
+
+###
+#Add second user to the list (Register)
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "name": "Mihael",
+    "password": "password"
+}
+
+###
+#Login and create a jwt
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "name": "Julian",
+    "password": "password"
+}

@@ -70,7 +70,7 @@ exports.createEntry = function (req, res) {
         if (indexCat != -1) {
             search=[];
             data[indexList].headers[indexCat][req.params.categoryName].push(req.body[0]);
-            console.log(data[indexList].headers[indexCat]);
+            res.sendStatus(200);
         } else {
             console.log("Category doesn´t exists");
             res.sendStatus(404);
@@ -85,32 +85,93 @@ exports.createEntry = function (req, res) {
 exports.updateLists = function (req, res) {
     let search = [];
     data.forEach(element => search.push(element.name));
-    for (let i = 0; i < data.length; i++) {
-        data[i].name = req.body[i].name;
-        data[i].picture = req.body[i].picture;
+    let indexList = search.findIndex(ele => ele === req.params.listName);
+    if(indexList!=-1){
+        data[indexList].name=req.body[0].name;
+        data[indexList].picture=req.body[0].picture;
+        console.log(data[indexList]);
+        res.sendStatus(200);
+    }else{
+        console.log("List not found");
+        res.sendStatus(404);
     }
-    console.log(data);
 }
 exports.updateCategorys = function (req, res) {
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
-
-    data[indexList].headers = req.body;
-    console.log(data[indexList].headers);
-    res.sendStatus(200);
+    if(indexList!=-1){
+        search=[];
+        data[indexList].headers.forEach(element=>search.push(Object.keys(element)[0]));
+        let indexCat = search.findIndex(element => element === req.params.categoryName);
+        if (indexCat != -1) {
+            data[indexList].headers[indexCat]=req.body;
+            console.log(data[indexList].headers[indexCat]);
+        } else {
+            console.log("Category doesn´t exists");
+            res.sendStatus(404);
+        }
+    }else{
+        console.log("List not found");
+        res.sendStatus(404);
+    }
 }
-exports.updateEntry = function (req, res) {
-
-}
+//exports.updateEntry = function (req, res) {}
 
 //DELETE-Endpoints
 exports.deleteList = function (req, res) {
-
+    let search = [];
+    data.forEach(element => search.push(element.name));
+    let indexList = search.findIndex(ele => ele === req.params.listName);
+    if(indexList!=-1){
+        data.splice(indexList,1);
+    }else{
+        console.log("List doesn´t exist");
+        res.sendStatus(404);
+    }
 }
 exports.deleteCategory = function (req, res) {
-
+    let search = [];
+    data.forEach(element => search.push(element.name));
+    let indexList = search.findIndex(ele => ele === req.params.listName);
+    if(indexList!=-1){
+        search=[];
+        data[indexList].headers.forEach(element=>search.push(Object.keys(element)[0]));
+        let indexCat = search.findIndex(element => element === req.params.categoryName);
+        if (indexCat != -1) {
+            data[indexList].headers.splice(indexCat,1);
+        } else {
+            console.log("Category doesn´t exists");
+            res.sendStatus(404);
+        }
+    }else{
+        console.log("List doesn´t exist");
+        res.sendStatus(404);
+    }
 }
 exports.deleteEntry = function (req, res) {
-
+    let search = [];
+    data.forEach(element => search.push(element.name));
+    let indexList = search.findIndex(ele => ele === req.params.listName);
+    if(indexList!=-1){
+        search=[];
+        data[indexList].headers.forEach(element=>search.push(Object.keys(element)[0]));
+        let indexCat = search.findIndex(element => element === req.params.categoryName);
+        if (indexCat != -1) {
+            let indexEnt=data[indexList].headers[indexCat][req.params.categoryName].findIndex(element=>element.name===req.params.entryName);
+            if(indexEnt!=-1){
+                data[indexList].headers[indexCat][req.params.categoryName].splice(indexEnt,1);
+                res.sendStatus(200);
+            }else{
+                console.log("Entry not found");
+                res.sendStatus(404);
+            }
+        } else {
+            console.log("Category doesn´t exists");
+            res.sendStatus(404);
+        }
+    }else{
+        console.log("List doesn´t exist");
+        res.sendStatus(404);
+    }
 }

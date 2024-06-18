@@ -1,17 +1,12 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const data = require('./dataModel.js');
-const endpoints = require('./files/Endpoints.js')
 //Source for User Login: https://www.youtube.com/watch?v=Ud5xKCYQTjM
 //Source for JWT: https://www.youtube.com/watch?v=mbsmsi7l3r4
 
 const express = require('express')
- const path = require('path')
+const path = require('path')
 const bodyParser = require('body-parser')
 const data = require('./dataModel.js') 
+const endpoints = require('./files/Endpoints.js')
 const app = express()
-const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 
  const swaggerDefinition = {

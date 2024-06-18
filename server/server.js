@@ -7,33 +7,10 @@ const bodyParser = require('body-parser')
 const data = require('./dataModel.js') 
 const endpoints = require('./files/Endpoints.js')
 const app = express()
-const swaggerUi = require('swagger-ui-express');
-const swaggerJsdoc = require('swagger-jsdoc');
 
- const swaggerDefinition = {
-  openapi: '5.0.1',
-  info: {
-      title: 'API Documentation',
-      version: '1.0.0',
-      description: 'API Documentation using Swagger',
-  },
-  servers: [
-      {
-          url: `http://localhost:3000`,
-      },
-  ],
-};
- 
-
-const options = {
-  swaggerDefinition,
-  apis: ['server/files/server.js'
-],
-};
-
-const swaggerSpec = swaggerJsdoc(options);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
+// Load the Swagger configuration
+const setupSwagger = require('./swaggerConfig');
+setupSwagger(app);
 
 //Load the Token variables from .env to the Token creation here
 require('dotenv').config()
@@ -90,9 +67,69 @@ app.get('/', function (req, res) {
 //Test Array to save the Users and Passwords
 const users = []
 
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Returns a list of all registered users
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: A list of all registered users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   uname:
+ *                     type: string
+ *                     description: The Username
+ *                   psw:
+ *                     type: string
+ *                     description: The user's hashed password
+ */
+
+
 app.get('/users', (req, res) => {
   res.json(users)
 })
+
+
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - uname
+ *               - psw
+ *             properties:
+ *               uname:
+ *                 type: string
+ *                 description: The user name
+ *               psw:
+ *                 type: string
+ *                 description: The Userassword
+ *             example:
+ *               uname: KuebelUser
+ *               psw: Kuebelpassword
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       500:
+ *         description: Internal server error
+ */
+
 
 //Creating User / Hashing the Password / Save the Password in the Array
 app.post('/register', async (req, res) => {

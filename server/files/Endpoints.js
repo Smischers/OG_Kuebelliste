@@ -51,7 +51,7 @@ exports.createCategory = function (req, res) {
         data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
         let indexCat = search.findIndex(element => element === req.body.name);
         if (indexCat == -1) {
-            data[indexList].headers.push({ [req.body.name]: [] });
+            data[indexList].headers.push({ [req.body[0].name]: [] });
             console.log(data[indexList]);
         } else {
             console.log("Category already exists");
@@ -70,6 +70,7 @@ exports.createEntry = function (req, res) {
         if (indexCat != -1) {
             search = [];
             data[indexList].headers[indexCat][req.params.categoryName].push(req.body[0]);
+            console.log(data[indexList].headers[indexCat][req.params.categoryName])
             res.sendStatus(200);
         } else {
             console.log("Category doesn´t exists");
@@ -105,8 +106,15 @@ exports.updateCategorys = function (req, res) {
         data[indexList].headers.forEach(element=>search.push(Object.keys(element)[0]));
         let indexCat = search.findIndex(element => element === req.params.categoryName);
         if (indexCat != -1) {
-            data[indexList].headers[indexCat]=req.body;
-            console.log(data[indexList].headers[indexCat]);
+            let old_key=Object.keys(data[indexList].headers[indexCat])[0];
+            let new_key=req.body[0].name;
+            if (old_key !== new_key) {
+                Object.defineProperty(data[indexList].headers[indexCat], new_key,
+                    Object.getOwnPropertyDescriptor(data[indexList].headers[indexCat], old_key));
+                delete data[indexList].headers[indexCat][old_key];
+            }
+            data[indexList].headers[indexCat][new_key]=req.body[1];
+            console.log(data[indexList].headers);
         } else {
             console.log("Category doesn´t exists");
             res.sendStatus(404);

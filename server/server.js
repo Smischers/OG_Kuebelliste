@@ -49,8 +49,8 @@ app.post('/list', endpoints.createList);
 app.post('/list/:listName', endpoints.createCategory);
 app.post('/list/:listName/:categoryName', endpoints.createEntry);
 
-app.put('/list', endpoints.updateLists);
-app.put('/list/:listName/categorys', endpoints.updateCategorys);
+app.put('/list/:listName', endpoints.updateLists);
+app.put('/list/:listName/:categoryName', endpoints.updateCategorys);
 //app.put('/list/:listName/:categoryName/:entryName',endpoints.updateEntry);
 
 app.delete('/list/:listName', endpoints.deleteList);

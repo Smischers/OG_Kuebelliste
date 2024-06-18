@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const data = require('./dataModel.js') 
 const endpoints = require('./files/Endpoints.js')
 const app = express()
+const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 
  const swaggerDefinition = {
@@ -98,10 +99,10 @@ app.post('/register', async (req, res) => {
   try {
     //Salt makes every hashed password unique (at the beginn of the encr. passw.)
     const salt = await bcrypt.genSalt()
-    const hashedPassword = await bcrypt.hash(req.body.password, salt)
+    const hashedPassword = await bcrypt.hash(req.body.psw, salt)
     console.log('Salt: ' + salt)
     console.log('Complete encrypted User Password: ' + hashedPassword)
-    const user = { name: req.body.name, password: hashedPassword }
+    const user = { name: req.body.uname, password: hashedPassword }
     users.push(user)
     res.status(201).send()
   } catch {
@@ -118,14 +119,14 @@ app.get('/posts', authenticateToken, (req, res) => {
 
 //Login a particular User and check the User/Password
 app.post('/login', async (req, res) => {
-  const user = users.find(user => user.name === req.body.name)
+  const user = users.find(user => user.name === req.body.uname)
   console.log(user)
   if (user == null) {
     return res.status(400).send('Cannot find user')
   }
   try {
     //Check if the typed pw is the same like in the database
-    if( await bcrypt.compare(req.body.password, user.password)){
+    if( await bcrypt.compare(req.body.psw, user.password)){
 
       //User from the database 
       const username = user.name

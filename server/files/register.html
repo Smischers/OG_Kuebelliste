@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <form action="/index.html" method="post">
+    <form id="registerForm">
         <div class="imgcontainer center">
             <img src="../resources/logoSVG.png" title="Kübelliste Logo" alt="To-Do Liste in Kübel" class="logoLogin">
         </div>
@@ -18,10 +18,10 @@
         <div class="container "
             style="max-width: 40%;border: 2px solid #00838f; padding: 20px 30px; border-radius: 5%;">
             <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
+            <input type="text" placeholder="Enter Username" id="uname" name="uname" required>
 
             <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input type="password" placeholder="Enter Password" id="psw" name="psw" required>
 
             <button type="submit" class="waves-effect waves-light btn cyan darken-3">Sign up</button>
             <a href="index.html"><button type="button" class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
@@ -36,6 +36,33 @@
     </form>
     <p class="center" style="margin-top: 2.5%;">Already have a Kübelliste?</p>
     <a class="center hover" style="color:black " href="login.html"><b>Sign in!</b></a>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = {
+                uname: document.getElementById('uname').value,
+                psw: document.getElementById('psw').value
+            };
+
+            fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(data => {
+                if(data.status === 201) {
+                    window.location.href = 'login.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
 
 </body>
 

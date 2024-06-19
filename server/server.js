@@ -41,9 +41,57 @@ app.use(bodyParser.json());
 // Serve static content in directory 'files'
 app.use(express.static(path.join(__dirname, 'files')));
 
+/**
+ * @swagger
+ * /list:
+ *   get:
+ *     summary: Returns all Lists
+ *     tags: [List Handling]
+ *     responses:
+ *       200:
+ *         description: Returns all lists of the "Database"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ */
 app.get('/list', endpoints.getList);
 app.get('/list/:listName', endpoints.getListByName);
 app.get('/listIcons', endpoints.getListNamesIcons);
+
+/**
+ * @swagger
+ * /list:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [List Handling]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - uname
+ *               - psw
+ *             properties:
+ *               uname:
+ *                 type: string
+ *                 description: The user name
+ *               psw:
+ *                 type: string
+ *                 description: The Userassword
+ *             example:
+ *               uname: KuebelUser
+ *               psw: Kuebelpassword
+ *     responses:
+ *       201:
+ *         description: 
+ *       400:
+ *         description: 
+ */
 
 app.post('/list', endpoints.createList);
 app.post('/list/:listName', endpoints.createCategory);

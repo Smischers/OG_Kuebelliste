@@ -69,6 +69,7 @@ app.use(express.static(path.join(__dirname, 'files')));
  *       - in: path
  *         name: listName
  *         required: true
+ *         example: ESO Dungeons
  *         schema:
  *           type: string
  *         description: Enter the list you want to have returned here

@@ -4,6 +4,7 @@
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 
+//Definition of the Swagger Interface
 const options = {
   definition: {
     openapi: "3.1.0",
@@ -17,25 +18,19 @@ const options = {
         url: "http://localhost:3000",
       },
     ],
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-        },
-      },
-    },
   },
-  apis: ["./server/server.js"], // Adjust path to your combined routes file
+  apis: ["./server/server.js"],
 };
 
+//Generate the Swagger/OpenAPI specification Object
 const specs = swaggerJsdoc(options);
 
 module.exports = (app) => {
   app.use(
     "/api-docs",
+    //Serves the Files to render swaggerUI
     swaggerUi.serve,
+    //Set tu UI with the specs informations
     swaggerUi.setup(specs)
   );
 };

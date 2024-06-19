@@ -2,7 +2,7 @@
 
 main {
     flex: 1 0 auto;
-    padding: 21px 40px;
+    padding: 1% 2%;
 }
 
 td {
@@ -48,7 +48,7 @@ footer a:hover {
 
 .logo {
     float: left;
-    margin-left: 32px;
+    margin-left: 1.5%;
     height: auto;
     max-height: 5em;
     width: auto;
@@ -69,7 +69,6 @@ footer a:hover {
 }
 
 .section {
-    /*margin-right: 4em !important;*/
     width: 15%;
     height: 38px !important;
 }
@@ -132,7 +131,7 @@ footer a:hover {
 }
 
 /* Media query for mobile devices or 200% zoom */
-@media only screen and (max-width: 1000px) {
+@media screen and (max-width: 1000px) {
     .section {
         margin-right: 2em !important;
     }

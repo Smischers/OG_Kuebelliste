@@ -10,16 +10,16 @@ Vue.component('navbar', {
           </a>
 
           <!-- SIGN UP - LOGIN -->
-          <ul class="right hide-on-med-and-down" style="padding-top: 10px; padding-right: 25px;">
+          <ul class="right hide-on-med-and-down" style="padding-top: 10px; margin-right: 1.5%;">
             <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="register.html">Sign up</a>
             </li>
-            <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="login.html">Log in</a></li>
+            <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="login.html" style="margin-right: 0;">Log in</a></li>
           </ul>
           <div class="clear"></div>
         </div>
 
         <!-- MENU SECTIONS -->
-        <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black; padding-left: 40px; padding-right: 40px;" role="navigation">
+        <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black; padding-left: 1.5%; padding-right: 1.5%;" role="navigation">
           <ul class="tabs tabs-transparent navSections" style="height: 38px;">
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
                 href="https://myanimelist.net/topanime.php" title="MyAnimeList Top Animes" target="_blank">Anime</a></li>

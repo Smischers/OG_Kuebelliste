@@ -4,7 +4,7 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
-const data = require('./dataModel.js') 
+const data = require('./dataModel.js')
 const endpoints = require('./files/Endpoints.js')
 const app = express()
 
@@ -57,6 +57,28 @@ app.use(express.static(path.join(__dirname, 'files')));
  *               items:
  *                 type: object
  */
+
+
+/**
+ * @swagger
+ * /list/{listName}:
+ *   get:
+ *     summary: Return one specific List
+ *     tags: [List Handling]
+ *     parameters:
+ *       - in: path
+ *         name: listName
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Enter the list you want to have returned here
+ *     responses:
+ *       200:
+ *         description: List retrieved successfully
+ *       404:
+ *         description: List not found
+ */
+
 app.get('/list', endpoints.getList);
 app.get('/list/:listName', endpoints.getListByName);
 app.get('/listIcons', endpoints.getListNamesIcons);
@@ -65,32 +87,34 @@ app.get('/listIcons', endpoints.getListNamesIcons);
  * @swagger
  * /list:
  *   post:
- *     summary: Register a new user
+ *     summary: Create a new List
  *     tags: [List Handling]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - uname
- *               - psw
- *             properties:
- *               uname:
- *                 type: string
- *                 description: The user name
- *               psw:
- *                 type: string
- *                 description: The Userassword
+ *             type: array
+ *             items:
+ *               type: object
+ *               required:
+ *                 - name
+ *                 - picture
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                   description: The name of the list
+ *                 picture:
+ *                   type: string
+ *                   description: The URL to a Picture
  *             example:
- *               uname: KuebelUser
- *               psw: Kuebelpassword
+ *               - name: Hiking routes
+ *                 picture: https://www.alpenverein.de/img/containers/assets/artikel_bilder/tag-der-berge-unserealpen-01-dani__stelter.jpg/072c211bfe9355f3f4579c2dc8e66e85/tag-der-berge-unserealpen-01-dani__stelter.jpg
  *     responses:
  *       201:
- *         description: 
+ *         description: Added new List
  *       400:
- *         description: 
+ *         description: List already exists
  */
 
 app.post('/list', endpoints.createList);
@@ -107,7 +131,7 @@ app.delete('/list/:listName/:categoryName/:entryName', endpoints.deleteEntry);
 // Nicht mein Problem machts ihr Backend Boys
 app.get('/', function (req, res) {
   res.sendStatus(403)
-}) 
+})
 
 /* ------------------------------------------------------------------------------------------------------------ */
 //User Login
@@ -211,7 +235,7 @@ app.post('/login', async (req, res) => {
   }
   try {
     //Check if the typed pw is the same like in the database
-    if( await bcrypt.compare(req.body.psw, user.password)){
+    if (await bcrypt.compare(req.body.psw, user.password)) {
 
       //User from the database 
       const username = user.name

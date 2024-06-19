@@ -36,3 +36,30 @@ Content-Type: application/json
     "uname": "Julian",
     "psw": "password"
 }
+###
+POST http://localhost:3000/list
+Content-Type: application/json
+
+[{
+    "name":"List Name",
+    "picture":"A Link"
+}]
+
+###
+POST http://localhost:3000/list/AnimeList
+Content-Type: application/json
+
+[{
+    "name":"TOODOO"
+}]
+###
+POST http://localhost:3000/list/AnimeList/Done
+Content-Type: application/json
+
+[{
+    "name": "A Title",
+    "rating": "0/10",
+    "description": "A Descripton",
+    "deadline": "some date",
+    "calendar": "yes"
+}]

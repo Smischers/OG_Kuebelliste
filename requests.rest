@@ -63,3 +63,15 @@ Content-Type: application/json
     "deadline": "some date",
     "calendar": "yes"
 }]
+
+###
+GET http://localhost:3000/weather/allWeather/Vienna
+
+###
+GET http://localhost:3000/weather/dayweather/Vienna
+
+###
+GET http://localhost:3000/weather/weatherandtemp/Vienna
+
+
+

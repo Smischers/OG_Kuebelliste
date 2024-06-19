@@ -4,7 +4,7 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
-const data = require('./dataModel.js')
+const esoData = require('./eso.js')
 const endpoints = require('./files/Endpoints.js')
 const app = express()
 
@@ -277,6 +277,9 @@ function authenticateToken(req, res, next) {
   })
 }
 
+app.get('/eso', (req, res) => {
+  res.send(esoData)
+})
 
 app.listen(3000)
 

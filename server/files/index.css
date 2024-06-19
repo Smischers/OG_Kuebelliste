@@ -11,7 +11,15 @@ td {
 
 h1 {
     margin-top: 0;
-    font-size: 250%;
+    font-size: 200%;
+}
+
+footer a {
+    color: white;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 
@@ -32,6 +40,7 @@ h1 {
 #search::placeholder {
     color: #00838f;
     font-style: italic;
+    font-size: 90%;
 }
 
 
@@ -123,7 +132,7 @@ h1 {
 }
 
 /* Media query for mobile devices or 200% zoom */
-@media (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
     .section {
         margin-right: 2em !important;
     }
@@ -152,11 +161,6 @@ h1 {
 .center {
     display: flex !important;
     justify-content: center !important;
-}
-
-.hover:hover {
-    cursor: pointer;
-    text-decoration: underline;
 }
 
 .highlight a:hover {

@@ -13,7 +13,7 @@ Vue.component('navbar', {
           <ul class="right hide-on-med-and-down" style="padding-top: 10px; padding-right: 25px;">
             <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="register.html">Sign up</a>
             </li>
-            <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="login.html">Login</a></li>
+            <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="login.html">Log in</a></li>
           </ul>
           <div class="clear"></div>
         </div>
@@ -22,14 +22,14 @@ Vue.component('navbar', {
         <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black; padding-left: 40px; padding-right: 40px;" role="navigation">
           <ul class="tabs tabs-transparent navSections" style="height: 38px;">
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
-                href="#test1">Anime</a></li>
+                href="https://myanimelist.net/topanime.php" title="MyAnimeList Top Animes" target="_blank">Anime</a></li>
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
-                 href="#test2">Manga</a></li>
+                 href="https://myanimelist.net/topmanga.php" title="MyAnimeList Top Mangas" target="_blank">Manga</a></li>
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
-                 href="#test3">Restaurants</a>
+                href="https://elderscrollsonline.wiki.fextralife.com/Dungeons" title="The Elder Scrolls Online Wiki Dungeons" target="_blank">ESO Dungeons</a>
             </li>
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
-                href="#test4">ESO Dungeons</a>
+                 href="index.html">My Lists</a>
             </li>
             <li class="search hide-on-med-and-down">
               <button type="submit">
@@ -51,12 +51,12 @@ Vue.component('kuebelfooter', {
   <footer class="page-footer cyan darken-3 noPadding">
     <div class="container" style="width: 50vw; height: 50px;">
       <div class="row center" style="margin-bottom:0px; height: 0px; padding-top: 15px;">
-        <div class="col s12 m6 l3 noPadding hover">Home</div>
-        <div class="col s12 m6 l3 noPadding hover">About</div>
-        <div class="col s12 m6 l3 noPadding hover">FAQ</div>
-        <div class="col s12 m6 l3 noPadding hover">Cookie</div>
-        <div class="col s12 m6 l3 noPadding hover">Sign up</div>
-        <div class="col s12 m6 l3 noPadding hover">Login</div>
+        <div class="col s12 m6 l3 noPadding"><a href="index.html">Home</a></div>
+        <div class="col s12 m6 l3 noPadding"><a href="#">About</a></div>
+        <div class="col s12 m6 l3 noPadding"><a href="#">FAQ</a></div>
+        <div class="col s12 m6 l3 noPadding"><a href="#">Cookie</a></div>
+        <div class="col s12 m6 l3 noPadding"><a href="register.html">Sign up</a></div>
+        <div class="col s12 m6 l3 noPadding"><a href="login.html">Log in</a></div>
         <!-- This content will be:
           9-columns-wide on large screens,
           8-columns-wide on medium screens,

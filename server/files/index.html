@@ -15,7 +15,7 @@
 <body>
   <div id="app">
     <header>
-      <navbar></navbar>
+      <navbar v-model="textInput"></navbar>
     </header>
 
     <main>
@@ -61,6 +61,7 @@
       data: {
         resizeEvent: 0,
         items: [],
+        textInput: ""
       },
       computed: {
         rowChunks() {

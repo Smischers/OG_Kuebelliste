@@ -40,13 +40,14 @@ Vue.component('navbar', {
               </button>
               <form role ="search" action="/" method="get" class="searchHeader">
                 <label for="search">
-                  <input type="text" id="search" placeholder="Search Anime, Manga, and more ...">
+                  <input type="text" id="search" placeholder="Search Anime, Manga, and more ..." :inputText="inputText" @input="updateValue($event.target.value)">
                 </label>
               </form>
             </li>
           </ul>
         </div>
       </nav>`,
+  props: ['inputText'],
   methods: {
     hasAccessToken() {
       // Get the value of the accessToken cookie
@@ -57,6 +58,9 @@ Vue.component('navbar', {
         return accessToken !== "";
       }
       return false;
+    },
+    updateValue(newValue) {
+      this.$emit('input', newValue);
     }
   }
 

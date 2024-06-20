@@ -28,7 +28,7 @@ exports.getListNamesIcons = function (req, res) {
 exports.createList = function (req, res) {
     let search = [];
     data.forEach(element => search.push(element.name));
-    if (search.includes(req.body[0].name)) {
+    if (search.includes(req.body.name)) {
         console.log("List already exists");
         res.sendStatus(400);
     } else {
@@ -133,6 +133,7 @@ exports.deleteList = function (req, res) {
     let indexList = search.findIndex(ele => ele === req.params.listName);
     if(indexList!=-1){
         data.splice(indexList,1);
+        res.sendStatus(201);
     }else{
         console.log("List doesn´t exist");
         res.sendStatus(404);

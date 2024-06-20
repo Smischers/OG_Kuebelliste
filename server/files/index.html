@@ -20,11 +20,14 @@
 
     <main>
       <!-- here comes data -->
-      <h1>My Lists</h1>
+      <h1 v-if="items.length != 0" style="width: 50%; float: left;">My Lists</h1>
+      <p style="width: 50%; float: right; text-align: right;">{{ weather.temperature }}</p>
+      <div class="clear"></div>
       <ul>
         <div class="row center">
 
           <li>
+            <p v-if="items.length == 0">NICHT EINGELOGGT VENA</p>
             <div class="center" v-for="item in rowChunks">
               <div v-for="card in item" class="col s2.5">
 
@@ -61,7 +64,8 @@
       data: {
         resizeEvent: 0,
         items: [],
-        textInput: ""
+        textInput: "",
+        weather: ""
       },
       computed: {
         rowChunks() {
@@ -94,21 +98,40 @@
             )
             .catch(err => console.log(err));
 
+          fetch("weather/weatherandtemp/Vienna")
+            .then(weather => weather.json())
+            .then(data => this.weather = data)
+            .catch(error => console.log(error))
+
         },
         handleResize() {
           this.resizeEvent++;
         },
         getCardLink(cardName) {
           if (cardName === 'New List') {
-            return 'etwas.html';
+            return 'newList.html';
           } else {
             return `listview.html?listName=${cardName}`;
           }
+        },
+        hasAccessToken() {
+          // Get the value of the accessToken cookie
+          let value = "; " + document.cookie;
+          let parts = value.split("; accessToken=");
+          if (parts.length === 2) {
+            let accessToken = parts.pop().split(";").shift();
+            return accessToken !== "";
+          }
+          return false;
         }
       },
       mounted() {
-        this.fetchItems();
-        window.addEventListener('resize', this.handleResize);
+        if (this.hasAccessToken()) {
+          this.fetchItems();
+          window.addEventListener('resize', this.handleResize);
+        }else{
+
+        }
       }
     });
 

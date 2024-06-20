@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edith</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="edith.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <form id="createListForm">
+            <div class="imgcontainer center">
+                <img src="../resources/logoSVG.png" title="Kübelliste Logo" alt="To-Do Liste in Kübel"
+                    class="logoLogin">
+            </div>
+
+            <div class="container"
+                style="max-width: 40%;border: 2px solid #00838f; padding: 20px 30px; border-radius: 5%;">
+                <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
+
+                <label for="listName"><b>List name</b></label>
+                <input type="text" id="listName" name="listName" :value=this.listName required>
+                <label for="listPicture"><b>Picture URL</b></label>
+                <input type="text" id="listPicture" name="listPicture">
+                <label for="weather"><b>Best for which weather?</b></label>
+                <select name="weather" id="weather" style="display: block;" required>
+                    <option value="sunny">sunny</option>
+                    <option value="rainy">rainy</option>
+                </select>
+
+
+                <button type="submit" class="waves-effect waves-light btn cyan darken-3">Submit</button>
+                <a href="index.html"><button type="button"
+                        class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
+                <button v-on:click=deleteList() type="button"
+                        class="deletebtn waves-effect waves-light btn red">Delete</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                listName: "",
+            },
+            methods: {
+                fetchItems() {
+                    let fetchedItems = [];
+
+                    /**fetch("/list")
+                        .then(res => res.json())
+                        .then(data => {
+                            fetchedItems = data;
+                            fetchedItems.push({
+                                name: "New List", picture: "../resources/Plus_symbol.png",
+                            })
+                        })
+                        .then(list => {
+                            this.items = fetchedItems
+                            console.log(fetchedItems)
+                        }
+                        )
+                        .catch(err => console.log(err));**/
+
+                },
+                deleteList() {
+                    let fetchedItems = [];
+
+
+                    fetch(`/list/${this.listName}`,{
+                        method: 'DELETE',
+                    })
+                        .then(data => {
+                            if (data.status === 201) {
+                                window.location.href = 'index.html';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+                }
+            },
+            mounted() {
+                const params = new URLSearchParams(window.location.search);
+                const listParam = params.get('listName');
+                if (listParam) {
+                    this.listName = listParam;
+                    this.fetchItems();
+                }
+            }
+        });
+    </script>
+    <script>/**
+    document.getElementById('createListForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const formData = {
+            name: document.getElementById('listName').value,
+            picture: document.getElementById('listPicture').value,
+            weather: document.getElementById('weather').value
+        };
+        console.log(formData)
+
+        fetch('/list', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(data => {
+                fetch(`/list/${formData.name}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify([{ name: "To-Do" }])
+                })
+                    .catch(error => {
+                        console.log('Error:', error);
+                        window.location.href = 'index.html'
+                    })
+            })
+            .then(data => window.location.href = 'index.html')
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Login failed. Please check your credentials and try again.');
+            });
+    });**/
+    </script>
+</body>
+
+</html>

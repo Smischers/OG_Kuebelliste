@@ -37,6 +37,11 @@ button:hover {
     width: auto;
 }
 
+.deletebtn {
+    width: auto;
+    float: right;
+}
+
 .imgcontainer {
     margin: 24px 0 12px 0;
 }

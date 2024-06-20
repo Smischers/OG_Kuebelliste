@@ -16,8 +16,13 @@ Vue.component('navbar', {
             <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="login.html" style="margin-right: 0;">Log in</a></li>
           </ul>
           
-          <i v-else class="material-icons right hide-on-med-and-down" 
-            style="padding-top: 10px; margin-right: 2.5%; color: grey; font-size: 36px;">account_circle</i>
+          <div v-else>
+            <ul class="right hide-on-med-and-down" style="padding-top: 10px; margin-right: 1.5%;">
+            <li><i class="material-icons right hide-on-med-and-down" 
+            style="padding-top: 10px; margin-right: 2.5%; color: grey; font-size: 36px;">account_circle</i></li>
+            <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" v-on:click=deleteAllCookies() href="index.html" style="margin-right: 0;">Log out</a></li>
+          </ul>
+            </div>
           <div class="clear"></div>
         </div>
 
@@ -59,6 +64,18 @@ Vue.component('navbar', {
       }
       return false;
     },
+    deleteAllCookies() {
+      const cookies = document.cookie.split(";");
+  
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i];
+          const eqPos = cookie.indexOf("=");
+          const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+  
+          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+      }
+  }
+  ,
     updateValue(newValue) {
       this.$emit('input', newValue);
     }

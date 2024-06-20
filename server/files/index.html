@@ -20,7 +20,7 @@
 
     <main>
       <!-- here comes data -->
-       <h1>My Lists</h1>
+      <h1>My Lists</h1>
       <ul>
         <div class="row center">
 
@@ -28,7 +28,7 @@
             <div class="center" v-for="item in rowChunks">
               <div v-for="card in item" class="col s2.5">
 
-                <a :href="`listview.html?listName=${ card.name }`">
+                <a :href="getCardLink(card.name)">
                   <div class="card hoverable" style="width: 170px; height: 220px;">
                     <div class="card-image">
                       <img :src=card.picture style="width:170px; height:150px;">
@@ -60,7 +60,7 @@
       el: '#app',
       data: {
         resizeEvent: 0,
-        items: []
+        items: [],
       },
       computed: {
         rowChunks() {
@@ -97,6 +97,13 @@
         handleResize() {
           this.resizeEvent++;
         },
+        getCardLink(cardName) {
+          if (cardName === 'New List') {
+            return 'etwas.html';
+          } else {
+            return `listview.html?listName=${cardName}`;
+          }
+        }
       },
       mounted() {
         this.fetchItems();

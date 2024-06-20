@@ -10,11 +10,14 @@ Vue.component('navbar', {
           </a>
 
           <!-- SIGN UP - LOGIN -->
-          <ul class="right hide-on-med-and-down" style="padding-top: 10px; margin-right: 1.5%;">
+          <ul v-if="!hasAccessToken()" class="right hide-on-med-and-down" style="padding-top: 10px; margin-right: 1.5%;">
             <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="register.html">Sign up</a>
             </li>
             <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" href="login.html" style="margin-right: 0;">Log in</a></li>
           </ul>
+          
+          <i v-else class="material-icons right hide-on-med-and-down" 
+            style="padding-top: 10px; margin-right: 2.5%; color: grey; font-size: 36px;">account_circle</i>
           <div class="clear"></div>
         </div>
 
@@ -39,10 +42,24 @@ Vue.component('navbar', {
                 <label for="search">
                   <input type="text" id="search" placeholder="Search Anime, Manga, and more ...">
                 </label>
+              </form>
             </li>
           </ul>
         </div>
-      </nav>`
+      </nav>`,
+  methods: {
+    hasAccessToken() {
+      // Get the value of the accessToken cookie
+      let value = "; " + document.cookie;
+      let parts = value.split("; accessToken=");
+      if (parts.length === 2) {
+        let accessToken = parts.pop().split(";").shift();
+        return accessToken !== "";
+      }
+      return false;
+    }
+  }
+
 });
 
 Vue.component('kuebelfooter', {

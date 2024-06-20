@@ -1,5 +1,7 @@
 Weather:
 // Source: https://openweathermap.org/current
+// States: Thunderstorm, Drizzle, Rain, Snow, Clear, Clouds
+// Rest of the States: Mist, Smoke, Haze, Dust, Fog, Sand, Dust, Ash, Squall, Tornado
 
 require('dotenv').config();
 

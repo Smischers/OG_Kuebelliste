@@ -37,7 +37,7 @@
 
               <div v-for="(value, category) in list" class="col s2.5" style="width: 100%; padding: 0">
                 <p class="waves-effect waves-light btn cyan darken-3 category">{{ category }}</p>
-                <p class="waves-effect waves-light newEntry"><a href="#" title="Add new custom entry"><i
+                <p class="waves-effect waves-light newEntry"><a :href="`newListentry.html?listName=${listName}&listCategory=${category}`" title="Add new custom entry"><i
                       class="material-icons">control_point</i></a></p>
 
                 <table v-if="value.length !== 0" style="margin-bottom: 3%; border: 2px solid #a8a8a8">
@@ -51,7 +51,7 @@
                   </thead>
                   <tbody>
                     <tr v-for="entry in value">
-                      <td><a :href="`listentry.html?listName=${listName}&listEntry=${entry.name}`"
+                      <td><a :href="`listentry.html?listName=${listName}&listCategory=${category}&listEntry=${entry.name}`"
                           style="color: black;">{{ entry.name
                           }}</a></td>
                       <td>{{ entry.rating }}</td>
@@ -59,7 +59,7 @@
                       <td>{{ entry.deadline }}</td>
                       <td class="editItem"><a href="#" title="Add to calendar"><i class="material-icons valign-wrapper"
                             style="font-size: 1.2em;">event</i></a></td>
-                      <td class="editItem"><a href="#" title="Edit this item"><i class="material-icons valign-wrapper"
+                      <td class="editItem"><a :href="`listentryEdith.html?listName=${listName}&listCategory=${category}&listEntry=${entry.name}`" title="Edit this item"><i class="material-icons valign-wrapper"
                             style="font-size: 1.2em;">edit</i></a></td>
                     </tr>
                   </tbody>

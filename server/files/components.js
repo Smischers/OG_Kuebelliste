@@ -18,9 +18,9 @@ Vue.component('navbar', {
           
           <div v-else>
             <ul class="right hide-on-med-and-down" style="padding-top: 10px; margin-right: 1.5%;">
-            <li><i class="material-icons right hide-on-med-and-down" 
-            style="padding-top: 10px; margin-right: 2.5%; color: grey; font-size: 36px;">account_circle</i></li>
-            <li class="highlight"><a class="waves-effect waves-light btn cyan darken-3" v-on:click=deleteAllCookies() href="index.html" style="margin-right: 0;">Log out</a></li>
+            <li><i class="material-icons left hide-on-med-and-down" 
+            style="margin-right: 2.5%; color: grey; font-size: 36px;">account_circle</i></li>
+            <li class="highlight"><a class="waves-effect waves-light btn grey" v-on:click=deleteAllCookies() href="index.html" style="margin-right: 0;">Log out</a></li>
           </ul>
             </div>
           <div class="clear"></div>
@@ -36,8 +36,11 @@ Vue.component('navbar', {
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
                 href="https://elderscrollsonline.wiki.fextralife.com/Dungeons" title="The Elder Scrolls Online Wiki Dungeons" target="_blank">ESO Dungeons</a>
             </li>
-            <li class="tab section"><a class="btn cyan darken-3 secHeader"
+            <li v-if="hasAccessToken()" class="tab section"><a class="btn cyan darken-3 secHeader"
                  href="index.html">My Lists</a>
+            </li>
+            <li v-else class="tab section"><a class="btn cyan darken-3 secHeader"
+                 href="login.html">My Lists</a>
             </li>
             <li class="search hide-on-med-and-down">
               <button type="submit">

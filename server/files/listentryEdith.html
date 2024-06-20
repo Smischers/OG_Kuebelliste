@@ -21,22 +21,30 @@
             <div class="container"
                 style="max-width: 40%;border: 2px solid #00838f; padding: 20px 30px; border-radius: 5%;">
                 <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
+                <h2 style="margin-top: 0; font-size: 100%" class="center"><b>{{ this.listEntryName }}</b></h2>
 
-                <label for="listName"><b>List name</b></label>
-                <input maxlength="15" type="text" id="listName" name="listName" :value=this.listName required>
-                <label for="listPicture"><b>Picture URL</b></label>
-                <input type="text" id="listPicture" name="listPicture">
-                <label for="weather"><b>Best for which weather?</b></label>
-                <select name="weather" id="weather" style="display: block;" required>
-                    <option value="sunny">sunny</option>
-                    <option value="rainy">rainy</option>
+                <label for="category"><b>Category</b></label>
+                <select name="category" id="category" style="display: block;" required>
+                    <option value="To-Do">To-Do</option>
+                    <option value="Done">Done</option>
                 </select>
 
+                <label for="entryName"><b>Entry name</b></label>
+                <input type="text" id="entryName" name="entryName" :value=this.listEntryName required>
+                <label for="rating"><b>Rating</b></label>
+                <input type="text" id="rating" name="rating" required>
+                <label for="description"><b>Description</b></label>
+                <input type="text" id="description" name="description" required>
+                <label for="deadline"><b>Deadline</b></label>
+                <input type="text" id="deadline" name="deadline" required>
+
+                <label for="listPicture"><b>Picture URL</b></label>
+                <input type="text" id="listPicture" name="listPicture">
 
                 <button type="submit" class="waves-effect waves-light btn cyan darken-3">Submit</button>
-                <a href="index.html"><button type="button"
+                <a :href="`listview.html?listName=${this.listName}`"><button type="button"
                         class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
-                <button v-on:click=deleteList() type="button"
+                <button v-on:click=deleteEntry() type="button"
                         class="deletebtn waves-effect waves-light btn red">Delete</button>
             </div>
         </form>
@@ -46,22 +54,39 @@
             el: '#app',
             data: {
                 listName: "",
+                listEntryName: "",
+                listCategory: "",
             },
             methods: {
                 fetchItems() {
                     let fetchedItems = [];
 
+                    /**fetch("/list")
+                        .then(res => res.json())
+                        .then(data => {
+                            fetchedItems = data;
+                            fetchedItems.push({
+                                name: "New List", picture: "../resources/Plus_symbol.png",
+                            })
+                        })
+                        .then(list => {
+                            this.items = fetchedItems
+                            console.log(fetchedItems)
+                        }
+                        )
+                        .catch(err => console.log(err));**/
+
                 },
-                deleteList() {
+                deleteEntry() {
                     let fetchedItems = [];
 
 
-                    fetch(`/list/${this.listName}`,{
+                    fetch(`/list/${this.listName}/${this.listCategory}/${this.listEntryName}`,{
                         method: 'DELETE',
                     })
                         .then(data => {
-                            if (data.status === 201) {
-                                window.location.href = 'index.html';
+                            if (data.status === 200) {
+                                window.location.href = `listview.html?listName=${this.listName}`;
                             }
                         })
                         .catch(error => {
@@ -72,9 +97,13 @@
             },
             mounted() {
                 const params = new URLSearchParams(window.location.search);
-                const listParam = params.get('listName');
+                const listName = params.get('listName');
+                const listParam = params.get('listEntry');
+                const listCategory = params.get('category');
                 if (listParam) {
-                    this.listName = listParam;
+                    this.listName = listName;
+                    this.listEntryName = listParam;
+                    this.listCategory = listCategory;
                     this.fetchItems();
                 }
             }

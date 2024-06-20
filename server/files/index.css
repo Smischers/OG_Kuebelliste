@@ -257,3 +257,8 @@ td.trunc {
 .listSettings i:hover {
     color: #00838f;
 }
+
+.listEntryList li {
+    list-style-type: circle !important;
+    padding-bottom: 1%;
+}

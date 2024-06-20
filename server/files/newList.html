@@ -22,7 +22,7 @@
                 <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>Create new list</b></h1>
 
                 <label for="listName"><b>List name</b></label>
-                <input type="text" id="listName" name="listName" required>
+                <input type="text" id="listName" name="listName" maxlength="15" required>
                 <label for="listPicture"><b>Picture URL</b></label>
                 <input type="text" id="listPicture" name="listPicture">
                 <label for="weather"><b>Best for which weather?</b></label>
@@ -56,6 +56,7 @@
                 body: JSON.stringify(formData)
             })
                 .then(data => {
+                    // TESTEN TODO
                     fetch(`/list/${formData.name}`, {
                         method: 'POST',
                         headers: {
@@ -71,7 +72,7 @@
                 .then(data => window.location.href = 'index.html')
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Login failed. Please check your credentials and try again.');
+                    alert('Etwas lief schief');
                 });
         });
     </script>

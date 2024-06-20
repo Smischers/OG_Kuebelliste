@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edith</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="edith.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <form id="createListForm">
+            <div class="imgcontainer center">
+                <img src="../resources/logoSVG.png" title="Kübelliste Logo" alt="To-Do Liste in Kübel"
+                    class="logoLogin">
+            </div>
+
+            <div class="container"
+                style="max-width: 40%;border: 2px solid #00838f; padding: 20px 30px; border-radius: 5%;">
+                <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
+                <h2 style="margin-top: 0; font-size: 100%" class="center"><b>Create new entry</b></h2>
+
+                <label for="category"><b>Category</b></label>
+                <select name="category" id="category" style="display: block;" required>
+                    <option value="listCategory">{{ this.listCategory }}</option>
+                </select>
+
+                <label for="entryName"><b>Entry name</b></label>
+                <input type="text" id="entryName" name="entryName" required>
+                <label for="rating"><b>Rating</b></label>
+                <input type="text" id="rating" name="rating" required>
+                <label for="description"><b>Description</b></label>
+                <input type="text" id="description" name="description" required>
+                <label for="deadline"><b>Deadline</b></label>
+                <input type="text" id="deadline" name="deadline" required>
+
+                <label for="entryPicture"><b>Picture URL</b></label>
+                <input type="text" id="entryPicture" name="entryPicture">
+
+                <button v-on:click=submit() class="waves-effect waves-light btn cyan darken-3">Submit</button>
+                
+                <a :href="`listview.html?listName=${this.listName}`"><button type="button"
+                        class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
+            </div>
+        </form>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                listName: "",
+                listCategory: "",
+            },
+            methods: {
+                submit() {
+
+                    const formData = [{
+                        name: document.getElementById('entryName').value,
+                        rating: document.getElementById('rating').value,
+                        description: document.getElementById('description').value,
+                        deadline: document.getElementById('deadline').value,
+                        picture: document.getElementById('entryPicture').value,
+                        calendar: "no"
+                    }];
+                    console.log(this.listName)
+
+                    fetch(`list/${this.listName}/${this.listCategory}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                        .then(data => {
+                            if (data.status === 200) {
+                                window.location.href = `listview.html?listName=${this.listName}`;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Login failed. Please check your credentials and try again.');
+                        });
+                }
+            },
+            mounted() {
+                const params = new URLSearchParams(window.location.search);
+                const listName = params.get('listName');
+                const listCategory = params.get('listCategory');
+                if (listName) {
+                    this.listName = listName;
+                    console.log(listName);
+                    this.listCategory = listCategory;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

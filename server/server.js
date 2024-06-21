@@ -3,11 +3,14 @@
 
 const express = require('express')
 const path = require('path')
+const fs = require('fs');
 const bodyParser = require('body-parser')
 const esoData = require('./eso.js')
 const endpoints = require('./files/Endpoints.js')
 const weather = require('./files/Ext-APIs/weather.js');
 const app = express()
+
+const userFilePath = './users.json'
 
 // Load the Swagger configuration
 const setupSwagger = require('./swaggerConfig');
@@ -148,10 +151,6 @@ console.log(weather.getAllWeatherData);
 /* ------------------------------------------------------------------------------------------------------------ */
 //User Login
 
-//Test Array to save the Users and Passwords
-const users = []
-
-
 /**
  * @swagger
  * /users:
@@ -175,11 +174,6 @@ const users = []
  *                     type: string
  *                     description: The user's hashed password
  */
-
-
-app.get('/users', (req, res) => {
-  res.json(users)
-})
 
 
 /**
@@ -224,12 +218,34 @@ app.post('/register', async (req, res) => {
     console.log('Salt: ' + salt)
     console.log('Complete encrypted User Password: ' + hashedPassword)
     const user = { name: req.body.uname, password: hashedPassword }
+
+    const users = getUsersFromUserFile();
+    //Check if user already exists
+    if (users.find(user => user.name === req.body.uname)) {
+      return res.status(400).send('User already exists');
+    }
     users.push(user)
+    //Add to the users.json file
+    fs.writeFileSync('./server/users.json', JSON.stringify(users, null, 2));
+
+
     res.status(201).send()
   } catch {
     res.status(500).send()
   }
 })
+
+function getUsersFromUserFile() {
+  try {
+    //Read Users from File/parse them/return them
+      const data = fs.readFileSync('./server/users.json');
+      return JSON.parse(data);
+  } catch {
+    console.log("Problems with reading User File")
+    return []
+  }
+} 
+
 
 //User Session Management
 app.get('/posts', authenticateToken, (req, res) => {

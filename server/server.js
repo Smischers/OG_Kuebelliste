@@ -272,7 +272,7 @@ app.post('/login', async (req, res) => {
       const userPayload = { name: username }
       console.log('Payload:' + userPayload)
       console.log('Successfull login')
-      //Create a Access Token from .env File and save the user data in it
+      //Create a Access Token with the secret from .env File and save the username in it
       const accessToken = jwt.sign(userPayload, process.env.ACCESS_TOKEN_SECRET)
       res.json({ accessToken: accessToken })
 

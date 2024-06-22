@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="index.css" />
   <link rel="icon" type="image/x-icon" href="../resources/Kübelliste_Icon.png">
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
@@ -25,12 +26,13 @@
       <a class="breadcrumb">
         {{ listEntry}}
       </a>
-      <a :href="`listentryEdith.html?listName=${this.listName}&category=${this.category}&listEntry=${this.listEntry}`" title="Edit entry" class="listSettings"><i class="material-icons">settings</i></a>
+      <a :href="`listentryEdith.html?listName=${this.listName}&category=${this.category}&listEntry=${this.listEntry}`"
+        title="Edit entry" class="listSettings"><i class="material-icons">settings</i></a>
     </div>
 
     <main>
       <!-- here comes data -->
-      <div style="width: 75%; background-color: #f5f5f5; padding: 1.5%; margin-bottom: 3%;">
+      <div id="myDiv" style="width: 70%; background-color: #f5f5f5; padding: 1.5%; margin-bottom: 3%; float: left;">
         <h1 style="padding-bottom: 2%;"><b>{{ items.name }}</b></h1>
         <ul class="listEntryList" style="padding-left: 1.5%;">
           <li><b>Rating: </b>{{ items.rating }}</li>
@@ -39,13 +41,44 @@
           <li><b>Added to calendar: </b>{{ items.calendar }}</li>
         </ul>
       </div>
-      <!--<img :src="`${items.image}`" style="width: 20%; float: right;">-->
+      <img :src="`${items.image}`" id="myImg" class="materialboxed"
+        style="max-width: 25% !important; height: auto !important; float: right !important; display: block !important;">
     </main>
 
     <!-- OUR FOOTER-->
     <kuebelfooter></kuebelfooter>
 
   </div>
+
+  <script>
+    // Dynamic min-height of div
+    document.addEventListener("DOMContentLoaded", function () {
+      function updateDivHeight() {
+        // Get height of img
+        const imgElement = document.getElementById('myImg');
+        const imgHeight = imgElement.offsetHeight;
+
+        // Set height of div based on img dynamically
+        const divElement = document.getElementById('myDiv');
+        divElement.style.minHeight = imgHeight + 'px';
+      }
+
+      // Initial call of function on windowload
+      updateDivHeight();
+
+      // Checking for updates
+      const observer = new MutationObserver(updateDivHeight);
+      observer.observe(document.getElementById('myImg'), { childList: true, subtree: true });
+
+      // Resize-Eventhandler
+      window.addEventListener('resize', updateDivHeight);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.materialboxed');
+      var instances = M.Materialbox.init(elems, {});
+    });
+  </script>
 
   <script src="components.js"></script>
   <script>

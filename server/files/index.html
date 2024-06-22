@@ -38,8 +38,9 @@
                       <img v-else src=resources/Kuebelliste_Icon.png style="width:170px; height:150px;">
                     </div>
                     <div class="card-content">
-                      <span class="card-title center"
-                        style="font-size: 18.5px !important; color: black !important;"><b>{{ card.name }}</b></span>
+                      <span class="card-title center" style="font-size: 18.5px !important; color: black !important;"><b
+                          style="overflow: hidden !important; text-overflow: ellipsis !important; white-space: normal !important;">{{
+                          card.name }}</b></span>
                     </div>
                   </div>
                 </a>
@@ -130,7 +131,7 @@
         if (this.hasAccessToken()) {
           this.fetchItems();
           window.addEventListener('resize', this.handleResize);
-        }else{
+        } else {
 
         }
       }

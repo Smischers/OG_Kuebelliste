@@ -203,6 +203,10 @@ td.trunc {
     margin-bottom: 15px;
 }
 
+td {
+    padding-right: 4%;
+}
+
 .editItem {
     padding-right: 10px;
     padding-left: 10px;

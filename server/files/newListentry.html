@@ -13,7 +13,7 @@
 
 <body>
     <div id="app">
-        <form id="createListForm">
+        <form id="createListForm" @submit.prevent="submitForm">
             <div class="imgcontainer center">
                 <img src="../resources/logoSVG.png" title="Kübelliste Logo" alt="To-Do Liste in Kübel"
                     class="logoLogin">
@@ -30,19 +30,26 @@
                 </select>
 
                 <label for="entryName"><b>Entry name</b></label>
-                <input type="text" id="entryName" name="entryName" required>
+                <input type="text" id="entryName" name="entryName" minlength="1" maxlength="25"
+                    title="Minimum 1 character required (maximum 25 allowed)" required>
+
                 <label for="rating"><b>Rating</b></label>
-                <input type="text" id="rating" name="rating" required>
+                <input type="text" id="rating" name="rating" pattern="^\d{1,2}/\d{1,2}$"
+                    title="Rating format: number/number (e.g. 5/10)" required>
+
                 <label for="description"><b>Description</b></label>
-                <input type="text" id="description" name="description" required>
+                <input type="text" id="description" name="description" minlength="1" maxlength="2000"
+                    title="Minimum 1 character required (maximum 2000 allowed)" required>
+
                 <label for="deadline"><b>Deadline</b></label>
-                <input type="text" id="deadline" name="deadline" required>
+                <input type="text" id="deadline" name="deadline" @blur="validateDeadline"
+                    pattern="^\d{2}.\d{2}.\d{4}$|^none$" title="Date format: DD.MM.YYYY or 'none'" required>
 
-                <label for="entryPicture"><b>Picture URL</b></label>
-                <input type="text" id="entryPicture" name="entryPicture">
+                <label for="entryPicture"><b>Picture URL (optional)</b></label>
+                <input type="text" id="entryPicture" name="entryPicture" pattern="https?://.+" title="Please enter a valid URL (e.g. http://example.com)">
 
-                <button v-on:click=submit() class="waves-effect waves-light btn cyan darken-3">Submit</button>
-                
+                <button type="submit" class="waves-effect waves-light btn cyan darken-3">Submit</button>
+
                 <a :href="`listview.html?listName=${this.listName}`"><button type="button"
                         class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
             </div>
@@ -56,7 +63,33 @@
                 listCategory: "",
             },
             methods: {
-                submit() {
+                validateDeadline() {
+                    const deadlineInput = document.getElementById('deadline');
+                    const deadline = deadlineInput.value.trim();
+                    const datePattern = /^\d{1,2}.\d{1,2}.\d{4}$/;
+
+                    if (deadline === 'none') {
+                        // Allow 'none' as a valid value
+                        return;
+                    }
+
+                    if (!datePattern.test(deadline) || !this.isValidDate(deadline)) {
+                        deadlineInput.value = ' ';
+                    }
+                },
+                isValidDate(dateString) {
+                    const [day, month, year] = dateString.split('.').map(Number);
+                    const date = new Date(year, month - 1, day); // Java starts at 0 for month -> Jan = 0
+
+                    // Check if the date is valid and the components match
+                    return (
+                        date.getFullYear() === year &&
+                        date.getMonth() === month - 1 &&
+                        date.getDate() === day
+                    );
+                },
+
+                submitForm() {
 
                     const formData = [{
                         name: document.getElementById('entryName').value,

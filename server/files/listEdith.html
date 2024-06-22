@@ -21,20 +21,22 @@
             <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
 
             <label for="listName"><b>List name</b></label>
-            <input maxlength="15" type="text" id="listName" name="listName" v-model="newListName" required>
-            <label for="listPicture"><b>Picture URL</b></label>
-            <input type="text" id="listPicture" name="listPicture" v-model="newPicture">
+            <input maxlength="15" type="text" id="listName" name="listName" v-model="newListName" minlength="1" maxlength="15" title="Minimum 1 character required (maximum 15 allowed)" required>
+
+            <label for="listPicture"><b>Picture URL (optional)</b></label>
+            <input type="text" id="listPicture" name="listPicture" pattern="https?://.+" title="Please enter a valid URL (e.g. http://example.com)">
+
             <label for="weather"><b>Best for which weather?</b></label>
             <select name="weather" id="weather" style="display: block;" required>
                 <option value="sunny">sunny</option>
                 <option value="rainy">rainy</option>
             </select>
 
-
             <button v-on:click=updateList() class="waves-effect waves-light btn cyan darken-3">Submit</button>
 
             <a href="index.html"><button type="button"
                     class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
+                    
             <button v-on:click=deleteList() type="button"
                 class="deletebtn waves-effect waves-light btn red">Delete</button>
         </div>

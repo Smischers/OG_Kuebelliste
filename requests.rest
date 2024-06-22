@@ -76,5 +76,15 @@ GET http://localhost:3000/weather/weatherandtemp/Vienna
 ###
 GET http://localhost:3000/list/ESO Dungeons
 
+###
+PUT http://localhost:3000/list/AnimeList
+Content-Type: application/json
+
+[{
+    "name": "Test2",
+    "picture": "Testestsets"
+}]
+
+
 
 

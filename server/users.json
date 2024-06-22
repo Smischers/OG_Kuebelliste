@@ -2,5 +2,9 @@
   {
     "name": "Julian",
     "password": "$2b$10$q/9ZyuGOOVr1qWo0rwNycOsdKW4kbxpEOOiLlBoWPkgZdtd8/P0yy"
+  },
+  {
+    "name": "Mihael",
+    "password": "$2b$10$nmsWfSKD5ukZbcf2sZmpNO0BBeVogxcbnHF41WKvHunT2d44Z9ftK"
   }
 ]

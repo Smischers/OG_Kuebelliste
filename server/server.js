@@ -10,7 +10,7 @@ const endpoints = require('./files/Endpoints.js')
 const weather = require('./files/Ext-APIs/weather.js');
 const app = express()
 
-const userFilePath = './users.json'
+const userFilePath = './server/users.json'
 
 // Load the Swagger configuration
 const setupSwagger = require('./swaggerConfig');
@@ -226,7 +226,7 @@ app.post('/register', async (req, res) => {
     }
     users.push(user)
     //Add to the users.json file
-    fs.writeFileSync('./server/users.json', JSON.stringify(users, null, 2));
+    fs.writeFileSync(userFilePath, JSON.stringify(users, null, 2));
 
 
     res.status(201).send()
@@ -238,7 +238,7 @@ app.post('/register', async (req, res) => {
 function getUsersFromUserFile() {
   try {
     //Read Users from File/parse them/return them
-      const data = fs.readFileSync('./server/users.json');
+      const data = fs.readFileSync(userFilePath);
       return JSON.parse(data);
   } catch {
     console.log("Problems with reading User File")
@@ -256,6 +256,7 @@ app.get('/posts', authenticateToken, (req, res) => {
 
 //Login a particular User and check the User/Password
 app.post('/login', async (req, res) => {
+  const users = getUsersFromUserFile();
   const user = users.find(user => user.name === req.body.uname)
   console.log(user)
   if (user == null) {

@@ -266,3 +266,14 @@ td {
     list-style-type: circle !important;
     padding-bottom: 1%;
 }
+
+p.trunc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: normal;
+    max-height: 90px !important;
+    line-height: 22.5px !important;
+}

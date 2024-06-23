@@ -36,7 +36,6 @@ exports.getListDetails = function (req, res) {
         console.log("List not found");
     }
 }
-//TODO
 exports.getEntry = function (req, res) {
     let search = [];
     data.forEach(element => search.push(element.name));
@@ -46,12 +45,12 @@ exports.getEntry = function (req, res) {
         data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
         let indexCat = search.findIndex(element => element === req.params.categoryName);
         if (indexCat != -1) {
-            search=[];
-            data[indexList].headers[indexCat][req.params.categoryName].forEach(element=>search.push(element.name));
-            let indexEnt=search.findIndex(element=>element===req.params.entryName);
-            if(indexEnt!=-1){
-                            res.send(data[indexList].headers[indexCat][req.params.categoryName][indexEnt]);
-            }else{
+            search = [];
+            data[indexList].headers[indexCat][req.params.categoryName].forEach(element => search.push(element.name));
+            let indexEnt = search.findIndex(element => element === req.params.entryName);
+            if (indexEnt != -1) {
+                res.send(data[indexList].headers[indexCat][req.params.categoryName][indexEnt]);
+            } else {
                 console.log("Entry not found");
                 res.sendStatus(404);
             }
@@ -73,8 +72,8 @@ exports.createList = function (req, res) {
         console.log("List already exists");
         res.sendStatus(400);
     } else {
-        data.push(req.body);
-        data[data.length - 1].header = [];
+        data.push(req.body[0]);
+        data[data.length - 1].headers = [];
         console.log("Added new List");
         console.log(req.body);
         res.sendStatus(201);
@@ -88,15 +87,20 @@ exports.createCategory = function (req, res) {
         console.log("List doesn´t exists");
         res.sendStatus(404);
     } else {
-        search = [];
-        data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
-        let indexCat = search.findIndex(element => element === req.body.name);
-        if (indexCat == -1) {
+        if (!data[indexList].headers) {
             data[indexList].headers.push({ [req.body[0].name]: [] });
-            console.log(data[indexList]);
         } else {
-            console.log("Category already exists");
-            res.sendStatus(400);
+            search = [];
+            data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
+            let indexCat = search.findIndex(element => element === req.body.name);
+            if (indexCat == -1) {
+                data[indexList].headers.push({ [req.body[0].name]: [] });
+                console.log("Created new Category")
+                console.log(req.body);
+            } else {
+                console.log("Category already exists");
+                res.sendStatus(400);
+            }
         }
     }
 }

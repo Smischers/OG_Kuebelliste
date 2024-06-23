@@ -12,7 +12,6 @@
 
 <body>
     <div id="app">
-        <form id="createListForm">
             <div class="imgcontainer center">
                 <img src="../resources/logoSVG.png" title="Kübelliste Logo" alt="To-Do Liste in Kübel"
                     class="logoLogin">
@@ -31,26 +30,26 @@
                 </select>
 
                 <label for="entryName"><b>Entry name</b></label>
-                <input type="text" id="entryName" name="entryName" :value=this.listEntryName minlength="1"
+                <input v-model="this.newEntryName" type="text" id="entryName" name="entryName" minlength="1"
                     maxlength="25" title="Minimum 1 character required (maximum 25 allowed)" required>
 
                 <label for="rating"><b>Rating</b></label>
-                <input type="text" id="rating" name="rating" pattern="^\d{1,2}/\d{1,2}$"
+                <input v-model="this.listRating" type="text" id="rating" name="rating" pattern="^\d{1,2}/\d{1,2}$"
                     title="Rating format: number/number (e.g. 5/10)" required>
 
                 <label for="description"><b>Description</b></label>
-                <input type="text" id="description" name="description" minlength="1" maxlength="2000"
-                    title="Minimum 1 character required (maximum 2000 allowed)" required>
+                <input v-model="this.listDescription" type="text" id="description" name="description" minlength="1"
+                    maxlength="2000" title="Minimum 1 character required (maximum 2000 allowed)" required>
 
                 <label for="deadline"><b>Deadline</b></label>
-                <input type="text" id="deadline" name="deadline" @blur="validateDeadline"
+                <input v-model="this.listDeadline" type="text" id="deadline" name="deadline" @blur="validateDeadline"
                     pattern="^\d{2}.\d{2}.\d{4}$|^none$" title="Date format: DD.MM.YYYY or 'none'" required>
 
                 <label for="entryPicture"><b>Picture URL (optional)</b></label>
-                <input type="text" id="entryPicture" name="entryPicture" pattern="https?://.+"
-                    title="Please enter a valid URL (e.g. http://example.com)">
+                <input v-model="this.listPicture" type="text" id="entryPicture" name="entryPicture"
+                    pattern="https?://.+" title="Please enter a valid URL (e.g. http://example.com)">
 
-                <button type="submit" class="waves-effect waves-light btn cyan darken-3">Submit</button>
+                <button v-on:click=updateEntry() class="waves-effect waves-light btn cyan darken-3">Submit</button>
 
                 <a :href="`listview.html?listName=${this.listName}`"><button type="button"
                         class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
@@ -58,7 +57,6 @@
                 <button v-on:click=deleteEntry() type="button"
                     class="deletebtn waves-effect waves-light btn red">Delete</button>
             </div>
-        </form>
     </div>
     <script>
         new Vue({
@@ -66,7 +64,12 @@
             data: {
                 listName: "",
                 listEntryName: "",
+                newEntryName: "",
                 listCategory: "",
+                listRating: "",
+                listDescription: "",
+                listDeadline: "",
+                listPicture: ""
             },
             methods: {
                 validateDeadline() {
@@ -97,7 +100,13 @@
 
                 fetchItems() {
                     let fetchedItems = [];
-
+                    fetch(`/list/${this.listName}/${this.listCategory}/${this.listEntryName}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            this.listRating = data.rating
+                            this.listDescription = data.description;
+                            this.listDeadline = data.deadline;
+                        })
 
                 },
                 deleteEntry() {
@@ -116,6 +125,28 @@
                             console.error('Error:', error);
                         });
 
+                },
+                updateEntry() {
+                    fetch(`/list/${this.listName}/${this.listCategory}/${this.listEntryName}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify([{
+                            "name": this.newEntryName,
+                            "rating": this.listRating,
+                            "description": this.listDescription,
+                            "deadline": this.listDeadline,
+                            "calendar": "no"
+                        }])
+                    })
+                        .then(data => {
+                            window.location.href = 'index.html';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
                 }
             },
             mounted() {
@@ -126,6 +157,7 @@
                 if (listParam) {
                     this.listName = listName;
                     this.listEntryName = listParam;
+                    this.newEntryName = listParam;
                     this.listCategory = listCategory;
                     this.fetchItems();
                 }
@@ -134,40 +166,40 @@
     </script>
     <script>/**
 document.getElementById('createListForm').addEventListener('submit', function (event) {
-    event.preventDefault();
+event.preventDefault();
 
-    const formData = {
-        name: document.getElementById('listName').value,
-        picture: document.getElementById('listPicture').value,
-        weather: document.getElementById('weather').value
-    };
-    console.log(formData)
+const formData = {
+    name: document.getElementById('listName').value,
+    picture: document.getElementById('listPicture').value,
+    weather: document.getElementById('weather').value
+};
+console.log(formData)
 
-    fetch('/list', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-        .then(data => {
-            fetch(`/list/${formData.name}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify([{ name: "To-Do" }])
-            })
-                .catch(error => {
-                    console.log('Error:', error);
-                    window.location.href = 'index.html'
-                })
+fetch('/list', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+})
+    .then(data => {
+        fetch(`/list/${formData.name}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify([{ name: "To-Do" }])
         })
-        .then(data => window.location.href = 'index.html')
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Login failed. Please check your credentials and try again.');
-        });
+            .catch(error => {
+                console.log('Error:', error);
+                window.location.href = 'index.html'
+            })
+    })
+    .then(data => window.location.href = 'index.html')
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Login failed. Please check your credentials and try again.');
+    });
 });**/
     </script>
 </body>

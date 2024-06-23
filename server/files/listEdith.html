@@ -25,10 +25,10 @@
             <input maxlength="15" type="text" id="listName" name="listName" v-model="newListName" minlength="1" maxlength="15" title="Minimum 1 character required (maximum 15 allowed)" required>
 
             <label for="listPicture"><b>Picture URL (optional)</b></label>
-            <input type="text" id="listPicture" name="listPicture" pattern="https?://.+" title="Please enter a valid URL (e.g. http://example.com)">
+            <input type="text" id="listPicture" v-model="newPicture" name="listPicture" pattern="https?://.+" title="Please enter a valid URL (e.g. http://example.com)">
 
             <label for="weather"><b>Best for which weather?</b></label>
-            <select name="weather" id="weather" style="display: block;" required>
+            <select v-model="this.newWeather" name="weather" id="weather" style="display: block;" required>
                 <option value="clear">Clear</option>
                 <option value="rain">Rain</option>
             </select>
@@ -49,8 +49,22 @@
                 listName: "",
                 newListName: "",
                 newPicture: "",
+                newWeather: "clear",
             },
             methods: {
+                fetchList() {
+                    fetch(`/list/${this.listName}/details`)
+                        .then(response => response.json())
+                        .then(data => {
+                            this.newPicture = data.image;
+                            //this.newWeather = data.wheater;
+                            console.log(this.newWeather)
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+                },
                 deleteList() {
                     fetch(`/list/${this.listName}`, {
                         method: 'DELETE',
@@ -66,8 +80,6 @@
 
                 },
                 updateList() {
-                    console.log("testests");
-
                     fetch(`/list/${this.listName}`, {
                         method: 'PUT',
                         headers: {
@@ -92,6 +104,7 @@
                 if (listParam) {
                     this.listName = listParam;
                     this.newListName = listParam;
+                    this.fetchList();
                 }
             }
         });

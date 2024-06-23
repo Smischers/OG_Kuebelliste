@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="index.css" />
   <link rel="icon" type="image/x-icon" href="resources/Kuebelliste_Icon.png">
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
@@ -53,7 +54,8 @@
         </div>
       </ul>
     </main>
-    <img v-if="nyanCatVisible == true" src="resources/nyancat.png" :style="`position: absolute; left: ${this.nyanCatPos}px; width:64px`">
+    <img v-if="nyanCatVisible == true" src="resources/nyancat.png"
+      :style="`position: absolute; left: ${this.nyanCatPos}px; width:64px`">
 
     <!-- OUR FOOTER-->
     <kuebelfooter></kuebelfooter>
@@ -142,13 +144,13 @@
           window.addEventListener('resize', this.handleResize);
         }
         let rng = Math.random();
-        if (rng < 0.9) {
+        if (rng < 0.22) {
           let speed = 3;
-          if(rng < 0.08) speed = 12;
+          if (rng < 0.08) speed = 12;
 
           this.nyancatInterval = setInterval(() => {
             this.nyanCatPos += speed;
-            if (this.nyanCatPos >= window.innerWidth - 150) {
+            if (this.nyanCatPos >= window.innerWidth * 0.85) {
               this.nyanCatVisible = false;
               clearInterval(this.nyancatInterval);
             }

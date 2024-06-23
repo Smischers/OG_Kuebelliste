@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const esoData = require('./eso.js')
 const endpoints = require('./files/Endpoints.js')
 const weather = require('./files/Ext-APIs/weather.js');
+const animes = require('./files/Ext-APIs/anime.js');
 const app = express()
 
 // Load the Swagger configuration
@@ -142,8 +143,9 @@ app.get('/weather/dayweather/:city', weather.getDayWeather);
 app.get('/weather/weatherandtemp/:city', weather.getWeatherAndTemperature);
 
 console.log(weather.getAllWeatherData);
+/* ------------------------------------------------------------------------------------------------------------ */
 
-
+app.get('/anime', animes.getRecommendedAnimes);
 
 /* ------------------------------------------------------------------------------------------------------------ */
 //User Login

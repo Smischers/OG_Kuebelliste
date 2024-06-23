@@ -74,4 +74,8 @@ GET http://localhost:3000/weather/dayweather/Vienna
 GET http://localhost:3000/weather/weatherandtemp/Vienna
 
 
+###
+GET http://localhost:3000/anime
+
+
 

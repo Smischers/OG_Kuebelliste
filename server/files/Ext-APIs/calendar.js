@@ -92,9 +92,9 @@ function handleSignoutClick() {
   }
 }
 
-async function addDeadlineToCalendar(name, date) {
+async function addDeadlineToCalendar(name, deadline) {
   // Parse the input date string
-  const [day, month, year] = date.split('.');
+  const [day, month, year] = deadline.split('.');
   const eventStartTime = new Date(year, month - 1, day, 0, 0, 0);
   // Set the time zone to Vienna
   const timeZone = 'Europe/Vienna';

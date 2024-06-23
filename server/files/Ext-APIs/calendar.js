@@ -101,16 +101,17 @@ async function addDeadlineToCalendar(name, date) {
 
   // Create an event end time 45 minutes after the start time
   const eventEndTime = new Date(eventStartTime);
-  eventEndTime.setMinutes(eventEndTime.getMinutes() + 45);
+  eventEndTime.setHours(eventEndTime.getMinutes() + 23);
+  eventEndTime.setMinutes(eventEndTime.getMinutes() + 59);
 
   let event = {
     'summary': name,
     'start': {
-      'dateTime': eventStartTime.toISOString(),
+      'dateTime': eventStartTime,
       'timeZone': timeZone
     },
     'end': {
-      'dateTime': eventEndTime.toISOString(),
+      'dateTime': eventEndTime,
       'timeZone': timeZone
     },
     'colorId': 1,

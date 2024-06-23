@@ -27,7 +27,7 @@
         Vienna: {{weather.weather}}, {{ weather.temperature }}°C</p>
       <div class="clear"></div>
 
-      <div v-if="items.length == 0" class="row left fixed-main">
+      <div v-if="!hasAccessToken()" class="row left fixed-main">
         <div class="slogan">
           <p style="font-size: 200%; margin-top: 15%; margin-bottom: 0;">Never forget your experiences. Save what you want to do next.
           </p>
@@ -89,13 +89,16 @@
           this.resizeEvent;
           const chunkSize = Math.floor(window.innerWidth / 225);
           const result = [];
-          for (let i = 0; i < this.items.length; i += chunkSize) {
-            let slice = this.items.slice(i, i + chunkSize);
-            if (this.textInput != "") {
-              slice = slice.filter(item =>
+          let allItems = this.items;
+
+          if (this.textInput != "") {
+              allItems = allItems.filter(item =>
                 item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List"
               );
-            }
+          }
+
+          for (let i = 0; i < allItems.length; i += chunkSize) {
+            let slice = allItems.slice(i, i + chunkSize);
             result.push(slice);
           }
 
@@ -116,7 +119,6 @@
             })
             .then(list => {
               this.items = fetchedItems
-              console.log(fetchedItems)
             }
             )
             .catch(err => console.log(err));

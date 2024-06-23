@@ -117,12 +117,15 @@
           if (this.chosenAPI == "anime") {
             return fetch("/anime").
               then(res => res.json()).
-              then(data => data.map(anime => ({ name: anime.title.english, img: anime.coverImage.large, description: anime.description })));
+              then(data => data.map(anime => ({ name: anime.title.english, img: anime.coverImage.large, description: this.stripHtmlTags(anime.description) })));
           }
           return null;
         },
         handleResize() {
           this.resizeEvent++;
+        },
+        stripHtmlTags(text) {
+          return text.replace(/<\/?[^>]+(>|$)/g, "");
         },
       },
       mounted() {

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edith</title>
+    <title>Kübelliste!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="edith.css">
     <link rel="icon" type="image/x-icon" href="resources/Kuebelliste_Icon.png">
@@ -18,17 +18,18 @@
             <img src="../resources/logoSVG.png" title="Kübelliste Logo" alt="To-Do Liste in Kübel" class="logoLogin">
         </div>
 
-        <div class="container" style="max-width: 40%;border: 2px solid #00838f; padding: 20px 30px; border-radius: 5%;">
+        <div class="container form-container">
             <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
 
             <label for="listName"><b>List name</b></label>
-            <input maxlength="15" type="text" id="listName" name="listName" v-model="newListName" minlength="1" maxlength="15" title="Minimum 1 character required (maximum 15 allowed)" required>
+            <input type="text" id="listName" name="listName" v-model="newListName" minlength="1" maxlength="15" title="Minimum 1 character required (maximum 15 allowed)" required>
 
             <label for="listPicture"><b>Picture URL (optional)</b></label>
             <input type="text" id="listPicture" v-model="newPicture" name="listPicture" pattern="https?://.+" title="Please enter a valid URL (e.g. http://example.com)">
 
             <label for="weather"><b>Best for which weather?</b></label>
             <select v-model="this.newWeather" name="weather" id="weather" style="display: block;" required>
+                <option value="" disabled selected>Select weather</option>
                 <option value="clear">Clear</option>
                 <option value="rain">Rain</option>
             </select>

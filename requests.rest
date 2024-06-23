@@ -88,6 +88,10 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/list/AnimeList
 
+###
+GET http://localhost:3000/anime
+
+
 
 ###
 

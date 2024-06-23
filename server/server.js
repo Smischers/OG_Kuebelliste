@@ -87,6 +87,8 @@ app.use(express.static(path.join(__dirname, 'files')));
 app.get('/list', endpoints.getList);
 app.get('/list/:listName', endpoints.getListByName);
 app.get('/listIcons', endpoints.getListNamesIcons);
+app.get('/list/:listName/details',endpoints.getListDetails);
+app.get('/list/:listName/:categoryName/:entryName',endpoints.getEntry);
 
 /**
  * @swagger
@@ -128,7 +130,7 @@ app.post('/list/:listName/:categoryName', endpoints.createEntry);
 
 app.put('/list/:listName', endpoints.updateLists);
 app.put('/list/:listName/:categoryName', endpoints.updateCategorys);
-//app.put('/list/:listName/:categoryName/:entryName',endpoints.updateEntry);
+app.put('/list/:listName/:categoryName/:entryName',endpoints.updateEntry);
 
 app.delete('/list/:listName', endpoints.deleteList);
 app.delete('/list/:listName/:categoryName', endpoints.deleteCategory);

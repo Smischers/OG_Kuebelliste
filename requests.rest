@@ -77,6 +77,9 @@ GET http://localhost:3000/weather/weatherandtemp/Vienna
 GET http://localhost:3000/list/ESO Dungeons
 
 ###
+GET http://localhost:3000/listIcons
+
+###
 PUT http://localhost:3000/list/AnimeList
 Content-Type: application/json
 
@@ -85,6 +88,20 @@ Content-Type: application/json
     "picture": "Testestsets"
 }]
 
+###
+GET http://localhost:3000/list/ESO Dungeons/To-Do/Coral Aerie
 
+###
+GET http://localhost:3000/list/ESO Dungeons/details
 
+###
+PUT http://localhost:3000/list/ESO Dungeons/To Do/Coral Aerie
+Content-Type: application/json
 
+[{ 
+    "name": "New entry name1", 
+    "rating": "10 / 10", 
+    "description": "Descripton", 
+    "deadline": "30.03.2024", 
+    "calendar": "yes"
+}]

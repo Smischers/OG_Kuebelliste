@@ -30,11 +30,11 @@ Vue.component('navbar', {
         <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black; padding-left: 1.5%; padding-right: 1.5%;" role="navigation">
           <ul class="tabs tabs-transparent navSections" style="height: 38px;">
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
-                href="https://myanimelist.net/topanime.php" title="MyAnimeList Top Animes" target="_blank">Anime</a></li>
+                href="externalView.html?api=anime" title="MyAnimeList Top Animes">Anime</a></li>
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
                  href="https://myanimelist.net/topmanga.php" title="MyAnimeList Top Mangas" target="_blank">Manga</a></li>
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
-                href="https://elderscrollsonline.wiki.fextralife.com/Dungeons" title="The Elder Scrolls Online Wiki Dungeons" target="_blank">ESO Dungeons</a>
+                href="externalView.html?api=eso" title="The Elder Scrolls Online Wiki Dungeons">ESO Dungeons</a>
             </li>
             <li v-if="hasAccessToken()" class="tab section"><a class="btn cyan darken-3 secHeader"
                  href="index.html">My Lists</a>

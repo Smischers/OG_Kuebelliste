@@ -2,6 +2,7 @@ main = [
     {
         name: "ESO Dungeons",
         picture: "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
+        wheater: "Sunny",
         headers: [
             {
                 "To-Do": [
@@ -37,7 +38,9 @@ main = [
 
     },
     {
-        name: "AnimeList", picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
+        name: "AnimeList", 
+        picture: "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg",
+        wheater: "Sunny",
         headers: [
             {
                 "To Do":

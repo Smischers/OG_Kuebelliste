@@ -53,7 +53,9 @@ Vue.component('navbar', {
               </form>
             </li>
           </ul>
-          <a href="#" style="color:black;"data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <a href="#" style="margin-top: 24px;" data-target="mobile-demo" class="sidenav-trigger">
+            <i style="height: 24px;line-height: 24px;background: #00838f;border-radius: 4px;" class="material-icons">menu</i>
+          </a>
         </div>
         <ul class="sidenav" id="mobile-demo">
           <li><a href="externalView.html?api=anime">Anime</a></li>
@@ -62,6 +64,7 @@ Vue.component('navbar', {
           <li><a href="index.html">My Lists</a></li>
           <li v-if="!hasAccessToken()"><a href="login.html">Login</a></li>
           <li v-if="!hasAccessToken()"><a href="register.html">Register</a></li>
+          <li v-else><a v-on:click=deleteAllCookies() href="index.html">Log Out</a></li>
       </ul>
       </nav>`,
   props: ['inputText'],

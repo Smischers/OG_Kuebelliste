@@ -105,6 +105,20 @@
     });
 
   </script>
+
+      <!-- Add these buttons for authorization and sign-out -->
+      <button id="authorize_button">Authorize</button>
+      <button id="signout_button">Sign Out</button>
+      
+      <!-- Add this button for adding a deadline to the calendar -->
+      <button id="add_deadline_button">Add Deadline to Calendar</button>
+  
+      <pre id="content"></pre>
+  
+      <script src="Ext-APIs/calendar.js"></script>
+      <script src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+      <script src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+      
 </body>
 
 </html>

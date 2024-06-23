@@ -99,7 +99,7 @@ function handleSignoutClick() {
 
 async function addDeadlineToCalendar() {
 
-  const dataModelEntry = dataModel.List1.Header1.Entry1;
+  //const dataModelEntry = dataModel.List1.Header1.Entry1;
 
   const eventStartTime = new Date();
 
@@ -112,7 +112,7 @@ async function addDeadlineToCalendar() {
 let event = {
   'summary': 'TestTitle',
   'location': 'Favoritenstraße 226, 1100 Wien, Österreich',
-  'description': dataModelEntry.Description,
+  'description': 'Test Description',
   'start': {
     'dateTime': eventStartTime.toISOString(),
     'timeZone': 'Europe/Vienna'
@@ -142,5 +142,21 @@ let event = {
     pre.appendChild(textContent);
   } 
 }  
+
+
+// Attach the functions to the global scope
+window.gapiLoaded = gapiLoaded;
+window.gisLoaded = gisLoaded;
+window.handleAuthClick = handleAuthClick;
+window.handleSignoutClick = handleSignoutClick;
+window.addDeadlineToCalendar = addDeadlineToCalendar;
+
+
+// Add event listener to the add deadline button
+document.getElementById('add_deadline_button').addEventListener('click', addDeadlineToCalendar);
+
+// Existing event listeners for authorize and signout buttons
+document.getElementById('authorize_button').addEventListener('click', handleAuthClick);
+document.getElementById('signout_button').addEventListener('click', handleSignoutClick);
 
 

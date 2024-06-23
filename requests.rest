@@ -105,3 +105,6 @@ Content-Type: application/json
     "deadline": "30.03.2024", 
     "calendar": "yes"
 }]
+
+###
+GET http://localhost:3000/weather/weatherandtemp/Vienna

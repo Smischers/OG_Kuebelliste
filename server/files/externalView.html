@@ -20,7 +20,7 @@
 
     <main>
       <!-- here comes data -->
-      <h1 v-if="items.length != 0" style="width: 50%; float: left;">My Lists</h1>
+      <h1 v-if="items.length != 0" style="width: 50%; float: left;">{{ this.getListName }}</h1>
       <p
         style="width: 50%; float: right; text-align: right; margin-top: 5px !important; margin-bottom: 0; font-size: 100%;">
         Vienna: {{weather.weather}}, {{ weather.temperature }}°C</p>
@@ -29,23 +29,20 @@
         <div class="row center">
 
           <li>
-            <p v-if="items.length == 0">NICHT EINGELOGGT VENA</p>
             <div class="center" v-for="item in rowChunks">
               <div v-for="card in item" class="col s2.5">
-
-                <a :href="getCardLink(card.name)">
-                  <div class="card hoverable" style="width: 170px; height: 220px;">
-                    <div class="card-image">
-                      <img v-if="card.picture != ''" :src=card.picture style="width:170px; height:150px;">
-                      <img v-else src=resources/Kuebelliste_Icon.png style="width:170px; height:150px;">
-                    </div>
-                    <div class="card-content">
-                      <span class="card-title center" style="font-size: 18.5px !important; color: black !important;"><b
-                          style="overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;">{{
-                          card.name }}</b></span>
-                    </div>
+                <div class="card hoverable" style="width: 170px; height: 220px;">
+                  <div class="card-image">
+                    <img v-if="card.img != ''" :src=card.img style="width:170px; height:150px;">
+                    <img v-else src=resources/Kuebelliste_Icon.png style="width:170px; height:150px;">
                   </div>
-                </a>
+                  <div class="card-content">
+                    <span class="card-title center" style="font-size: 18.5px !important; color: black !important;"><b
+                        style="overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;">{{
+                        card.name }}</b></span>
+                  </div>
+                  
+                </div>
               </div>
             </div>
           </li>
@@ -68,7 +65,8 @@
         resizeEvent: 0,
         items: [],
         textInput: "",
-        weather: ""
+        weather: "",
+        chosenAPI: "",
       },
       computed: {
         rowChunks() {
@@ -79,7 +77,7 @@
             let slice = this.items.slice(i, i + chunkSize);
             if (this.textInput != "") {
               slice = slice.filter(item =>
-                item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List" 
+                item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List"
               );
             }
             result.push(slice);
@@ -87,58 +85,52 @@
 
           return result;
         },
+        getListName() {
+          if (this.chosenAPI === "anime") return "AniList Top 10 Anime"
+          else if (this.chosenAPI === "eso") return "ESO Dungeons";
+
+          return "External API";
+        },
       },
       methods: {
         fetchItems() {
           let fetchedItems = [];
 
-          fetch("/list")
-            .then(res => res.json())
+          this.getChosenEndpointData()
             .then(data => {
               fetchedItems = data;
-              fetchedItems.push({
-                name: "New List", picture: "../resources/Plus_symbol.png",
-              })
             })
             .then(list => {
               this.items = fetchedItems
-              console.log(fetchedItems)
-            }
-            )
+            })
             .catch(err => console.log(err));
+
+          fetch("weather/weatherandtemp/Vienna")
+            .then(weather => weather.json())
+            .then(data => this.weather = data)
+            .catch(error => console.log(error))
+        },
+        getChosenEndpointData() {
+          if (this.chosenAPI == "eso") return fetch("/eso").then(res => res.json())
+          if (this.chosenAPI == "anime") {
+            return fetch("/anime").
+              then(res => res.json()).
+              then(data => data.map(anime => ({ name: anime.title.english, img: anime.coverImage.large, description: anime.description })));
+          }
+          return null;
         },
         handleResize() {
           this.resizeEvent++;
         },
-        getCardLink(cardName) {
-          if (cardName === 'New List') {
-            return 'newList.html';
-          } else {
-            return `listview.html?listName=${cardName}`;
-          }
-        },
-        hasAccessToken() {
-          // Get the value of the accessToken cookie
-          let value = "; " + document.cookie;
-          let parts = value.split("; accessToken=");
-          if (parts.length === 2) {
-            let accessToken = parts.pop().split(";").shift();
-            return accessToken !== "";
-          }
-          return false;
-        }
       },
       mounted() {
-        fetch("weather/weatherandtemp/Vienna")
-            .then(weather => weather.json())
-            .then(data => this.weather = data)
-            .catch(error => console.log(error))
-        if (this.hasAccessToken()) {
-          this.fetchItems();
-          window.addEventListener('resize', this.handleResize);
-        } else {
-
+        const params = new URLSearchParams(window.location.search);
+        const chosenAPI = params.get('api');
+        if (chosenAPI) {
+          this.chosenAPI = chosenAPI;
         }
+        this.fetchItems();
+        window.addEventListener('resize', this.handleResize);
       }
     });
   </script>

@@ -51,7 +51,7 @@
                   </thead>
                   <tbody>
                     <tr v-for="entry in value">
-                      <td style=" overflow: hidden !important; text-overflow: ellipsis !important; white-space: normal !important;"><a :href="`listentry.html?listName=${listName}&listCategory=${category}&listEntry=${entry.name}`"
+                      <td style=" overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;"><a :href="`listentry.html?listName=${listName}&listCategory=${category}&listEntry=${entry.name}`"
                           style="color: black;">{{ entry.name
                           }}</a></td>
                       <td>{{ entry.rating }}</td>
@@ -59,7 +59,7 @@
                       <td>{{ entry.deadline }}</td>
                       <td class="editItem"><a href="#" title="Add to calendar"><i class="material-icons valign-wrapper"
                             style="font-size: 1.2em;">event</i></a></td>
-                      <td class="editItem"><a :href="`listentryEdith.html?listName=${listName}&listCategory=${category}&listEntry=${entry.name}`" title="Edit this item"><i class="material-icons valign-wrapper"
+                      <td class="editItem"><a :href="`listentryEdith.html?listName=${listName}&category=${category}&listEntry=${entry.name}`" title="Edit this item"><i class="material-icons valign-wrapper"
                             style="font-size: 1.2em;">edit</i></a></td>
                     </tr>
                   </tbody>

@@ -26,11 +26,19 @@
         style="width: 50%; float: right; text-align: right; margin-top: 5px !important; margin-bottom: 0; font-size: 100%;">
         Vienna: {{weather.weather}}, {{ weather.temperature }}°C</p>
       <div class="clear"></div>
+
+      <div v-if="items.length == 0" class="row left fixed-main">
+        <div class="slogan">
+          <p style="font-size: 200%; margin-top: 15%; margin-bottom: 0;">Never forget your experiences. Save what you want to do next.
+          </p>
+          <p style="font-size: 250%; margin-top: 1%"><b>Start planning your free time today.</b></p>
+        </div>
+        <img src="resources/idea_home.jpg" class="slogan-img">
+      </div>
+
       <ul>
         <div class="row center">
-
           <li>
-            <p v-if="items.length == 0">NICHT EINGELOGGT VENA</p>
             <div class="center" v-for="item in rowChunks">
               <div v-for="card in item" class="col s2.5">
 
@@ -160,16 +168,16 @@
     });
   </script>
 
-      <!-- Add these buttons for authorization and sign-out -->
-  
-      
-      <!-- Add this button for adding a deadline to the calendar -->
-      <button id="add_deadline_button">Add Deadline to Calendar</button>
-    
-      <script src="Ext-APIs/calendar.js"></script>
-      <script src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-      <script src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
-      
+  <!-- Add these buttons for authorization and sign-out -->
+
+
+  <!-- Add this button for adding a deadline to the calendar -->
+  <!--<button id="add_deadline_button">Add Deadline to Calendar</button>-->
+
+  <script src="Ext-APIs/calendar.js"></script>
+  <script src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+  <script src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+
 </body>
 
 </html>

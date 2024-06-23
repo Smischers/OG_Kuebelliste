@@ -90,20 +90,6 @@ Vue.component('kuebelfooter', {
   /*html*/
   template: `
   <footer class="page-footer cyan darken-3 noPadding">
-    <div class="container" style="width: 50vw; height: 50px;">
-      <div class="row center" style="margin-bottom:0px; height: 0px; padding-top: 15px;">
-        <div class="col s12 m6 l3 noPadding"><a href="index.html">Home</a></div>
-        <div class="col s12 m6 l3 noPadding"><a href="#">About</a></div>
-        <div class="col s12 m6 l3 noPadding"><a href="#">FAQ</a></div>
-        <div class="col s12 m6 l3 noPadding"><a href="#">Cookie</a></div>
-        <div class="col s12 m6 l3 noPadding"><a href="register.html">Sign up</a></div>
-        <div class="col s12 m6 l3 noPadding"><a href="login.html">Log in</a></div>
-        <!-- This content will be:
-          9-columns-wide on large screens,
-          8-columns-wide on medium screens,
-          12-columns-wide on small screens  -->
-      </div>
-    </div>
     <div class="footer-copyright noPadding" style="height: 40px">
       <div class="container center" style="height: 40px; padding-top: 10px;">
         © 2024 Kübelliste

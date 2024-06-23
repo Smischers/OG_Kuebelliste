@@ -106,11 +106,6 @@
             }
             )
             .catch(err => console.log(err));
-
-          fetch("weather/weatherandtemp/Vienna")
-            .then(weather => weather.json())
-            .then(data => this.weather = data)
-            .catch(error => console.log(error))
         },
         handleResize() {
           this.resizeEvent++;
@@ -134,6 +129,10 @@
         }
       },
       mounted() {
+        fetch("weather/weatherandtemp/Vienna")
+            .then(weather => weather.json())
+            .then(data => this.weather = data)
+            .catch(error => console.log(error))
         if (this.hasAccessToken()) {
           this.fetchItems();
           window.addEventListener('resize', this.handleResize);

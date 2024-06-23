@@ -9,14 +9,14 @@ get_ListDetails = { image: "picLink", wheater: "Sunny", categorys: ["name1", "na
 get_Entry = { name: "Entry Name", rating: "10 / 10", description: "Descripton", deadline: "30.03.2024", calendar: "yes", wheater: "sunny" }
 
 
-post_List = [{ name: "List Name", picture: "A Link", prefearedWeather: "Sunny" }]
+post_List = [{ name: "List Name", picture: "A Link", weather: "Sunny" }]
 
 post_Category = [{ name: "Category Name" }]
 
 post_Entry = [{ name: "Entry Name", rating: "10 / 10", description: "Descripton", deadline: "30.03.2024", calendar: "yes" }]
 
 
-put_List = [{ name: "New List Name", picture: "New Pic", prefearedWeather: "Sunny" }]
+put_List = [{ name: "New List Name", picture: "New Pic", weather: "Sunny" }]
 
 put_Category = [{ name: "New Category Name" }]
 

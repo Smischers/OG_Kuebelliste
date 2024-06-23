@@ -12,6 +12,7 @@ exports.getListByName = function (req, res) {
     if (indexList != -1) {
         res.send(data[indexList].headers);
     } else {
+        console.log("List not found");
         res.sendStatus(404);
     }
 }
@@ -69,7 +70,7 @@ exports.createList = function (req, res) {
     let search = [];
     data.forEach(element => search.push(element.name));
     if (search.includes(req.body.name)) {
-        console.log("List already exists");
+        console.log("List not found");
         res.sendStatus(400);
     } else {
         data.push(req.body[0]);
@@ -84,7 +85,7 @@ exports.createCategory = function (req, res) {
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
     if (indexList == -1) {
-        console.log("List doesn´t exists");
+        console.log("List not found");
         res.sendStatus(404);
     } else {
         if (!data[indexList].headers) {
@@ -95,7 +96,8 @@ exports.createCategory = function (req, res) {
             let indexCat = search.findIndex(element => element === req.body.name);
             if (indexCat == -1) {
                 data[indexList].headers.push({ [req.body[0].name]: [] });
-                console.log("Created new Category")
+                res.sendStatus(201);
+                console.log("Created new Category");
                 console.log(req.body);
             } else {
                 console.log("Category already exists");
@@ -115,14 +117,15 @@ exports.createEntry = function (req, res) {
         if (indexCat != -1) {
             search = [];
             data[indexList].headers[indexCat][req.params.categoryName].push(req.body[0]);
-            console.log(data[indexList].headers[indexCat][req.params.categoryName])
-            res.sendStatus(200);
+            console.log("Created Entry");
+            console.log(data[indexList].headers[indexCat][req.params.categoryName]);
+            res.sendStatus(201);
         } else {
-            console.log("Category doesn´t exists");
+            console.log("Category not found");
             res.sendStatus(404);
         }
     } else {
-        console.log("List doesn´t exist");
+        console.log("List not found");
         res.sendStatus(404);
     }
 }
@@ -135,6 +138,7 @@ exports.updateLists = function (req, res) {
     if (indexList != -1) {
         data[indexList].name = req.body[0].name;
         data[indexList].picture = req.body[0].picture;
+        data[indexList].wheater = req.body[0].wheater;
         console.log(data[indexList]);
         res.sendStatus(200);
     } else {
@@ -161,7 +165,7 @@ exports.updateCategorys = function (req, res) {
             data[indexList].headers[indexCat][new_key] = req.body[1];
             console.log(data[indexList].headers);
         } else {
-            console.log("Category doesn´t exists");
+            console.log("Category not found");
             res.sendStatus(404);
         }
     } else {
@@ -169,9 +173,34 @@ exports.updateCategorys = function (req, res) {
         res.sendStatus(404);
     }
 }
-//TODO
 exports.updateEntry = function (req, res) {
-    res.send(data);
+    let search = [];
+    data.forEach(element => search.push(element.name));
+    let indexList = search.findIndex(ele => ele === req.params.listName);
+    if (indexList != -1) {
+        search = [];
+        data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
+        let indexCat = search.findIndex(element => element === req.params.categoryName);
+        if (indexCat != -1) {
+            search = [];
+            data[indexList].headers[indexCat][req.params.categoryName].forEach(element => search.push(element.name));
+            let indexEnt = search.findIndex(element => element === req.params.entryName);
+            if (indexEnt != -1) {
+                res.sendStatus(200);
+                console.log("Updated Entry");
+                console.log(req.body)
+            } else {
+                console.log("Entry not found");
+                res.sendStatus(404);
+            }
+        } else {
+            console.log("Category not found");
+            res.sendStatus(404);
+        }
+    } else {
+        console.log("List not found");
+        res.sendStatus(404);
+    }
 }
 
 //DELETE-Endpoints
@@ -183,7 +212,7 @@ exports.deleteList = function (req, res) {
         data.splice(indexList, 1);
         res.sendStatus(201);
     } else {
-        console.log("List doesn´t exist");
+        console.log("List not found");
         res.sendStatus(404);
     }
 }
@@ -198,11 +227,11 @@ exports.deleteCategory = function (req, res) {
         if (indexCat != -1) {
             data[indexList].headers.splice(indexCat, 1);
         } else {
-            console.log("Category doesn´t exists");
+            console.log("Category not found");
             res.sendStatus(404);
         }
     } else {
-        console.log("List doesn´t exist");
+        console.log("List not found");
         res.sendStatus(404);
     }
 }
@@ -224,11 +253,11 @@ exports.deleteEntry = function (req, res) {
                 res.sendStatus(404);
             }
         } else {
-            console.log("Category doesn´t exists");
+            console.log("Category not found");
             res.sendStatus(404);
         }
     } else {
-        console.log("List doesn´t exist");
+        console.log("List not found");
         res.sendStatus(404);
     }
 }

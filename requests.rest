@@ -108,3 +108,46 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/weather/weatherandtemp/Vienna
+
+###
+GET http://localhost:3000/list
+
+###
+POST http://localhost:3000/list
+Content-Type: application/json
+
+[{
+    "name":"New List",
+    "picture":"Link",
+    "wheater":"sunny"
+}]
+
+###
+POST http://localhost:3000/list/New List
+Content-Type: application/json
+
+[{
+    "name":"New Cat"
+}]
+
+###
+POST http://localhost:3000/list/New List/New Cat
+Content-Type: application/json
+
+[{ 
+    "name": "Entry Name", 
+    "rating": "10 / 10", 
+    "description": "Descripton", 
+    "deadline": "30.03.2024", 
+    "calendar": "yes" 
+}]
+
+###
+PUT http://localhost:3000/list/New List
+Content-Type: application/json
+
+[{ 
+    "name": "New List", 
+    "picture": "New Pic", 
+    "wheater": "Rain" 
+}]

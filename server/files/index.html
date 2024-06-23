@@ -76,7 +76,13 @@
           const chunkSize = Math.floor(window.innerWidth / 225);
           const result = [];
           for (let i = 0; i < this.items.length; i += chunkSize) {
-            result.push(this.items.slice(i, i + chunkSize));
+            let slice = this.items.slice(i, i + chunkSize);
+            if (this.textInput != "") {
+              slice = slice.filter(item =>
+                item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List" 
+              );
+            }
+            result.push(slice);
           }
 
           return result;

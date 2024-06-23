@@ -85,6 +85,11 @@ Content-Type: application/json
     "picture": "Testestsets"
 }]
 
+###
+GET http://localhost:3000/list/AnimeList
 
 
+###
+
+GET http://localhost:3000/weather/weatherandtemp/Vienna
 

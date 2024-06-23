@@ -53,6 +53,7 @@
         </div>
       </ul>
     </main>
+    <img v-if="nyanCatVisible == true" src="resources/nyancat.png" :style="`position: absolute; left: ${this.nyanCatPos}px; width:64px`">
 
     <!-- OUR FOOTER-->
     <kuebelfooter></kuebelfooter>
@@ -68,7 +69,10 @@
         resizeEvent: 0,
         items: [],
         textInput: "",
-        weather: ""
+        weather: "",
+        nyanCatPos: -100,
+        nyancatInterval: "",
+        nyanCatVisible: true
       },
       computed: {
         rowChunks() {
@@ -79,7 +83,7 @@
             let slice = this.items.slice(i, i + chunkSize);
             if (this.textInput != "") {
               slice = slice.filter(item =>
-                item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List" 
+                item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List"
               );
             }
             result.push(slice);
@@ -130,14 +134,25 @@
       },
       mounted() {
         fetch("weather/weatherandtemp/Vienna")
-            .then(weather => weather.json())
-            .then(data => this.weather = data)
-            .catch(error => console.log(error))
+          .then(weather => weather.json())
+          .then(data => this.weather = data)
+          .catch(error => console.log(error))
         if (this.hasAccessToken()) {
           this.fetchItems();
           window.addEventListener('resize', this.handleResize);
-        } else {
+        }
+        let rng = Math.random();
+        if (rng < 0.9) {
+          let speed = 3;
+          if(rng < 0.08) speed = 12;
 
+          this.nyancatInterval = setInterval(() => {
+            this.nyanCatPos += speed;
+            if (this.nyanCatPos >= window.innerWidth - 150) {
+              this.nyanCatVisible = false;
+              clearInterval(this.nyancatInterval);
+            }
+          }, 15);
         }
       }
     });

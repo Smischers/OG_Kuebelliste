@@ -9,6 +9,7 @@ const esoData = require('./eso.js')
 const endpoints = require('./files/Endpoints.js')
 const weather = require('./files/Ext-APIs/weather.js');
 const animes = require('./files/Ext-APIs/anime.js');
+const mangas = require('./files/Ext-APIs/manga.js');
 const cookieParser = require('cookie-parser');
 const app = express()
 
@@ -154,6 +155,9 @@ console.log(weather.getAllWeatherData);
 /* ------------------------------------------------------------------------------------------------------------ */
 
 app.get('/anime', animes.getRecommendedAnimes);
+app.get('/manga', mangas.getRecommendedMagas);
+
+
 
 /* ------------------------------------------------------------------------------------------------------------ */
 //User Login

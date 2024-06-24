@@ -24,7 +24,7 @@
                     <h2 style="margin-top: 0; font-size: 100%" class="center"><b>{{ this.listEntryName }}</b></h2>
 
                     <label for="category"><b>Category</b></label>
-                    <select name="category" id="category" style="display: block;" required>
+                    <select v-model="newlistCategory" name="category" id="category" style="display: block;" required>
                         <option value="" disabled selected>Select category</option>
                         <option v-for="category in categories" :value="category">{{ category }}</option>
                     </select>
@@ -72,6 +72,7 @@
                 listDescription: "",
                 listDeadline: "",
                 listPicture: "",
+                newlistCategory: "",
                 categories: ""
             },
             methods: {
@@ -152,7 +153,23 @@
                         }])
                     })
                         .then(data => {
-                            window.location.href = `listview.html?listName=${this.listName}`;
+                            console.log(this.listCategory)
+                            fetch(`/list/${this.listName}/${this.listCategory}/${this.listEntryName}/change`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    newCat: this.newlistCategory
+                                })
+                            })
+                                .then(data => {
+                                    window.location.href = `listview.html?listName=${this.listName}`;
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+
                         })
                         .catch(error => {
                             console.error('Error:', error);

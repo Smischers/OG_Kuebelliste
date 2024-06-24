@@ -102,6 +102,7 @@
         getListName() {
           if (this.chosenAPI === "anime") return "AniList Top 10 Anime"
           else if (this.chosenAPI === "eso") return "ESO Dungeons";
+          else if (this.chosenAPI === "manga") return "AniList Top 10 Manga";
 
           return "External API";
         },
@@ -130,6 +131,11 @@
             return fetch("/anime").
               then(res => res.json()).
               then(data => data.map(anime => ({ name: anime.title.english, img: anime.coverImage.large, description: this.stripHtmlTags(anime.description) })));
+          }
+          if (this.chosenAPI == "manga") {
+            return fetch("/manga").
+              then(res => res.json()).
+              then(data => data.map(manga => ({ name: manga.title.english, img: manga.coverImage.large, description: this.stripHtmlTags(manga.description) })));
           }
           return null;
         },

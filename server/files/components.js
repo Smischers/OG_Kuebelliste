@@ -32,7 +32,7 @@ Vue.component('navbar', {
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
                 href="externalView.html?api=anime" title="MyAnimeList Top Animes">Anime</a></li>
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
-                 href="https://myanimelist.net/topmanga.php" title="MyAnimeList Top Mangas" target="_blank">Manga</a></li>
+                 href="externalView.html?api=manga" title="MyAnimeList Top Mangas">Manga</a></li>
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
                 href="externalView.html?api=eso" title="The Elder Scrolls Online Wiki Dungeons">ESO Dungeons</a>
             </li>
@@ -60,7 +60,7 @@ Vue.component('navbar', {
         </div>
         <ul class="sidenav" id="mobile-demo">
           <li><a href="externalView.html?api=anime">Anime</a></li>
-          <li><a href="#">Mangas</a></li>
+          <li><a href="externalView.html?api=manga">Mangas</a></li>
           <li><a href="externalView.html?api=eso">ESO Dungeons</a></li>
           <li><a href="index.html">My Lists</a></li>
           <li v-if="!hasAccessToken()"><a href="login.html">Login</a></li>

@@ -16,8 +16,7 @@ exports.readFile = function (path) {
     try {
         result = fs.readFileSync(path);
     } catch (error) {
-        console.log("Error reading file");
-        console.log(error);
+        console.log("No File found");
         result=[];
         return result;
     }

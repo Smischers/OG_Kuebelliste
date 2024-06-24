@@ -1,10 +1,27 @@
 const e = require('express');
-const data = require('../dataModel')
+//const data = require('../dataModel');
+const server = require('../server');
+var fs = require('fs');
+const fileManager = require('../files/fileManager');
+const { get } = require('http');
+
+function getData(path) {
+    path = "List_Data/" + path + ".json";
+    let ret = fileManager.readFile(path);
+    return ret;
+}
+function saveData(fileName, data) {
+    path = "List_Data/" + fileName + ".json";
+    fileManager.writeFile(path, data);
+}
+
 //GET-Endpoints
 exports.getList = function (req, res) {
-    res.send(data)
+    let data = getData("Test");
+    res.send(data);
 }
 exports.getListByName = function (req, res) {
+    let data = getData("Test");
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -17,6 +34,7 @@ exports.getListByName = function (req, res) {
     }
 }
 exports.getListNamesIcons = function (req, res) {
+    let data = getData("Test");
     let keys = Object.keys(data)
     var nameIcons = new Array
     for (let i = 0; i < keys.length; i++) {
@@ -25,19 +43,21 @@ exports.getListNamesIcons = function (req, res) {
     res.send(nameIcons)
 }
 exports.getListDetails = function (req, res) {
+    let data = getData("Test");
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(element => element == req.params.listName);
     if (indexList != -1) {
         let categoryNames = [];
         data[indexList].headers.forEach(element => categoryNames.push(Object.keys(element)[0]));
-        res.send({ image: data[indexList].picture, wheater: data[indexList].wheater, categorys: categoryNames });
+        res.send({ image: data[indexList].picture, weather: data[indexList].weather, categorys: categoryNames });
     } else {
         res.sendStatus(404);
         console.log("List not found");
     }
 }
 exports.getEntry = function (req, res) {
+    let data = getData("Test");
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -132,13 +152,15 @@ exports.createEntry = function (req, res) {
 
 //PUT-Endpoints
 exports.updateLists = function (req, res) {
+    let data = getData("Test")
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
     if (indexList != -1) {
         data[indexList].name = req.body[0].name;
         data[indexList].picture = req.body[0].picture;
-        data[indexList].wheater = req.body[0].wheater;
+        data[indexList].weather = req.body[0].weather;
+        saveData("Test", data)
         console.log(data[indexList]);
         res.sendStatus(200);
     } else {
@@ -147,6 +169,7 @@ exports.updateLists = function (req, res) {
     }
 }
 exports.updateCategorys = function (req, res) {
+    let data = getData("Test");
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -164,6 +187,7 @@ exports.updateCategorys = function (req, res) {
             }
             data[indexList].headers[indexCat][new_key] = req.body[1];
             console.log(data[indexList].headers);
+            saveData("Test", data);
         } else {
             console.log("Category not found");
             res.sendStatus(404);
@@ -174,6 +198,7 @@ exports.updateCategorys = function (req, res) {
     }
 }
 exports.updateEntry = function (req, res) {
+    let data = getData("Test");
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -186,9 +211,11 @@ exports.updateEntry = function (req, res) {
             data[indexList].headers[indexCat][req.params.categoryName].forEach(element => search.push(element.name));
             let indexEnt = search.findIndex(element => element === req.params.entryName);
             if (indexEnt != -1) {
+                data[indexList].headers[indexCat][req.params.categoryName]=req.body;
                 res.sendStatus(200);
                 console.log("Updated Entry");
-                console.log(req.body)
+                console.log(data[indexList].headers[indexCat]);
+                saveData("Test", data);
             } else {
                 console.log("Entry not found");
                 res.sendStatus(404);

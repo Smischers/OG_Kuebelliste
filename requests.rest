@@ -80,26 +80,27 @@ GET http://localhost:3000/list/ESO Dungeons
 GET http://localhost:3000/listIcons
 
 ###
-PUT http://localhost:3000/list/AnimeList
+PUT http://localhost:3000/list/ESO Dungeons
 Content-Type: application/json
 
 [{
-    "name": "Test2",
-    "picture": "Testestsets"
+    "name": "Test1",
+    "picture": "Link",
+    "weather":"Rain"
 }]
 
 ###
-GET http://localhost:3000/list/ESO Dungeons/To-Do/Coral Aerie
+GET http://localhost:3000/list/ESO Dungeons/To-Do/New entry name1
 
 ###
 GET http://localhost:3000/list/ESO Dungeons/details
 
 ###
-PUT http://localhost:3000/list/ESO Dungeons/To Do/Coral Aerie
+PUT http://localhost:3000/list/ESO Dungeons/To-Do/Stuff
 Content-Type: application/json
 
 [{ 
-    "name": "New entry name1", 
+    "name": "Corals", 
     "rating": "10 / 10", 
     "description": "Descripton", 
     "deadline": "30.03.2024", 
@@ -151,3 +152,6 @@ Content-Type: application/json
     "picture": "New Pic", 
     "wheater": "Rain" 
 }]
+
+###
+GET  http://localhost:3000/Test

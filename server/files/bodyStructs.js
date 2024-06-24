@@ -4,7 +4,7 @@ get_ListIcons = [{ listName1: "name", pic1: "pic" }, { listName2: "name", pic2: 
 
 get_ListByName = [{ Category1: [entrys] }, { Category2: [entrys] }]
 
-get_ListDetails = { image: "picLink", wheater: "Sunny", categorys: ["name1", "name2"] }
+get_ListDetails = { image: "picLink", weather: "Sunny", categorys: ["name1", "name2"] }
 
 get_Entry = { name: "Entry Name", rating: "10 / 10", description: "Descripton", deadline: "30.03.2024", calendar: "yes", wheater: "sunny" }
 

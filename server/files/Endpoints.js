@@ -1,5 +1,5 @@
 const fileManager = require('../files/fileManager');
-const weather=require('../files/Ext-APIs/weather');
+const weather = require('../files/Ext-APIs/weather');
 function getData(path) {
     let pathing = "List_Data/" + path + ".json";
     let ret = fileManager.readFile(pathing);
@@ -42,14 +42,14 @@ exports.getListByName = function (req, res) {
 
 }
 //TODO Sort by weather
-exports.getListNamesIcons =async function (req, res) {
+exports.getListNamesIcons = async function (req, res) {
     let path = req.user.name;
     let data = getData(path);
     if (!data.length !== 0) {
         let keys = Object.keys(data)
         let nameIcons = [];
-        let w=await weather.getCurrentWeather("Vienna");
-        
+        let w = await weather.getCurrentWeather("Vienna");
+
         for (let i = 0; i < keys.length; i++) {
             nameIcons[i] = { name: data[keys[i]].name, picture: data[keys[i]].picture }
         }
@@ -121,16 +121,26 @@ exports.getEntry = function (req, res) {
 exports.createList = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
-    let search = [];
-    data.forEach(element => search.push(element.name));
-    if (search.includes(req.body.name)) {
-        console.log("List not found");
-        res.sendStatus(400);
+    if (data.length !== 0) {
+        let search = [];
+        data.forEach(element => search.push(element.name));
+        if (search.includes(req.body.name)) {
+            console.log("List already exsits");
+            res.sendStatus(400);
+        } else {
+            data.push(req.body);
+            data[data.length - 1].headers = [];
+            console.log("Added new List");
+            console.log(req.body);
+            res.sendStatus(201);
+            saveData(path, data);
+        }
     } else {
-        data.push(req.body[0]);
-        data[data.length - 1].headers = [];
-        console.log("Added new List");
+        data = [];
+        data.push(req.body);
         console.log(req.body);
+        data[0].headers = [];
+        console.log("Created new File");
         res.sendStatus(201);
         saveData(path, data);
     }

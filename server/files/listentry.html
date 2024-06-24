@@ -71,19 +71,13 @@
       },
       methods: {
         fetchItems() {
-          // Simulate an API call
-          const fetchedItems = [
-            {
-              "name": "Coral Aerie",
-              "rating": "0 / 6",
-              "description": "The Coral Aerie dungeon was added to the game with Update 33 Ascending Tide DLC. It features both Normal and Veteran modes, as well as Hardmodes for each boss and secret bosses. Players can either use the Group & Activity Finder in order to enter the dungeon as a 4 player group, or select it from the northern Summerset map. Coral Aerie has 7 bosses: 3 main bosses with each having a hardmode, 4 secret bosses and trashmob packs.",
-              "deadline": "30.03.2024",
-              "calendar": "yes",
-              "image": "https://images.uesp.net/thumb/1/1b/ON-map-Coral_Aerie_02.jpg/600px-ON-map-Coral_Aerie_02.jpg"
-            }
-          ]
+          fetch(`/list/${this.listName}/${this.category}/${this.listEntry}`)
+            .then(res => res.json())
+            .then(data => {
+              this.items = data
+              console.log(this.items)
+            })
 
-          this.items = fetchedItems[0]
         },
         updateDivHeight() {
           // Get height of img
@@ -96,34 +90,34 @@
         }
       },
       mounted() {
-        this.fetchItems();
 
         const params = new URLSearchParams(window.location.search);
         this.listName = params.get('listName');
         this.listEntry = params.get('listEntry');
         this.category = params.get('listCategory');
+        this.fetchItems();
 
         window.onload = () => {
           // Dynamic min-height of div
-            function updateDivHeight() {
-              // Get height of img
-              const imgElement = document.getElementById('myImg');
-              const imgHeight = imgElement.offsetHeight;
+          function updateDivHeight() {
+            // Get height of img
+            const imgElement = document.getElementById('myImg');
+            const imgHeight = imgElement.offsetHeight;
 
-              // Set height of div based on img dynamically
-              const divElement = document.getElementById('myDiv');
-              divElement.style.minHeight = imgHeight + 'px';
-            }
+            // Set height of div based on img dynamically
+            const divElement = document.getElementById('myDiv');
+            divElement.style.minHeight = imgHeight + 'px';
+          }
 
-            // Initial call of function on windowload
-            updateDivHeight();
+          // Initial call of function on windowload
+          updateDivHeight();
 
-            // Checking for updates
-            const observer = new MutationObserver(updateDivHeight);
-            observer.observe(document.getElementById('myImg'), { childList: true, subtree: true });
+          // Checking for updates
+          const observer = new MutationObserver(updateDivHeight);
+          observer.observe(document.getElementById('myImg'), { childList: true, subtree: true });
 
-            // Resize-Eventhandler
-            window.addEventListener('resize', updateDivHeight);
+          // Resize-Eventhandler
+          window.addEventListener('resize', updateDivHeight);
         };
       }
     });

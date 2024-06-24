@@ -12,48 +12,51 @@
 
 <body>
     <div id="app">
-        <div class="imgcontainer center">
-            <img src="../resources/logoSVG.png" title="Kübelliste Logo" alt="To-Do Liste in Kübel" class="logoLogin">
-        </div>
+        <form @submit.prevent="updateEntry">
+            <div class="imgcontainer center">
+                <img src="../resources/logoSVG.png" title="Kübelliste Logo" alt="To-Do Liste in Kübel"
+                    class="logoLogin">
+            </div>
 
-        <div class="container form-container">
-            <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
-            <h2 style="margin-top: 0; font-size: 100%" class="center"><b>{{ this.listEntryName }}</b></h2>
+            <div class="container form-container">
+                <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
+                <h2 style="margin-top: 0; font-size: 100%" class="center"><b>{{ this.listEntryName }}</b></h2>
 
-            <label for="category"><b>Category</b></label>
-            <select name="category" id="category" style="display: block;" required>
-                <option value="" disabled selected>Select category</option>
-                <option v-for="category in categories" :value="category">{{ category }}</option>
-            </select>
+                <label for="category"><b>Category</b></label>
+                <select name="category" id="category" style="display: block;" required>
+                    <option value="" disabled selected>Select category</option>
+                    <option v-for="category in categories" :value="category">{{ category }}</option>
+                </select>
 
-            <label for="entryName"><b>Entry name</b></label>
-            <input v-model="this.newEntryName" type="text" id="entryName" name="entryName" minlength="1" maxlength="25"
-                title="Minimum 1 character required (maximum 25 allowed)" required>
+                <label for="entryName"><b>Entry name</b></label>
+                <input v-model="newEntryName" type="text" id="entryName" name="entryName" minlength="1" maxlength="25"
+                    title="Minimum 1 character required (maximum 25 allowed)" required>
 
-            <label for="rating"><b>Rating</b></label>
-            <input v-model="this.listRating" type="text" id="rating" name="rating" pattern="^\d{1,2}/\d{1,2}$"
-                title="Rating format: number/number (e.g. 5/10)" required>
+                <label for="rating"><b>Rating</b></label>
+                <input v-model="listRating" type="text" id="rating" name="rating" pattern="^\d{1,2}/\d{1,2}$"
+                    title="Rating format: number/number (e.g. 5/10)" required>
 
-            <label for="description"><b>Description</b></label>
-            <input v-model="this.listDescription" type="text" id="description" name="description" minlength="1"
-                maxlength="2000" title="Minimum 1 character required (maximum 2000 allowed)" required>
+                <label for="description"><b>Description</b></label>
+                <input v-model="listDescription" type="text" id="description" name="description" minlength="1"
+                    maxlength="2000" title="Minimum 1 character required (maximum 2000 allowed)" required>
 
-            <label for="deadline"><b>Deadline</b></label>
-            <input v-model="this.listDeadline" type="text" id="deadline" name="deadline" @blur="validateDeadline"
-                pattern="^\d{2}.\d{2}.\d{4}$|^none$" title="Date format: DD.MM.YYYY or 'none'" required>
+                <label for="deadline"><b>Deadline</b></label>
+                <input v-model="listDeadline" type="text" id="deadline" name="deadline" @blur="validateDeadline"
+                    pattern="^\d{2}.\d{2}.\d{4}$|^none$" title="Date format: DD.MM.YYYY or 'none'" required>
 
-            <label for="entryPicture"><b>Picture URL (optional)</b></label>
-            <input v-model="this.listPicture" type="text" id="entryPicture" name="entryPicture" pattern="https?://.+"
-                title="Please enter a valid URL (e.g. http://example.com)">
+                <label for="entryPicture"><b>Picture URL (optional)</b></label>
+                <input v-model="listPicture" type="text" id="entryPicture" name="entryPicture" pattern="https?://.+"
+                    title="Please enter a valid URL (e.g. http://example.com)">
 
-            <button v-on:click=updateEntry() class="waves-effect waves-light btn cyan darken-3">Submit</button>
+                <button type="submit" class="waves-effect waves-light btn cyan darken-3">Submit</button>
 
-            <a :href="`listview.html?listName=${this.listName}`"><button type="button"
-                    class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
+                <a :href="`listview.html?listName=${this.listName}`"><button type="button"
+                        class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
 
-            <button v-on:click=deleteEntry() type="button"
-                class="deletebtn waves-effect waves-light btn red">Delete</button>
-        </div>
+                <button v-on:click=deleteEntry() type="button"
+                    class="deletebtn waves-effect waves-light btn red">Delete</button>
+            </div>
+        </form>
     </div>
     <script>
         new Vue({
@@ -141,11 +144,12 @@
                             "rating": this.listRating,
                             "description": this.listDescription,
                             "deadline": this.listDeadline,
-                            "calendar": "no"
+                            "image": this.listPicture,
+                            "calendar": "no",
                         }])
                     })
                         .then(data => {
-                            window.location.href = 'index.html';
+                            window.location.href = `listview.html?listName=${this.listName}`;
                         })
                         .catch(error => {
                             console.error('Error:', error);
@@ -188,16 +192,16 @@ body: JSON.stringify(formData)
 })
 .then(data => {
 fetch(`/list/${formData.name}`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify([{ name: "To-Do" }])
+method: 'POST',
+headers: {
+    'Content-Type': 'application/json'
+},
+body: JSON.stringify([{ name: "To-Do" }])
 })
-    .catch(error => {
-        console.log('Error:', error);
-        window.location.href = 'index.html'
-    })
+.catch(error => {
+    console.log('Error:', error);
+    window.location.href = 'index.html'
+})
 })
 .then(data => window.location.href = 'index.html')
 .catch(error => {

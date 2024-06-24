@@ -31,7 +31,6 @@ async function initializeGapiClient() {
     discoveryDocs: [DISCOVERY_DOC],
   });
   gapiInited = true;
-  maybeEnableButtons();
 }
 
 /**
@@ -143,7 +142,7 @@ window.addDeadlineToCalendar = addDeadlineToCalendar;
 
 //document.getElementById('signout_button').addEventListener('click', handleSignoutClick);
 
-// Handle Authorisation and Add event listener to the button
-document.getElementById('add_deadline_button').addEventListener('click', function() {
-  handleAuthClick(() => addDeadlineToCalendar('Test', '24.06.2024'));
-});
+
+function onCalendarButtonClick(name, date){
+  handleAuthClick(() => addDeadlineToCalendar(name, date));
+}

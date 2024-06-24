@@ -75,9 +75,11 @@ GET http://localhost:3000/weather/weatherandtemp/Vienna
 
 ###
 GET http://localhost:3000/list/ESO Dungeons
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 ###
 GET http://localhost:3000/listIcons
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 ###
 PUT http://localhost:3000/list/ESO Dungeons
@@ -90,10 +92,12 @@ Content-Type: application/json
 }]
 
 ###
-GET http://localhost:3000/list/ESO Dungeons/To-Do/New entry name1
+GET http://localhost:3000/list/Electric Bungaloo/To-Do/New entry name1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 ###
-GET http://localhost:3000/list/ESO Dungeons/details
+GET http://localhost:3000/list/Electric Bungaloo/details
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 ###
 PUT http://localhost:3000/list/ESO Dungeons/To-Do/Stuff
@@ -120,9 +124,9 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 [{
-    "name":"New List",
+    "name":"Electric Bungaloo",
     "picture":"Link",
-    "wheater":"sunny"
+    "weather":"sunny"
 }]
 
 ###

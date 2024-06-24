@@ -147,7 +147,6 @@ app.get('/weather/allWeather/:city', weather.getAllWeatherData);
 app.get('/weather/dayweather/:city', weather.getDayWeather);
 app.get('/weather/weatherandtemp/:city', weather.getWeatherAndTemperature);
 
-console.log(weather.getAllWeatherData);
 /* ------------------------------------------------------------------------------------------------------------ */
 
 app.get('/anime', animes.getRecommendedAnimes);

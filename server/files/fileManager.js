@@ -18,6 +18,8 @@ exports.readFile = function (path) {
     } catch (error) {
         console.log("Error reading file");
         console.log(error);
+        result=[];
+        return result;
     }
     return JSON.parse(result);
 }

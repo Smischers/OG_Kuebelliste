@@ -9,6 +9,7 @@ exports.writeFile = function (path, data) {
         }
     });
 }
+
 exports.readFile = function (path) {
     let result;
     console.log("Reading file: "+path)

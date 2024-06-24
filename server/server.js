@@ -85,11 +85,11 @@ app.use(express.static(path.join(__dirname, 'files')));
  *         description: List not found
  */
 
-app.get('/list', endpoints.getList);
-app.get('/list/:listName', endpoints.getListByName);
-app.get('/listIcons', endpoints.getListNamesIcons);
-app.get('/list/:listName/details',endpoints.getListDetails);
-app.get('/list/:listName/:categoryName/:entryName',endpoints.getEntry);
+app.get('/list',authenticateToken, endpoints.getList);
+app.get('/list/:listName',authenticateToken, endpoints.getListByName);
+app.get('/listIcons',authenticateToken, endpoints.getListNamesIcons);
+app.get('/list/:listName/details',authenticateToken,endpoints.getListDetails);
+app.get('/list/:listName/:categoryName/:entryName',authenticateToken,endpoints.getEntry);
 
 /**
  * @swagger
@@ -125,17 +125,17 @@ app.get('/list/:listName/:categoryName/:entryName',endpoints.getEntry);
  *         description: List already exists
  */
 
-app.post('/list', endpoints.createList);
-app.post('/list/:listName', endpoints.createCategory);
-app.post('/list/:listName/:categoryName', endpoints.createEntry);
+app.post('/list',authenticateToken, endpoints.createList);
+app.post('/list/:listName',authenticateToken, endpoints.createCategory);
+app.post('/list/:listName/:categoryName',authenticateToken, endpoints.createEntry);
 
-app.put('/list/:listName', endpoints.updateLists);
-app.put('/list/:listName/:categoryName', endpoints.updateCategorys);
-app.put('/list/:listName/:categoryName/:entryName',endpoints.updateEntry);
+app.put('/list/:listName',authenticateToken, endpoints.updateLists);
+app.put('/list/:listName/:categoryName',authenticateToken, endpoints.updateCategorys);
+app.put('/list/:listName/:categoryName/:entryName',authenticateToken,endpoints.updateEntry);
 
-app.delete('/list/:listName', endpoints.deleteList);
-app.delete('/list/:listName/:categoryName', endpoints.deleteCategory);
-app.delete('/list/:listName/:categoryName/:entryName', endpoints.deleteEntry);
+app.delete('/list/:listName',authenticateToken, endpoints.deleteList);
+app.delete('/list/:listName/:categoryName',authenticateToken, endpoints.deleteCategory);
+app.delete('/list/:listName/:categoryName/:entryName',authenticateToken, endpoints.deleteEntry);
 // Nicht mein Problem machts ihr Backend Boys
 app.get('/', function (req, res) {
   res.sendStatus(403)

@@ -112,10 +112,12 @@ GET http://localhost:3000/weather/weatherandtemp/Vienna
 
 ###
 GET http://localhost:3000/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 ###
 POST http://localhost:3000/list
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 [{
     "name":"New List",
@@ -126,6 +128,7 @@ Content-Type: application/json
 ###
 POST http://localhost:3000/list/New List
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 [{
     "name":"New Cat"

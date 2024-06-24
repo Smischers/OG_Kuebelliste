@@ -1,27 +1,24 @@
-const e = require('express');
-//const data = require('../dataModel');
-const server = require('../server');
-var fs = require('fs');
 const fileManager = require('../files/fileManager');
-const { get } = require('http');
 
 function getData(path) {
-    path = "List_Data/" + path + ".json";
-    let ret = fileManager.readFile(path);
+    let pathing = "List_Data/" + path + ".json";
+    let ret = fileManager.readFile(pathing);
     return ret;
 }
 function saveData(fileName, data) {
-    path = "List_Data/" + fileName + ".json";
-    fileManager.writeFile(path, data);
+    let pathing = "List_Data/" + fileName + ".json";
+    fileManager.writeFile(pathing, data);
 }
 
 //GET-Endpoints
 exports.getList = function (req, res) {
-    let data = getData("Test");
+    let path=req.user.name
+    let data=getData(path);
     res.send(data);
 }
 exports.getListByName = function (req, res) {
-    let data = getData("Test");
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -33,8 +30,10 @@ exports.getListByName = function (req, res) {
         res.sendStatus(404);
     }
 }
+    //TODO Sort by Wheater
 exports.getListNamesIcons = function (req, res) {
-    let data = getData("Test");
+    let path="Test"
+    let data=getData(path);
     let keys = Object.keys(data)
     var nameIcons = new Array
     for (let i = 0; i < keys.length; i++) {
@@ -43,7 +42,8 @@ exports.getListNamesIcons = function (req, res) {
     res.send(nameIcons)
 }
 exports.getListDetails = function (req, res) {
-    let data = getData("Test");
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(element => element == req.params.listName);
@@ -57,7 +57,8 @@ exports.getListDetails = function (req, res) {
     }
 }
 exports.getEntry = function (req, res) {
-    let data = getData("Test");
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -87,6 +88,8 @@ exports.getEntry = function (req, res) {
 
 //POST-Endpoints
 exports.createList = function (req, res) {
+    let path=req.user.name;
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     if (search.includes(req.body.name)) {
@@ -98,9 +101,12 @@ exports.createList = function (req, res) {
         console.log("Added new List");
         console.log(req.body);
         res.sendStatus(201);
+        saveData(path,data);
     }
 }
 exports.createCategory = function (req, res) {
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -119,6 +125,7 @@ exports.createCategory = function (req, res) {
                 res.sendStatus(201);
                 console.log("Created new Category");
                 console.log(req.body);
+                saveData(path,data);
             } else {
                 console.log("Category already exists");
                 res.sendStatus(400);
@@ -127,6 +134,8 @@ exports.createCategory = function (req, res) {
     }
 }
 exports.createEntry = function (req, res) {
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -140,6 +149,7 @@ exports.createEntry = function (req, res) {
             console.log("Created Entry");
             console.log(data[indexList].headers[indexCat][req.params.categoryName]);
             res.sendStatus(201);
+            saveData(path,data);
         } else {
             console.log("Category not found");
             res.sendStatus(404);
@@ -152,7 +162,8 @@ exports.createEntry = function (req, res) {
 
 //PUT-Endpoints
 exports.updateLists = function (req, res) {
-    let data = getData("Test")
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -160,7 +171,7 @@ exports.updateLists = function (req, res) {
         data[indexList].name = req.body[0].name;
         data[indexList].picture = req.body[0].picture;
         data[indexList].weather = req.body[0].weather;
-        saveData("Test", data)
+        saveData(path, data)
         console.log(data[indexList]);
         res.sendStatus(200);
     } else {
@@ -169,7 +180,8 @@ exports.updateLists = function (req, res) {
     }
 }
 exports.updateCategorys = function (req, res) {
-    let data = getData("Test");
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -187,7 +199,7 @@ exports.updateCategorys = function (req, res) {
             }
             data[indexList].headers[indexCat][new_key] = req.body[1];
             console.log(data[indexList].headers);
-            saveData("Test", data);
+            saveData(path, data);
         } else {
             console.log("Category not found");
             res.sendStatus(404);
@@ -198,7 +210,8 @@ exports.updateCategorys = function (req, res) {
     }
 }
 exports.updateEntry = function (req, res) {
-    let data = getData("Test");
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -215,7 +228,7 @@ exports.updateEntry = function (req, res) {
                 res.sendStatus(200);
                 console.log("Updated Entry");
                 console.log(data[indexList].headers[indexCat]);
-                saveData("Test", data);
+                saveData(path, data);
             } else {
                 console.log("Entry not found");
                 res.sendStatus(404);
@@ -232,18 +245,23 @@ exports.updateEntry = function (req, res) {
 
 //DELETE-Endpoints
 exports.deleteList = function (req, res) {
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
     if (indexList != -1) {
         data.splice(indexList, 1);
         res.sendStatus(201);
+        saveData(path,data);
     } else {
         console.log("List not found");
         res.sendStatus(404);
     }
 }
 exports.deleteCategory = function (req, res) {
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -253,6 +271,7 @@ exports.deleteCategory = function (req, res) {
         let indexCat = search.findIndex(element => element === req.params.categoryName);
         if (indexCat != -1) {
             data[indexList].headers.splice(indexCat, 1);
+            saveData(path,data);
         } else {
             console.log("Category not found");
             res.sendStatus(404);
@@ -263,6 +282,8 @@ exports.deleteCategory = function (req, res) {
     }
 }
 exports.deleteEntry = function (req, res) {
+    let path="Test"
+    let data=getData(path);
     let search = [];
     data.forEach(element => search.push(element.name));
     let indexList = search.findIndex(ele => ele === req.params.listName);
@@ -275,6 +296,7 @@ exports.deleteEntry = function (req, res) {
             if (indexEnt != -1) {
                 data[indexList].headers[indexCat][req.params.categoryName].splice(indexEnt, 1);
                 res.sendStatus(200);
+                saveData(path,data);
             } else {
                 console.log("Entry not found");
                 res.sendStatus(404);

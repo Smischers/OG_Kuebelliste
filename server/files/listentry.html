@@ -100,28 +100,19 @@
         this.listEntry = params.get('listEntry');
         this.category = params.get('listCategory');
         this.fetchItems();
+        setTimeout(this.updateDivHeight, 50);
 
         window.onload = () => {
-          // Dynamic min-height of div
-          function updateDivHeight() {
-            // Get height of img
-            const imgElement = document.getElementById('myImg');
-            const imgHeight = imgElement.offsetHeight;
-
-            // Set height of div based on img dynamically
-            const divElement = document.getElementById('myDiv');
-            divElement.style.minHeight = imgHeight + 'px';
-          }
 
           // Initial call of function on windowload
-          updateDivHeight();
+          this.updateDivHeight();
 
           // Checking for updates
-          const observer = new MutationObserver(updateDivHeight);
+          const observer = new MutationObserver(this.updateDivHeight);
           observer.observe(document.getElementById('myImg'), { childList: true, subtree: true });
 
           // Resize-Eventhandler
-          window.addEventListener('resize', updateDivHeight);
+          window.addEventListener('resize', this.updateDivHeight);
         };
       }
     });

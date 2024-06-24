@@ -92,46 +92,37 @@ function handleSignoutClick() {
 }
 
 async function addDeadlineToCalendar(name, deadline) {
-  // Parse the input date string
   const [day, month, year] = deadline.split('.');
-  const eventStartTime = new Date(year, month - 1, day, 0, 0, 0);
+  const eventStartTime = new Date(year, month - 1, day);
+  eventStartTime.setDate(eventStartTime.getDate() + 1); 
+  const eventEndTime = new Date(year, month - 1, day);
+  eventEndTime.setDate(eventEndTime.getDate() + 1); // All-day events end the next day
+
   // Set the time zone to Vienna
   const timeZone = 'Europe/Vienna';
-
-  // Create an event end time 45 minutes after the start time
-  const eventEndTime = new Date(eventStartTime);
-  eventEndTime.setHours(eventEndTime.getMinutes() + 23);
-  eventEndTime.setMinutes(eventEndTime.getMinutes() + 59);
 
   let event = {
     'summary': name,
     'start': {
-      'dateTime': eventStartTime,
+      'date': eventStartTime.toISOString().split('T')[0],
       'timeZone': timeZone
     },
     'end': {
-      'dateTime': eventEndTime,
+      'date': eventEndTime.toISOString().split('T')[0],
       'timeZone': timeZone
     },
     'colorId': 1,
   };
-  
-  //Creates a request Object to insert a new event
+
+  // Creates a request object to insert a new event
   const request = gapi.client.calendar.events.insert({
     'calendarId': 'primary',
     'resource': event
   });
 
   request.execute(function(event) {
-    appendPre('Event created: ' + event.htmlLink);
   });
-  
-  // Function to append text to a preformatted text block on the page
-  function appendPre(message) {
-    var pre = document.getElementById('content');
-    var textContent = document.createTextNode(message + '\n');
-    pre.appendChild(textContent);
-  } 
+
 }
 
 // Attach the functions to the global scope

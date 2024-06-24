@@ -16,57 +16,65 @@
 <body>
   <div id="app">
     <header>
-      <navbar v-model="textInput"></navbar>
+      <template>
+        <navbar v-model="textInput"></navbar>
+      </template>
     </header>
 
     <main>
-      <!-- here comes data -->
-      <h1 v-if="items.length != 0" style="width: 50%; float: left;">My Lists</h1>
-      <p
-        style="width: 50%; float: right; text-align: right; margin-top: 5px !important; margin-bottom: 0; font-size: 100%;">
-        Vienna: {{weather.weather}}, {{ weather.temperature }}°C</p>
-      <div class="clear"></div>
+      <template>
+        <!-- here comes data -->
+        <h1 v-if="items.length != 0" style="width: 50%; float: left;">My Lists</h1>
+        <p
+          style="width: 50%; float: right; text-align: right; margin-top: 5px !important; margin-bottom: 0; font-size: 100%;">
+          Vienna: {{weather.weather}}, {{ weather.temperature }}°C</p>
+        <div class="clear"></div>
 
-      <div v-if="!hasAccessToken()" class="row left fixed-main">
-        <div class="slogan">
-          <p style="font-size: 200%; margin-top: 15%; margin-bottom: 0;">Never forget your experiences. Save what you want to do next.
-          </p>
-          <p style="font-size: 250%; margin-top: 1%"><b>Start planning your free time today.</b></p>
+        <div v-if="!hasAccessToken()" class="row left fixed-main">
+          <div class="slogan">
+            <p style="font-size: 200%; margin-top: 15%; margin-bottom: 0;">Never forget your experiences. Save what you
+              want to do next.
+            </p>
+            <p style="font-size: 250%; margin-top: 1%"><b>Start planning your free time today.</b></p>
+          </div>
+          <img src="resources/idea_home.jpg" alt="" class="slogan-img">
         </div>
-        <img src="resources/idea_home.jpg" alt="" class="slogan-img">
-      </div>
 
-      <ul>
-        <div class="row center">
-          <li>
-            <div class="center" v-for="item in rowChunks">
-              <div v-for="card in item" class="col s2.5">
+        <ul>
+          <div class="row center">
+            <li>
+              <div class="center" v-for="item in rowChunks">
+                <div v-for="card in item" class="col s2.5">
 
-                <a :href="getCardLink(card.name)">
-                  <div class="card hoverable" style="width: 170px; height: 220px;">
-                    <div class="card-image">
-                      <img v-if="card.picture != ''" :src=card.picture style="width:170px; height:150px;">
-                      <img v-else src=resources/Kuebelliste_Icon.png style="width:170px; height:150px;">
+                  <a :href="getCardLink(card.name)">
+                    <div class="card hoverable" style="width: 170px; height: 220px;">
+                      <div class="card-image">
+                        <img v-if="card.picture != ''" :src=card.picture alt="" style="width:170px; height:150px;">
+                        <img v-else src=resources/Kuebelliste_Icon.png alt="" style="width:170px; height:150px;">
+                      </div>
+                      <div class="card-content">
+                        <span class="card-title center"
+                          style="font-size: 18.5px !important; color: black !important;"><b
+                            style="overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;">{{
+                            card.name }}</b></span>
+                      </div>
                     </div>
-                    <div class="card-content">
-                      <span class="card-title center" style="font-size: 18.5px !important; color: black !important;"><b
-                          style="overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;">{{
-                          card.name }}</b></span>
-                    </div>
-                  </div>
-                </a>
+                  </a>
+                </div>
               </div>
-            </div>
-          </li>
+            </li>
 
-        </div>
-      </ul>
+          </div>
+        </ul>
+      </template>
     </main>
-    <img v-if="nyanCatVisible == true" src="resources/nyancat.png" alt="flying nyan cat"
-      :style="`position: absolute; left: ${this.nyanCatPos}px; width:64px`">
+    <template>
+      <img v-if="nyanCatVisible == true" src="resources/nyancat.png" alt="flying nyan cat"
+        :style="`position: absolute; left: ${this.nyanCatPos}px; width:64px`">
 
-    <!-- OUR FOOTER-->
-    <kuebelfooter></kuebelfooter>
+      <!-- OUR FOOTER-->
+      <kuebelfooter></kuebelfooter>
+    </template>
 
   </div>
 
@@ -92,9 +100,9 @@
           let allItems = this.items;
 
           if (this.textInput != "") {
-              allItems = allItems.filter(item =>
-                item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List"
-              );
+            allItems = allItems.filter(item =>
+              item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List"
+            );
           }
 
           for (let i = 0; i < allItems.length; i += chunkSize) {
@@ -169,16 +177,6 @@
       }
     });
   </script>
-
-  <!-- Add these buttons for authorization and sign-out -->
-
-
-  <!-- Add this button for adding a deadline to the calendar -->
-  <!--<button id="add_deadline_button">Add Deadline to Calendar</button>-->
-
-  <script src="Ext-APIs/calendar.js"></script>
-  <script src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-  <script src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 
 </body>
 

@@ -19,28 +19,32 @@
         </div>
 
         <div class="container form-container">
-            <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
+            <template>
+                <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
 
-            <label for="listName"><b>List name</b></label>
-            <input type="text" id="listName" name="listName" v-model="newListName" minlength="1" maxlength="15" title="Minimum 1 character required (maximum 15 allowed)" required>
+                <label for="listName"><b>List name</b></label>
+                <input type="text" id="listName" name="listName" v-model="newListName" minlength="1" maxlength="15"
+                    title="Minimum 1 character required (maximum 15 allowed)" required>
 
-            <label for="listPicture"><b>Picture URL (optional)</b></label>
-            <input type="text" id="listPicture" v-model="newPicture" name="listPicture" pattern="https?://.+" title="Please enter a valid URL (e.g. http://example.com)">
+                <label for="listPicture"><b>Picture URL (optional)</b></label>
+                <input type="text" id="listPicture" v-model="newPicture" name="listPicture" pattern="https?://.+"
+                    title="Please enter a valid URL (e.g. http://example.com)">
 
-            <label for="weather"><b>Best for which weather?</b></label>
-            <select v-model="this.newWeather" name="weather" id="weather" style="display: block;" required>
-                <option value="" disabled selected>Select weather</option>
-                <option value="clear">Clear</option>
-                <option value="rain">Rain</option>
-            </select>
+                <label for="weather"><b>Best for which weather?</b></label>
+                <select v-model="this.newWeather" name="weather" id="weather" style="display: block;" required>
+                    <option value="" disabled selected>Select weather</option>
+                    <option value="clear">Clear</option>
+                    <option value="rain">Rain</option>
+                </select>
 
-            <button v-on:click=updateList() class="waves-effect waves-light btn cyan darken-3">Submit</button>
+                <button v-on:click=updateList() class="waves-effect waves-light btn cyan darken-3">Submit</button>
 
-            <a href="index.html"><button type="button"
-                    class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
-                    
-            <button v-on:click=deleteList() type="button"
-                class="deletebtn waves-effect waves-light btn red">Delete</button>
+                <a href="index.html"><button type="button"
+                        class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
+
+                <button v-on:click=deleteList() type="button"
+                    class="deletebtn waves-effect waves-light btn red">Delete</button>
+            </template>
         </div>
     </div>
     <script>

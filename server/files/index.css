@@ -43,6 +43,13 @@ footer a:hover {
     font-size: 90%;
 }
 
+#myImg {
+    max-width: 25% !important;
+    height: auto !important;
+    float: right !important;
+    display: block !important;
+}
+
 
 /* Classes */
 
@@ -148,27 +155,6 @@ footer a:hover {
     margin-top: 5%;
 }
 
-/* Media query for mobile devices or 200% zoom */
-@media screen and (max-width: 1000px) {
-    .fixed-main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-
-    }
-
-    .slogan {
-        width: 100%;
-    }
-
-    .slogan-img {
-        max-width: 50%;
-        margin-top: 2%;
-        margin-bottom: 5%;
-    }
-}
-
 .tab a:hover {
     background-color: #00acc1 !important;
 }
@@ -206,6 +192,11 @@ footer a:hover {
 .breadcrumb h1 {
     font-size: large;
     display: inline;
+}
+
+.breaddiv {
+    padding-left: 1.5%;
+    line-height: 375%;
 }
 
 td.trunc {
@@ -282,6 +273,11 @@ td {
     color: #00838f;
 }
 
+.listEntryList {
+    padding-left: 1.5% !important;
+    padding-right: 1.5%;
+}
+
 .listEntryList li {
     list-style-type: circle !important;
     padding-bottom: 1%;
@@ -296,4 +292,53 @@ p.trunc {
     white-space: normal;
     max-height: 90px !important;
     line-height: 22.5px !important;
+}
+
+/* Media query for mobile devices or 200% zoom */
+@media screen and (max-width: 1000px) {
+    .fixed-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .slogan {
+        width: 100%;
+    }
+
+    .slogan-img {
+        max-width: 50%;
+        margin-top: 2%;
+        margin-bottom: 5%;
+    }
+
+    #myDiv {
+        width: 95% !important;
+        margin-left: 2.5%
+    }
+
+    #myImg {
+
+        max-width: 95% !important;
+        float: left !important;
+        margin-bottom: 5%;
+        margin-left: 2.5%;
+    }
+
+    .listEntryList {
+        padding-left: 4% !important;
+        padding-right: 4%;
+    }
+
+    .breaddiv {
+        padding-left: 4% !important;
+        padding-right: 4% !important;
+        line-height: 180% !important;
+        margin-bottom: 5%;
+    }
+
+    main {
+        padding: 1% 4%;
+    }
 }

@@ -44,10 +44,10 @@ footer a:hover {
 }
 
 #myImg {
-    max-width: 25% !important;
-    height: auto !important;
-    float: right !important;
-    display: block !important;
+    max-width: 25%;
+    height: auto;
+    float: right;
+    display: block;
 }
 
 

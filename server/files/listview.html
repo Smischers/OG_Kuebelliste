@@ -20,71 +20,79 @@
   <div id="app">
     <header>
       <!-- NAVBAR -->
-      <navbar></navbar>
+      <template>
+        <navbar></navbar>
+      </template>
     </header>
-
-    <div class="nav-wrapper col s12 breaddiv">
-      <a href="index.html" class="breadcrumb">My Lists</a>
-      <a href="#!" class="breadcrumb">
-        <h1>{{ listName }}</h1>
-      </a>
-      <a :href="`listEdith.html?listName=${this.listName}`" title="Edit list" class="listSettings"><i
-          class="material-icons">settings</i></a>
-    </div>
+    <template>
+      <div class="nav-wrapper col s12 breaddiv">
+        <a href="index.html" class="breadcrumb">My Lists</a>
+        <a href="#!" class="breadcrumb">
+          <h1>{{ listName }}</h1>
+        </a>
+        <a :href="`listEdith.html?listName=${this.listName}`" title="Edit list" class="listSettings"><i
+            class="material-icons">settings</i></a>
+      </div>
+    </template>
 
     <main>
+      <template>
       <!-- here comes data -->
       <ul style="margin-top: 0px;">
         <div class="row">
 
           <li>
-            <div class="center" v-for="list in items">
+              <div class="center" v-for="list in items">
 
-              <div v-for="(value, category) in list" class="col s2.5" style="width: 100%; padding: 0">
-                <p class="waves-effect waves-light btn cyan darken-3 category">{{ category }}</p>
-                <p class="waves-effect waves-light newEntry"><a
-                    :href="`newListentry.html?listName=${listName}&listCategory=${category}`"
-                    title="Add new custom entry"><i class="material-icons">control_point</i></a></p>
+                <div v-for="(value, category) in list" class="col s2.5" style="width: 100%; padding: 0">
+                  <p class="waves-effect waves-light btn cyan darken-3 category">{{ category }}</p>
+                  <p class="waves-effect waves-light newEntry"><a
+                      :href="`newListentry.html?listName=${listName}&listCategory=${category}`"
+                      title="Add new custom entry"><i class="material-icons">control_point</i></a></p>
 
-                <table v-if="value.length !== 0" style="margin-bottom: 3%; border: 2px solid #a8a8a8;">
-                  <thead>
-                    <tr>
-                      <th style="width: 20%;">Name</th>
-                      <th style="width: 8%;">Rating</th>
-                      <th style="width: 64%;">Description</th>
-                      <th style="width: 8%;">Deadline</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="entry in value">
-                      <td
-                        style=" overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;">
-                        <a :href="`listentry.html?listName=${listName}&listCategory=${category}&listEntry=${entry.name}`"
-                          style="color: black;">{{ entry.name
-                          }}</a></td>
-                      <td>{{ entry.rating }}</td>
-                      <td class="trunc">{{ entry.description }}</td>
-                      <td>{{ entry.deadline }}</td>
-                      <td class="editItem" style="padding-right: 0;"><a onclick="onCalendarButtonClick('test', '24.06.2024')" title="Add to calendar"><i
-                            class="material-icons valign-wrapper" style="font-size: 1.2em;">event</i></a></td>
-                      <td class="editItem"><a
-                          :href="`listentryEdith.html?listName=${listName}&category=${category}&listEntry=${entry.name}`"
-                          title="Edit this item"><i class="material-icons valign-wrapper"
-                            style="font-size: 1.2em;">edit</i></a></td>
-                    </tr>
-                  </tbody>
-                </table>
+                  <table v-if="value.length !== 0" style="margin-bottom: 3%; border: 2px solid #a8a8a8;">
+                    <thead>
+                      <tr>
+                        <th style="width: 20%;">Name</th>
+                        <th style="width: 8%;">Rating</th>
+                        <th style="width: 64%;">Description</th>
+                        <th style="width: 8%;">Deadline</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="entry in value">
+                        <td
+                          style=" overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;">
+                          <a :href="`listentry.html?listName=${listName}&listCategory=${category}&listEntry=${entry.name}`"
+                            style="color: black;">{{ entry.name
+                            }}</a>
+                        </td>
+                        <td>{{ entry.rating }}</td>
+                        <td class="trunc">{{ entry.description }}</td>
+                        <td>{{ entry.deadline }}</td>
+                        <td class="editItem" style="padding-right: 0;"><a
+                            onclick="onCalendarButtonClick('test', '24.06.2024')" title="Add to calendar"><i
+                              class="material-icons valign-wrapper" style="font-size: 1.2em;">event</i></a></td>
+                        <td class="editItem"><a
+                            :href="`listentryEdith.html?listName=${listName}&category=${category}&listEntry=${entry.name}`"
+                            title="Edit this item"><i class="material-icons valign-wrapper"
+                              style="font-size: 1.2em;">edit</i></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
               </div>
-
-            </div>
           </li>
 
         </div>
       </ul>
+    </template>
     </main>
-
-    <!-- OUR FOOTER-->
-    <kuebelfooter></kuebelfooter>
+    <template>
+      <!-- OUR FOOTER-->
+      <kuebelfooter></kuebelfooter>
+    </template>
 
   </div>
 

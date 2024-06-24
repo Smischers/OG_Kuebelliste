@@ -20,7 +20,7 @@
       <navbar></navbar>
     </header>
 
-    <div class="nav-wrapper col s12" style="padding-left: 40px; line-height: 56px;">
+    <div class="nav-wrapper col s12 breaddiv">
       <a href="index.html" class="breadcrumb">My Lists</a>
       <a :href="`listview.html?listName=${ listName }`" class="breadcrumb">{{ listName }}</a>
       <a class="breadcrumb">
@@ -34,15 +34,14 @@
       <!-- here comes data -->
       <div id="myDiv" style="width: 70%; background-color: #f5f5f5; padding: 1.5%; margin-bottom: 3%; float: left;">
         <h1 style="padding-bottom: 2%;"><b>{{ items.name }}</b></h1>
-        <ul class="listEntryList" style="padding-left: 1.5%;">
+        <ul class="listEntryList">
           <li><b>Rating: </b>{{ items.rating }}</li>
           <li><b>Description: </b>{{ items.description }}</li>
           <li><b>Deadline: </b>{{ items.deadline }}</li>
           <li><b>Added to calendar: </b>{{ items.calendar }}</li>
         </ul>
       </div>
-      <img :src="items.image" id="myImg" alt="" class="materialboxed"
-        style="max-width: 25% !important; height: auto !important; float: right !important; display: block !important;">
+      <img :src="items.image" id="myImg" alt="" class="materialboxed">
     </main>
 
     <!-- OUR FOOTER-->

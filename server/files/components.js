@@ -53,8 +53,9 @@ Vue.component('navbar', {
               </form>
             </li>
           </ul>
-          <a href="#" style="margin-top: 24px;" data-target="mobile-demo" class="sidenav-trigger">
-            <i style="height: 24px;line-height: 24px;background: #00838f;border-radius: 4px;" class="material-icons">menu</i>
+
+          <a href="#" style="margin-top: 24px; margin-left: 3%;" data-target="mobile-demo" class="sidenav-trigger">
+            <i style="height: 30px; width: 30px; line-height: 24px; background: #00838f; border-radius: 4px; text-align: center; padding-top: 3px;" class="material-icons">menu</i>
           </a>
         </div>
         <ul class="sidenav" id="mobile-demo">

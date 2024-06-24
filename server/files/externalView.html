@@ -171,6 +171,21 @@
                     'Content-Type': 'application/json'
                   },
                   body: JSON.stringify([{ name: "To-Do" }])
+                }).then(d => {
+                  fetch(`list/${betterListname}/To-Do`, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify([{
+                      name: name,
+                      rating: "0/0",
+                      description: description,
+                      deadline: "none",
+                      image: image,
+                      calendar: "no"
+                    }])
+                  })
                 })
               }
               else {

@@ -71,8 +71,8 @@
                         <td class="trunc">{{ entry.description }}</td>
                         <td>{{ entry.deadline }}</td>
                         <td class="editItem" style="padding-right: 0;"><a
-                            onclick="onCalendarButtonClick('test', '24.06.2024')" title="Add to calendar"><i
-                              class="material-icons valign-wrapper" style="font-size: 1.2em;">event</i></a></td>
+                            :onclick="`onCalendarButtonClick('${ entry.name }', '${entry.deadline }')`" title="Add to calendar"><i
+                              class="material-icons valign-wrapper" style="font-size: 1.2em; cursor: pointer;">event</i></a></td>
                         <td class="editItem"><a
                             :href="`listentryEdith.html?listName=${listName}&category=${category}&listEntry=${entry.name}`"
                             title="Edit this item"><i class="material-icons valign-wrapper"

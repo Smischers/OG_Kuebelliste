@@ -162,3 +162,9 @@ Content-Type: application/json
 
 ###
 GET  http://localhost:3000/Test
+
+###
+GET  http://localhost:3000/anime
+
+###
+GET  http://localhost:3000/manga

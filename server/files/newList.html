@@ -50,12 +50,12 @@
                 weather: document.getElementById('weather').value
             };
 
-            fetch('/list', {
+            fetch(`/list/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify([formData])
             })
                 .then(data => {
                     // TESTEN TODO
@@ -66,12 +66,14 @@
                         },
                         body: JSON.stringify([{ name: "To-Do" }])
                     })
+                        .then(data => {
+                            window.location.href = 'index.html'
+                        })
                         .catch(error => {
                             console.log('Error:', error);
                             window.location.href = 'index.html'
                         })
                 })
-                .then(data => window.location.href = 'index.html')
                 .catch(error => {
                     console.error('Error:', error);
                     alert('Etwas lief schief');

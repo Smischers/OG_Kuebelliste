@@ -9,7 +9,10 @@ const esoData = require('./eso.js')
 const endpoints = require('./files/Endpoints.js')
 const weather = require('./files/Ext-APIs/weather.js');
 const animes = require('./files/Ext-APIs/anime.js');
+const cookieParser = require('cookie-parser');
 const app = express()
+
+app.use(cookieParser());
 
 const userFilePath = './server/users.json'
 
@@ -295,7 +298,9 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
 
   //If we have an Auth Header -> return auth header token portion
-  const token = authHeader && authHeader.split(' ')[1]
+  const tokenFromHeader  = authHeader && authHeader.split(' ')[1]
+  const tokenFromCookie = req.cookies.accessToken;
+  const token = tokenFromHeader || tokenFromCookie;
   //If not ->return unauthorized
   if (token == null) return res.sendStatus(401)
 
@@ -308,6 +313,9 @@ function authenticateToken(req, res, next) {
     next()
   })
 }
+
+
+
 
 app.get('/eso', (req, res) => {
   res.send(esoData)

@@ -18,17 +18,17 @@ Vue.component('navbar', {
           
           <div v-else>
             <ul class="right hide-on-med-and-down" style="padding-top: 10px; margin-right: 1.5%;">
-            <li><i class="material-icons left hide-on-med-and-down" 
-            style="margin-right: 2.5%; color: grey; font-size: 36px;">account_circle</i></li>
-            <li class="highlight"><a class="waves-effect waves-light btn grey" v-on:click=deleteAllCookies() href="index.html" style="margin-right: 0;">Log out</a></li>
-          </ul>
-            </div>
+              <li><i class="material-icons left hide-on-med-and-down" 
+                style="margin-right: 2.5%; color: grey; font-size: 36px;">account_circle</i></li>
+              <li class="highlight"><a class="waves-effect waves-light btn grey" v-on:click=deleteAllCookies() href="index.html" style="margin-right: 0;">Log out</a></li>
+            </ul>
+          </div>
           <div class="clear"></div>
         </div>
 
         <!-- MENU SECTIONS -->
         <div class="nav-content" style="border-top: 1px solid black; border-bottom: 1px solid black; padding-left: 1.5%; padding-right: 1.5%;" role="navigation">
-          <ul class="tabs tabs-transparent navSections" style="height: 38px;">
+          <ul class="tabs tabs-transparent navSections hide-on-med-and-down" style="height: 38px;">
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
                 href="externalView.html?api=anime" title="MyAnimeList Top Animes">Anime</a></li>
             <li class="tab section"><a class="btn cyan darken-3 secHeader"
@@ -42,7 +42,7 @@ Vue.component('navbar', {
             <li v-else class="tab section"><a class="btn cyan darken-3 secHeader"
                  href="login.html">My Lists</a>
             </li>
-            <li class="search hide-on-med-and-down">
+            <li class="search">
               <button type="submit">
                 <i class="material-icons left center searchIcon valign-wrapper">search</i>
               </button>
@@ -53,7 +53,19 @@ Vue.component('navbar', {
               </form>
             </li>
           </ul>
+          <a href="#" style="margin-top: 24px;" data-target="mobile-demo" class="sidenav-trigger">
+            <i style="height: 24px;line-height: 24px;background: #00838f;border-radius: 4px;" class="material-icons">menu</i>
+          </a>
         </div>
+        <ul class="sidenav" id="mobile-demo">
+          <li><a href="externalView.html?api=anime">Anime</a></li>
+          <li><a href="#">Mangas</a></li>
+          <li><a href="externalView.html?api=eso">ESO Dungeons</a></li>
+          <li><a href="index.html">My Lists</a></li>
+          <li v-if="!hasAccessToken()"><a href="login.html">Login</a></li>
+          <li v-if="!hasAccessToken()"><a href="register.html">Register</a></li>
+          <li v-else><a v-on:click=deleteAllCookies() href="index.html">Log Out</a></li>
+      </ul>
       </nav>`,
   props: ['inputText'],
   methods: {
@@ -69,19 +81,23 @@ Vue.component('navbar', {
     },
     deleteAllCookies() {
       const cookies = document.cookie.split(";");
-  
+
       for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i];
-          const eqPos = cookie.indexOf("=");
-          const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-  
-          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
       }
-  }
-  ,
+    }
+    ,
     updateValue(newValue) {
       this.$emit('input', newValue);
     }
+  },
+  mounted() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
   }
 
 });

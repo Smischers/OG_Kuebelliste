@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edith</title>
+    <title>Kübelliste!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="edith.css">
     <link rel="icon" type="image/x-icon" href="resources/Kuebelliste_Icon.png">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
@@ -17,17 +18,18 @@
             <img src="../resources/logoSVG.png" title="Kübelliste Logo" alt="To-Do Liste in Kübel" class="logoLogin">
         </div>
 
-        <div class="container" style="max-width: 40%;border: 2px solid #00838f; padding: 20px 30px; border-radius: 5%;">
+        <div class="container form-container">
             <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
 
             <label for="listName"><b>List name</b></label>
-            <input maxlength="15" type="text" id="listName" name="listName" v-model="newListName" minlength="1" maxlength="15" title="Minimum 1 character required (maximum 15 allowed)" required>
+            <input type="text" id="listName" name="listName" v-model="newListName" minlength="1" maxlength="15" title="Minimum 1 character required (maximum 15 allowed)" required>
 
             <label for="listPicture"><b>Picture URL (optional)</b></label>
-            <input type="text" id="listPicture" name="listPicture" pattern="https?://.+" title="Please enter a valid URL (e.g. http://example.com)">
+            <input type="text" id="listPicture" v-model="newPicture" name="listPicture" pattern="https?://.+" title="Please enter a valid URL (e.g. http://example.com)">
 
             <label for="weather"><b>Best for which weather?</b></label>
-            <select name="weather" id="weather" style="display: block;" required>
+            <select v-model="this.newWeather" name="weather" id="weather" style="display: block;" required>
+                <option value="" disabled selected>Select weather</option>
                 <option value="clear">Clear</option>
                 <option value="rain">Rain</option>
             </select>
@@ -48,8 +50,22 @@
                 listName: "",
                 newListName: "",
                 newPicture: "",
+                newWeather: "clear",
             },
             methods: {
+                fetchList() {
+                    fetch(`/list/${this.listName}/details`)
+                        .then(response => response.json())
+                        .then(data => {
+                            this.newPicture = data.image;
+                            //this.newWeather = data.wheater;
+                            console.log(this.newWeather)
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+                },
                 deleteList() {
                     fetch(`/list/${this.listName}`, {
                         method: 'DELETE',
@@ -65,8 +81,6 @@
 
                 },
                 updateList() {
-                    console.log("testests");
-
                     fetch(`/list/${this.listName}`, {
                         method: 'PUT',
                         headers: {
@@ -91,6 +105,7 @@
                 if (listParam) {
                     this.listName = listParam;
                     this.newListName = listParam;
+                    this.fetchList();
                 }
             }
         });

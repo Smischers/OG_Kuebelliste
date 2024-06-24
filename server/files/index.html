@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="index.css" />
   <link rel="icon" type="image/x-icon" href="resources/Kuebelliste_Icon.png">
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
@@ -25,11 +26,19 @@
         style="width: 50%; float: right; text-align: right; margin-top: 5px !important; margin-bottom: 0; font-size: 100%;">
         Vienna: {{weather.weather}}, {{ weather.temperature }}°C</p>
       <div class="clear"></div>
+
+      <div v-if="!hasAccessToken()" class="row left fixed-main">
+        <div class="slogan">
+          <p style="font-size: 200%; margin-top: 15%; margin-bottom: 0;">Never forget your experiences. Save what you want to do next.
+          </p>
+          <p style="font-size: 250%; margin-top: 1%"><b>Start planning your free time today.</b></p>
+        </div>
+        <img src="resources/idea_home.jpg" alt="" class="slogan-img">
+      </div>
+
       <ul>
         <div class="row center">
-
           <li>
-            <p v-if="items.length == 0">NICHT EINGELOGGT VENA</p>
             <div class="center" v-for="item in rowChunks">
               <div v-for="card in item" class="col s2.5">
 
@@ -53,6 +62,8 @@
         </div>
       </ul>
     </main>
+    <img v-if="nyanCatVisible == true" src="resources/nyancat.png" alt="flying nyan cat"
+      :style="`position: absolute; left: ${this.nyanCatPos}px; width:64px`">
 
     <!-- OUR FOOTER-->
     <kuebelfooter></kuebelfooter>
@@ -68,20 +79,26 @@
         resizeEvent: 0,
         items: [],
         textInput: "",
-        weather: ""
+        weather: "",
+        nyanCatPos: -100,
+        nyancatInterval: "",
+        nyanCatVisible: true
       },
       computed: {
         rowChunks() {
           this.resizeEvent;
           const chunkSize = Math.floor(window.innerWidth / 225);
           const result = [];
-          for (let i = 0; i < this.items.length; i += chunkSize) {
-            let slice = this.items.slice(i, i + chunkSize);
-            if (this.textInput != "") {
-              slice = slice.filter(item =>
-                item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List" 
+          let allItems = this.items;
+
+          if (this.textInput != "") {
+              allItems = allItems.filter(item =>
+                item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List"
               );
-            }
+          }
+
+          for (let i = 0; i < allItems.length; i += chunkSize) {
+            let slice = allItems.slice(i, i + chunkSize);
             result.push(slice);
           }
 
@@ -102,7 +119,6 @@
             })
             .then(list => {
               this.items = fetchedItems
-              console.log(fetchedItems)
             }
             )
             .catch(err => console.log(err));
@@ -130,18 +146,40 @@
       },
       mounted() {
         fetch("weather/weatherandtemp/Vienna")
-            .then(weather => weather.json())
-            .then(data => this.weather = data)
-            .catch(error => console.log(error))
+          .then(weather => weather.json())
+          .then(data => this.weather = data)
+          .catch(error => console.log(error))
         if (this.hasAccessToken()) {
           this.fetchItems();
           window.addEventListener('resize', this.handleResize);
-        } else {
+        }
+        let rng = Math.random();
+        if (rng < 0.22) {
+          let speed = 3;
+          if (rng < 0.08) speed = 12;
 
+          this.nyancatInterval = setInterval(() => {
+            this.nyanCatPos += speed;
+            if (this.nyanCatPos >= window.innerWidth * 0.85) {
+              this.nyanCatVisible = false;
+              clearInterval(this.nyancatInterval);
+            }
+          }, 15);
         }
       }
     });
   </script>
+
+  <!-- Add these buttons for authorization and sign-out -->
+
+
+  <!-- Add this button for adding a deadline to the calendar -->
+  <!--<button id="add_deadline_button">Add Deadline to Calendar</button>-->
+
+  <script src="Ext-APIs/calendar.js"></script>
+  <script src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+  <script src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+
 </body>
 
 </html>

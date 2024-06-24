@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edith</title>
+    <title>Kübelliste!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="edith.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <link rel="icon" type="image/x-icon" href="resources/Kuebelliste_Icon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
@@ -19,13 +20,13 @@
                     class="logoLogin">
             </div>
 
-            <div class="container"
-                style="max-width: 40%;border: 2px solid #00838f; padding: 20px 30px; border-radius: 5%;">
+            <div class="container form-container">
                 <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
                 <h2 style="margin-top: 0; font-size: 100%" class="center"><b>Create new entry</b></h2>
 
                 <label for="category"><b>Category</b></label>
                 <select name="category" id="category" style="display: block;" required>
+                    <option value="" disabled selected>Select category</option>
                     <option value="listCategory">{{ this.listCategory }}</option>
                 </select>
 

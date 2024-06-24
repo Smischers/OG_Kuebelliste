@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="index.css" />
   <link rel="icon" type="image/x-icon" href="resources/Kuebelliste_Icon.png">
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
@@ -31,15 +32,17 @@
           <li>
             <div class="center" v-for="item in rowChunks">
               <div v-for="card in item" class="col s2.5">
-                <div class="card hoverable" style="width: 170px; height: 220px;">
+                <div class="card hoverable" style="width: 220px; height: 380px;">
                   <div class="card-image">
-                    <img v-if="card.img != ''" :src=card.img style="width:170px; height:150px;">
-                    <img v-else src=resources/Kuebelliste_Icon.png style="width:170px; height:150px;">
+                    <img v-if="card.img != ''" :src=card.img style="width:220px; height:200px;">
+                    <img v-else src=resources/Kuebelliste_Icon.png style="width:200px; height:200px;">
+                    <a href="#" title="Add to My Lists" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
                   </div>
                   <div class="card-content">
                     <span class="card-title center" style="font-size: 18.5px !important; color: black !important;"><b
                         style="overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;">{{
                         card.name }}</b></span>
+                    <p class="trunc">{{ card.description }}</p>
                   </div>
                   
                 </div>
@@ -71,15 +74,18 @@
       computed: {
         rowChunks() {
           this.resizeEvent;
-          const chunkSize = Math.floor(window.innerWidth / 225);
+          const chunkSize = Math.floor(window.innerWidth / 275);
           const result = [];
-          for (let i = 0; i < this.items.length; i += chunkSize) {
-            let slice = this.items.slice(i, i + chunkSize);
-            if (this.textInput != "") {
-              slice = slice.filter(item =>
+          let allItems = this.items;
+
+          if (this.textInput != "") {
+              allItems = allItems.filter(item =>
                 item.name.toLowerCase().includes(this.textInput.toLowerCase()) || item.name === "New List"
               );
-            }
+          }
+
+          for (let i = 0; i < allItems.length; i += chunkSize) {
+            let slice = allItems.slice(i, i + chunkSize);
             result.push(slice);
           }
 
@@ -115,12 +121,15 @@
           if (this.chosenAPI == "anime") {
             return fetch("/anime").
               then(res => res.json()).
-              then(data => data.map(anime => ({ name: anime.title.english, img: anime.coverImage.large, description: anime.description })));
+              then(data => data.map(anime => ({ name: anime.title.english, img: anime.coverImage.large, description: this.stripHtmlTags(anime.description) })));
           }
           return null;
         },
         handleResize() {
           this.resizeEvent++;
+        },
+        stripHtmlTags(text) {
+          return text.replace(/<\/?[^>]+(>|$)/g, "");
         },
       },
       mounted() {

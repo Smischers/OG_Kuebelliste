@@ -9,9 +9,14 @@ input[type=password] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
+    margin-bottom: 3% !important;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
+}
+
+input::placeholder {
+    font-size: 100%;
 }
 
 button {
@@ -32,6 +37,10 @@ button:hover {
 
 
 /* Classes */
+
+.clear {
+    clear: both;
+}
 
 .cancelbtn {
     width: auto;
@@ -80,4 +89,32 @@ span.psw {
     .cancelbtn {
         width: 100%;
     }
+}
+
+.form-container {
+    width: 40%;
+    border: 2px solid #00838f;
+    padding: 20px 30px;
+    border-radius: 5%;
+}
+
+/* Media query for mobile devices or 200% zoom */
+@media screen and (max-width: 1000px) {
+    .form-container {
+        width: 75%;
+    }
+
+    input::placeholder {
+        font-size: 80%;
+    }
+
+    input[type=text],
+    input[type=password] {
+        height: 50% !important;
+        margin-bottom: 5% !important;
+    }
+
+    img.logoLogin {
+        width: 75%;
+    }    
 }

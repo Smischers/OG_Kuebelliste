@@ -11,57 +11,55 @@
 </head>
 
 <body>
-    <template>
-        <div id="app">
+    <div id="app">
+        <template>
             <form @submit.prevent="updateEntry">
                 <div class="imgcontainer center">
                     <img src="../resources/logoSVG.png" title="Kübelliste Logo" alt="To-Do Liste in Kübel"
                         class="logoLogin">
                 </div>
-                <template>
 
-                    <div class="container form-container">
-                        <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
-                        <h2 style="margin-top: 0; font-size: 100%" class="center"><b>{{ this.listEntryName }}</b></h2>
+                <div class="container form-container">
+                    <h1 style="margin-top: 0; font-size: 150%;" class="center"><b>{{ this.listName }}</b></h1>
+                    <h2 style="margin-top: 0; font-size: 100%" class="center"><b>{{ this.listEntryName }}</b></h2>
 
-                        <label for="category"><b>Category</b></label>
-                        <select name="category" id="category" style="display: block;" required>
-                            <option value="" disabled selected>Select category</option>
-                            <option v-for="category in categories" :value="category">{{ category }}</option>
-                        </select>
+                    <label for="category"><b>Category</b></label>
+                    <select name="category" id="category" style="display: block;" required>
+                        <option value="" disabled selected>Select category</option>
+                        <option v-for="category in categories" :value="category">{{ category }}</option>
+                    </select>
 
-                        <label for="entryName"><b>Entry name</b></label>
-                        <input v-model="newEntryName" type="text" id="entryName" name="entryName" minlength="1"
-                            maxlength="25" title="Minimum 1 character required (maximum 25 allowed)" required>
+                    <label for="entryName"><b>Entry name</b></label>
+                    <input v-model="newEntryName" type="text" id="entryName" name="entryName" minlength="1"
+                        maxlength="25" title="Minimum 1 character required (maximum 25 allowed)" required>
 
-                        <label for="rating"><b>Rating</b></label>
-                        <input v-model="listRating" type="text" id="rating" name="rating" pattern="^\d{1,2}/\d{1,2}$"
-                            title="Rating format: number/number (e.g. 5/10)" required>
+                    <label for="rating"><b>Rating</b></label>
+                    <input v-model="listRating" type="text" id="rating" name="rating" pattern="^\d{1,2}/\d{1,2}$"
+                        title="Rating format: number/number (e.g. 5/10)" required>
 
-                        <label for="description"><b>Description</b></label>
-                        <input v-model="listDescription" type="text" id="description" name="description" minlength="1"
-                            maxlength="2000" title="Minimum 1 character required (maximum 2000 allowed)" required>
+                    <label for="description"><b>Description</b></label>
+                    <input v-model="listDescription" type="text" id="description" name="description" minlength="1"
+                        maxlength="2000" title="Minimum 1 character required (maximum 2000 allowed)" required>
 
-                        <label for="deadline"><b>Deadline</b></label>
-                        <input v-model="listDeadline" type="text" id="deadline" name="deadline" @blur="validateDeadline"
-                            pattern="^\d{2}.\d{2}.\d{4}$|^none$" title="Date format: DD.MM.YYYY or 'none'" required>
+                    <label for="deadline"><b>Deadline</b></label>
+                    <input v-model="listDeadline" type="text" id="deadline" name="deadline" @blur="validateDeadline"
+                        pattern="^\d{2}.\d{2}.\d{4}$|^none$" title="Date format: DD.MM.YYYY or 'none'" required>
 
-                        <label for="entryPicture"><b>Picture URL (optional)</b></label>
-                        <input v-model="listPicture" type="text" id="entryPicture" name="entryPicture"
-                            pattern="https?://.+" title="Please enter a valid URL (e.g. http://example.com)">
+                    <label for="entryPicture"><b>Picture URL (optional)</b></label>
+                    <input v-model="listPicture" type="text" id="entryPicture" name="entryPicture" pattern="https?://.+"
+                        title="Please enter a valid URL (e.g. http://example.com)">
 
-                        <button type="submit" class="waves-effect waves-light btn cyan darken-3">Submit</button>
+                    <button type="submit" class="waves-effect waves-light btn cyan darken-3">Submit</button>
 
-                        <a :href="`listview.html?listName=${this.listName}`"><button type="button"
-                                class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
+                    <a :href="`listview.html?listName=${this.listName}`"><button type="button"
+                            class="cancelbtn waves-effect waves-light btn grey">Cancel</button></a>
 
-                        <button v-on:click=deleteEntry() type="button"
-                            class="deletebtn waves-effect waves-light btn red">Delete</button>
-                    </div>
-                </template>
+                    <button v-on:click=deleteEntry() type="button"
+                        class="deletebtn waves-effect waves-light btn red">Delete</button>
+                </div>
             </form>
-        </div>
-    </template>
+        </template>
+    </div>
     <script>
         new Vue({
             el: '#app',

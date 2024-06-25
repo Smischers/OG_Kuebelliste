@@ -90,6 +90,10 @@
                         deadlineInput.value = ' ';
                     }
                 },
+                delay(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms));
+                }
+                ,
                 isValidDate(dateString) {
                     const [day, month, year] = dateString.split('.').map(Number);
                     const date = new Date(year, month - 1, day); // Java starts at 0 for month -> Jan = 0
@@ -152,10 +156,10 @@
                             "calendar": "no",
                         }])
                     })
+                        .then(d => {return this.delay(75)})
                         .then(data => {
-                            console.log(this.listCategory)
-                            fetch(`/list/${this.listName}/${this.listCategory}/${this.listEntryName}/change`, {
-                                method: 'PUT',
+                            fetch(`/list/${this.listName}/${this.listCategory}/${this.newEntryName}/change`, {
+                                method: 'PATCH',
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },

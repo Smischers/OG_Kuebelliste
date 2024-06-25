@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
 const esoData = require('./eso.js')
-const endpoints = require('./files/Endpoints.js')
+const endpoints = require('./Endpoints.js')
 const weather = require('./files/Ext-APIs/weather.js')
 const animes = require('./files/Ext-APIs/anime.js')
 const mangas = require('./files/Ext-APIs/manga.js')
@@ -122,8 +122,7 @@ app.post('/list/:listName/:categoryName',authenticateToken, endpoints.createEntr
 app.put('/list/:listName',authenticateToken, endpoints.updateLists);
 app.put('/list/:listName/:categoryName',authenticateToken, endpoints.updateCategorys);
 app.put('/list/:listName/:categoryName/:entryName',authenticateToken,endpoints.updateEntry);
-
-app.patch('/list/:listName/:categoryName/:entryName/change',endpoints.changeCategory);
+app.patch('/list/:listName/:categoryName/:entryName/change',authenticateToken, endpoints.changeCategory);
 
 app.delete('/list/:listName',authenticateToken, endpoints.deleteList);
 app.delete('/list/:listName/:categoryName',authenticateToken, endpoints.deleteCategory);
@@ -284,7 +283,8 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
 
   //If we have an Auth Header -> return auth header token portion
-  const token = req.cookies.accessToken;
+  let  token = req.cookies.accessToken;
+  if(!token) token = authHeader && authHeader.split(' ')[1];
   //If not ->return unauthorized
   if (token == null) return res.sendStatus(401)
 

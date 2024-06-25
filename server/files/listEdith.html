@@ -62,8 +62,7 @@
                         .then(response => response.json())
                         .then(data => {
                             this.newPicture = data.image;
-                            //this.newWeather = data.wheater;
-                            console.log(this.newWeather)
+                            this.newWeather = data.weather;
                         })
                         .catch(error => {
                             console.error('Error:', error);

@@ -30,6 +30,7 @@
           Vienna: {{weather.weather}}, {{ weather.temperature }}°C</p>
         <div class="clear"></div>
 
+        <!-- Not logged in Banner -->
         <div v-if="!hasAccessToken()" class="row left fixed-main">
           <div class="slogan">
             <p style="font-size: 200%; margin-top: 15%; margin-bottom: 0;">Never forget your experiences. Save what you
@@ -43,8 +44,8 @@
         <ul>
           <div class="row center">
             <li>
-              <div class="center" v-for="item in rowChunks">
-                <div v-for="card in item" class="col s2.5">
+              <div class="center" v-for="row in rowChunks">
+                <div v-for="card in row" class="col s2.5">
 
                   <a :href="getCardLink(card.name)">
                     <div class="card hoverable" style="width: 170px; height: 220px;">

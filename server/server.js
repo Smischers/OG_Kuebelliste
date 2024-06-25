@@ -5,12 +5,15 @@ const express = require('express')
 const path = require('path')
 const fs = require('fs');
 const bodyParser = require('body-parser')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+const cookieParser = require('cookie-parser')
 const esoData = require('./eso.js')
 const endpoints = require('./files/Endpoints.js')
-const weather = require('./files/Ext-APIs/weather.js');
-const animes = require('./files/Ext-APIs/anime.js');
-const mangas = require('./files/Ext-APIs/manga.js');
-const cookieParser = require('cookie-parser');
+const weather = require('./files/Ext-APIs/weather.js')
+const animes = require('./files/Ext-APIs/anime.js')
+const mangas = require('./files/Ext-APIs/manga.js')
+
 const app = express()
 
 app.use(cookieParser());
@@ -23,29 +26,12 @@ setupSwagger(app);
 
 //Load the Token variables from .env to the Token creation here
 require('dotenv').config()
-//Import jwt libary
-const jwt = require('jsonwebtoken')
-
-
-const bcrypt = require('bcrypt')
 
 //any incoming request with a JSON body will be parsed, and the resulting object will be accessible in req.body
 app.use(express.json())
 
-//Test Array for JWT Testing
-const posts = [
-  {
-    username: 'Julian',
-    title: 'Post1'
-  },
-  {
-    username: 'Mihael',
-    title: 'Post2'
-  }
-]
 // Parse urlencoded bodies
 app.use(bodyParser.json());
-
 
 // Serve static content in directory 'files'
 app.use(express.static(path.join(__dirname, 'files')));
@@ -140,10 +126,6 @@ app.put('/list/:listName/:categoryName/:entryName',authenticateToken,endpoints.u
 app.delete('/list/:listName',authenticateToken, endpoints.deleteList);
 app.delete('/list/:listName/:categoryName',authenticateToken, endpoints.deleteCategory);
 app.delete('/list/:listName/:categoryName/:entryName',authenticateToken, endpoints.deleteEntry);
-// Nicht mein Problem machts ihr Backend Boys
-app.get('/', function (req, res) {
-  res.sendStatus(403)
-})
 
 /* ------------------------------------------------------------------------------------------------------------ */
 //Weather Endpoints
@@ -152,14 +134,13 @@ app.get('/weather/dayweather/:city', weather.getDayWeather);
 app.get('/weather/weatherandtemp/:city', weather.getWeatherAndTemperature);
 
 /* ------------------------------------------------------------------------------------------------------------ */
-
+//Anime/Manga Endpoints
 app.get('/anime', animes.getRecommendedAnimes);
 app.get('/manga', mangas.getRecommendedMagas);
 
 
 
 /* ------------------------------------------------------------------------------------------------------------ */
-//User Login
 
 /**
  * @swagger
@@ -301,9 +282,7 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
 
   //If we have an Auth Header -> return auth header token portion
-  //const tokenFromHeader  = authHeader && authHeader.split(' ')[1]
   const token = req.cookies.accessToken;
-  //const token = tokenFromHeader || tokenFromCookie;
   //If not ->return unauthorized
   if (token == null) return res.sendStatus(401)
 
@@ -316,9 +295,6 @@ function authenticateToken(req, res, next) {
     next()
   })
 }
-
-
-
 
 app.get('/eso', (req, res) => {
   res.send(esoData)

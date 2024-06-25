@@ -22,7 +22,6 @@ footer a:hover {
     text-decoration: underline;
 }
 
-
 /* Structure, IDs */
 
 #app {
@@ -294,6 +293,23 @@ p.trunc {
     line-height: 22.5px !important;
 }
 
+.colName {
+    width: 20%;
+}
+
+.colRating {
+    width: 8%;
+}
+
+.colDescription{
+    width: 64%;
+}
+
+.colDeadline {
+    width: 8%;
+}
+
+
 /* Media query for mobile devices or 200% zoom */
 @media screen and (max-width: 1000px) {
     .fixed-main {
@@ -339,5 +355,30 @@ p.trunc {
 
     main {
         padding: 1% 4%;
+    }
+
+    .colName {
+        width: 45%;
+    }
+    
+    .colRating {
+        width: 7%;
+    }
+    
+    .colDescription{
+        width: 40%;
+    }
+    
+    .colDeadline {
+        width: 8%;
+    }
+
+    td {
+        padding-right: 1.5%;
+    }
+
+    .editItem {
+        padding-left: 5px;
+        padding-right: 5px;
     }
 }

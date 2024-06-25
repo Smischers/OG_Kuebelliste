@@ -53,16 +53,16 @@
                   <table v-if="value.length !== 0" style="margin-bottom: 3%; border: 2px solid #a8a8a8;">
                     <thead>
                       <tr>
-                        <th style="width: 20%;">Name</th>
-                        <th style="width: 8%;">Rating</th>
-                        <th style="width: 64%;">Description</th>
-                        <th style="width: 8%;">Deadline</th>
+                        <th class="colName">Name</th>
+                        <th class="colRating">Rating</th>
+                        <th class="colDescription">Description</th>
+                        <th class="colDeadline">Deadline</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="entry in value">
                         <td
-                          style=" overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;">
+                          style=" overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;max-inline-size: 0;">
                           <a :href="`listentry.html?listName=${listName}&listCategory=${category}&listEntry=${entry.name}`"
                             style="color: black;">{{ entry.name
                             }}</a>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anderes Projekt</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="icon" type="image/x-icon" href="resources/Kuebelliste_Icon.png">
+  <style>
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f4f4f4;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff1a1a;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: calc(100% - 22px);
+      /* Adjust width to fit within container */
+    }
+
+    button.add {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button.add:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+
+    <main style="margin: 10%; margin-top: 3%;">
+      <ul id="listContainer">
+
+      </ul>
+      <input type="text" id="nameInput" placeholder="Enter name">
+      <button onclick="addToList()">Add to List</button>
+
+      <script src="extraFrontEnd.js"></script>
+    </main>
+
+
+</body>
+
+</html>

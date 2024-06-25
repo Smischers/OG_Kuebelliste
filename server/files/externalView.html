@@ -39,7 +39,7 @@
                     <div class="card-image">
                       <img v-if="card.img != ''" :src=card.img alt="" style="width:220px; height:200px;">
                       <img v-else src=resources/Kuebelliste_Icon.png alt="" style="width:200px; height:200px;">
-                      <a href="#" title="Add to My Lists"
+                      <a v-on:click="addToList(card.name, card.description, card.img)" title="Add to My Lists"
                         class="btn-floating halfway-fab waves-effect waves-light red"><i
                           class="material-icons">add</i></a>
                     </div>
@@ -137,6 +137,79 @@
               then(res => res.json()).
               then(data => data.map(manga => ({ name: manga.title.english, img: manga.coverImage.large, description: this.stripHtmlTags(manga.description) })));
           }
+          return null;
+        },
+        addToList(name, description, image) {
+          const truncatedName = name.length > 20 ? name.substring(0, 20) : name;
+
+          let listname = "ESO Dungeons";
+          let listPicture = "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp";
+          if (this.chosenAPI == "anime") {
+            listname = "Anime"
+            listPicture = "https://image.spreadshirtmedia.net/image-server/v1/mp/products/T1459A839PA4459PT28D187144250W10000H4186/views/1,width=800,height=800,appearanceId=839,backgroundColor=F2F2F2/anime-logo-sticker.jpg"
+          }
+          else if (this.chosenAPI == "manga") {
+            listname = "Manga"
+            listPicture = "https://as2.ftcdn.net/v2/jpg/03/00/43/65/1000_F_300436550_VmmVTJX6n6b3uDLyfNwNftoMZtkD53IQ.jpg"
+          }
+
+          fetch(`/list/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              "name": listname,
+              "picture": listPicture,
+              "weather": "clear"
+            })
+          })
+            .then(d => {
+              let betterListname = listname;
+              if (d.status === 201) {
+                fetch(`/list/${listname}`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify([{ name: "To-Do" }])
+                }).then(d => {
+                  fetch(`list/${betterListname}/To-Do`, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify([{
+                      name: truncatedName,
+                      rating: "0/0",
+                      description: description,
+                      deadline: "none",
+                      image: image,
+                      calendar: "no"
+                    }])
+                  })
+                })
+              }
+              else {
+                fetch(`list/${betterListname}/To-Do`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify([{
+                    name: name,
+                    rating: "0/0",
+                    description: description,
+                    deadline: "none",
+                    image: image,
+                    calendar: "no"
+                  }])
+                })
+              }
+            })
+            .catch(e => {
+              console.log(e)
+            })
           return null;
         },
         handleResize() {

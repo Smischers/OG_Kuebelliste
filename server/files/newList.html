@@ -58,7 +58,6 @@
                 body: JSON.stringify(formData)
             })
                 .then(data => {
-                    // TESTEN TODO
                     fetch(`/list/${formData.name}`, {
                         method: 'POST',
                         headers: {

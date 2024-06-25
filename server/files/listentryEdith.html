@@ -159,7 +159,7 @@
                         .then(d => {return this.delay(75)})
                         .then(data => {
                             fetch(`/list/${this.listName}/${this.listCategory}/${this.newEntryName}/change`, {
-                                method: 'PUT',
+                                method: 'PATCH',
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },

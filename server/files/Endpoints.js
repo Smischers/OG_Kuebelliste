@@ -269,7 +269,7 @@ exports.updateEntry = function (req, res) {
     }
 }
 exports.changeCategory = function (req, res) {
-    let path = "Konsti";
+    let path = req.user.name;
     let data = getData(path);
     let indexList = GetListIndex(req.params.listName,data);
 

@@ -62,7 +62,7 @@
                     <tbody>
                       <tr v-for="entry in value">
                         <td
-                          style=" overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;">
+                          style=" overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;max-inline-size: 0;">
                           <a :href="`listentry.html?listName=${listName}&listCategory=${category}&listEntry=${entry.name}`"
                             style="color: black;">{{ entry.name
                             }}</a>

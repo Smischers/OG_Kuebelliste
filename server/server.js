@@ -122,7 +122,7 @@ app.post('/list/:listName/:categoryName',authenticateToken, endpoints.createEntr
 app.put('/list/:listName',authenticateToken, endpoints.updateLists);
 app.put('/list/:listName/:categoryName',authenticateToken, endpoints.updateCategorys);
 app.put('/list/:listName/:categoryName/:entryName',authenticateToken,endpoints.updateEntry);
-app.put('/list/:listName/:categoryName/:entryName/change',authenticateToken, endpoints.changeCategory);
+app.patch('/list/:listName/:categoryName/:entryName/change',authenticateToken, endpoints.changeCategory);
 
 app.delete('/list/:listName',authenticateToken, endpoints.deleteList);
 app.delete('/list/:listName/:categoryName',authenticateToken, endpoints.deleteCategory);

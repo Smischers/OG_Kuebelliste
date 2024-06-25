@@ -130,17 +130,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuI
 }]
 
 ###
-POST http://localhost:3000/list/New List
+POST http://localhost:3000/list/Test1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 [{
-    "name":"New Cat"
+    "name":"Done"
 }]
 
 ###
 POST http://localhost:3000/list/New List/New Cat
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
 
 [{ 
     "name": "Entry Name", 
@@ -161,10 +162,13 @@ Content-Type: application/json
 }]
 
 ###
-GET  http://localhost:3000/Test
+PUT http://localhost:3000/list/Test/Done/test21/change
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSnVsaWFuIiwiaWF0IjoxNzE4NjA4Mzk2fQ.BdOM648Xnck8YTo1-V9kbkZ_6eaFZ2bXmzJ_J4OpBvk
+Content-Type: application/json
+
+{
+    "newCat":"To-Do"
+}
 
 ###
-GET  http://localhost:3000/anime
-
-###
-GET  http://localhost:3000/manga
+GET http://localhost:3000/test

@@ -1,6 +1,6 @@
 const fileManager = require('../files/fileManager');
 const weather = require('../files/Ext-APIs/weather');
-const e = require('express');
+
 function getData(path) {
     let pathing = "List_Data/" + path + ".json";
     let ret = fileManager.readFile(pathing);
@@ -48,7 +48,7 @@ exports.getListNamesIcons = async function (req, res) {
         let keys = Object.keys(data)
         let nameIcons = [];
         let w = await weather.getCurrentWeather("Vienna");
-
+        console.log(w)
         for (let i = 0; i < keys.length; i++) {
             nameIcons[i] = { name: data[keys[i]].name, picture: data[keys[i]].picture }
         }
@@ -366,13 +366,22 @@ exports.deleteEntry = function (req, res) {
     }
 }
 
-exports.test = function (req, res) {
-    let data = getData("Test2");
-    let Lind=GetListIndex("ESO Dungeons",data)
-    let Cind=GetCatIndex(Lind,"To-Do",data);
-    let Eind=GetEntIndex(Lind,Cind,"Spindelclutch I",data);
-    console.log(Eind)
-    res.sendStatus(200);
+exports.test = async function (req, res) {
+    let path = "Test";
+    let data = getData(path);
+    if (!data.length !== 0) {
+        let keys = Object.keys(data)
+        let nameIcons = [];
+        let w = await weather.getCurrentWeather("Vienna");
+        console.log(w)
+        for (let i = 0; i < keys.length; i++) {
+            nameIcons[i] = { name: data[keys[i]].name, picture: data[keys[i]].picture }
+        }
+        res.send(nameIcons)
+    } else {
+        res.sendStatus(404);
+        console.log("File not found");
+    }
 }
 
 let GetListIndex = function (name, data) {

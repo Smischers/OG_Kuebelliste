@@ -1,5 +1,6 @@
 const fileManager = require('../files/fileManager');
 const weather = require('../files/Ext-APIs/weather');
+const e = require('express');
 function getData(path) {
     let pathing = "List_Data/" + path + ".json";
     let ret = fileManager.readFile(pathing);
@@ -25,9 +26,7 @@ exports.getListByName = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
     if (!data.length !== 0) {
-        let search = [];
-        data.forEach(element => search.push(element.name));
-        let indexList = search.findIndex(ele => ele === req.params.listName);
+        let indexList = GetListIndex(req.params.listName,data);
 
         if (indexList != -1) {
             res.send(data[indexList].headers);
@@ -64,9 +63,8 @@ exports.getListDetails = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
     if (!data.length !== 0) {
-        let search = [];
-        data.forEach(element => search.push(element.name));
-        let indexList = search.findIndex(element => element == req.params.listName);
+        let indexList = GetListIndex(req.params.listName,data);
+
         if (indexList != -1) {
             let categoryNames = [];
             data[indexList].headers.forEach(element => categoryNames.push(Object.keys(element)[0]));
@@ -85,17 +83,14 @@ exports.getEntry = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
     if (!data.length !== 0) {
-        let search = [];
-        data.forEach(element => search.push(element.name));
-        let indexList = search.findIndex(ele => ele === req.params.listName);
+        let indexList = GetListIndex(req.params.listName,data);
+
         if (indexList != -1) {
-            search = [];
-            data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
-            let indexCat = search.findIndex(element => element === req.params.categoryName);
+            let indexCat = GetCatIndex(indexList,req.params.categoryName,data);
+
             if (indexCat != -1) {
-                search = [];
-                data[indexList].headers[indexCat][req.params.categoryName].forEach(element => search.push(element.name));
-                let indexEnt = search.findIndex(element => element === req.params.entryName);
+                let indexEnt = GetEntIndex(indexList,indexCat,req.params.entryName,data);
+
                 if (indexEnt != -1) {
                     res.send(data[indexList].headers[indexCat][req.params.categoryName][indexEnt]);
                 } else {
@@ -148,9 +143,8 @@ exports.createList = function (req, res) {
 exports.createCategory = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
-    let search = [];
-    data.forEach(element => search.push(element.name));
-    let indexList = search.findIndex(ele => ele === req.params.listName);
+    let indexList = GetListIndex(req.params.listName,data);
+
     if (indexList == -1) {
         console.log("List not found");
         res.sendStatus(404);
@@ -177,15 +171,12 @@ exports.createCategory = function (req, res) {
 exports.createEntry = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
-    let search = [];
-    data.forEach(element => search.push(element.name));
-    let indexList = search.findIndex(ele => ele === req.params.listName);
+    let indexList = GetListIndex(req.params.listName,data);
+    
     if (indexList != -1) {
-        search = [];
-        data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
-        let indexCat = search.findIndex(element => element === req.params.categoryName);
+            let indexCat = GetCatIndex(indexList,req.params.categoryName,data);
+            
         if (indexCat != -1) {
-            search = [];
             data[indexList].headers[indexCat][req.params.categoryName].push(req.body[0]);
             console.log("Created Entry");
             console.log(data[indexList].headers[indexCat][req.params.categoryName]);
@@ -205,9 +196,8 @@ exports.createEntry = function (req, res) {
 exports.updateLists = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
-    let search = [];
-    data.forEach(element => search.push(element.name));
-    let indexList = search.findIndex(ele => ele === req.params.listName);
+    let indexList = GetListIndex(req.params.listName,data);
+
     if (indexList != -1) {
         data[indexList].name = req.body[0].name;
         data[indexList].picture = req.body[0].picture;
@@ -223,13 +213,11 @@ exports.updateLists = function (req, res) {
 exports.updateCategorys = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
-    let search = [];
-    data.forEach(element => search.push(element.name));
-    let indexList = search.findIndex(ele => ele === req.params.listName);
+    let indexList = GetListIndex(req.params.listName,data);
+
     if (indexList != -1) {
-        search = [];
-        data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
-        let indexCat = search.findIndex(element => element === req.params.categoryName);
+        let indexCat = GetCatIndex(indexList,re.params.categoryName,data);
+            
         if (indexCat != -1) {
             let old_key = Object.keys(data[indexList].headers[indexCat])[0];
             let new_key = req.body[0].name;
@@ -253,19 +241,16 @@ exports.updateCategorys = function (req, res) {
 exports.updateEntry = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
-    let search = [];
-    data.forEach(element => search.push(element.name));
-    let indexList = search.findIndex(ele => ele === req.params.listName);
+    let indexList = GetListIndex(req.params.listName,data);
+    
     if (indexList != -1) {
-        search = [];
-        data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
-        let indexCat = search.findIndex(element => element === req.params.categoryName);
+        let indexCat = GetCatIndex(indexList,req.params.categoryName,data);
+            
         if (indexCat != -1) {
-            search = [];
-            data[indexList].headers[indexCat][req.params.categoryName].forEach(element => search.push(element.name));
-            let indexEnt = search.findIndex(element => element === req.params.entryName);
+            let indexEnt = GetEntIndex(indexList,indexCat,req.params.entryName,data);
+                
             if (indexEnt != -1) {
-                data[indexList].headers[indexCat][req.params.categoryName] = req.body;
+                data[indexList].headers[indexCat][req.params.categoryName][indexEnt] = req.body[0];
                 res.sendStatus(200);
                 console.log("Updated Entry");
                 console.log(data[indexList].headers[indexCat]);
@@ -283,14 +268,46 @@ exports.updateEntry = function (req, res) {
         res.sendStatus(404);
     }
 }
+exports.changeCategory = function (req, res) {
+    let path = "Konsti";
+    let data = getData(path);
+    let indexList = GetListIndex(req.params.listName,data);
+
+    if (indexList != -1) {
+        let indexCat = GetCatIndex(indexList,req.params.categoryName,data);
+        let indexChange=GetCatIndex(indexList,req.body.newCat,data);
+            
+        if (indexCat != -1||indexChange!=-1) {
+            let indexEnt = GetEntIndex(indexList,indexCat,req.params.entryName,data);
+                
+            if (indexEnt != -1) {
+                let tmp = data[indexList].headers[indexCat][req.params.categoryName][indexEnt];
+                data[indexList].headers[indexCat][req.params.categoryName].splice(indexEnt, 1);
+                data[indexList].headers[indexChange][req.body.newCat].push(tmp);
+                res.sendStatus(200);
+                console.log("Changed Entry Category");
+                saveData(path, data);
+            } else {
+                console.log("Entry not found");
+                res.sendStatus(404);
+            }
+        } else {
+            console.log("Category not found");
+            res.sendStatus(404);
+        }
+    } else {
+        console.log("List not found");
+        res.sendStatus(404);
+    }
+}
+
 
 //DELETE-Endpoints
 exports.deleteList = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
-    let search = [];
-    data.forEach(element => search.push(element.name));
-    let indexList = search.findIndex(ele => ele === req.params.listName);
+    let indexList = GetListIndex(req.params.listName,data);
+
     if (indexList != -1) {
         data.splice(indexList, 1);
         res.sendStatus(201);
@@ -303,13 +320,11 @@ exports.deleteList = function (req, res) {
 exports.deleteCategory = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
-    let search = [];
-    data.forEach(element => search.push(element.name));
-    let indexList = search.findIndex(ele => ele === req.params.listName);
+    let indexList = GetListIndex(req.params.listName,data);
+
     if (indexList != -1) {
-        search = [];
-        data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
-        let indexCat = search.findIndex(element => element === req.params.categoryName);
+        let indexCat = GetCatIndex(indexList,re.params.categoryName,data);
+            
         if (indexCat != -1) {
             data[indexList].headers.splice(indexCat, 1);
             saveData(path, data);
@@ -325,15 +340,14 @@ exports.deleteCategory = function (req, res) {
 exports.deleteEntry = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
-    let search = [];
-    data.forEach(element => search.push(element.name));
-    let indexList = search.findIndex(ele => ele === req.params.listName);
+    let indexList = GetListIndex(req.params.listName,data);
+
     if (indexList != -1) {
-        search = [];
-        data[indexList].headers.forEach(element => search.push(Object.keys(element)[0]));
-        let indexCat = search.findIndex(element => element === req.params.categoryName);
+        let indexCat = GetCatIndex(indexList,req.params.categoryName,data);
+            
         if (indexCat != -1) {
-            let indexEnt = data[indexList].headers[indexCat][req.params.categoryName].findIndex(element => element.name === req.params.entryName);
+            let indexEnt = GetEntIndex(indexList,indexCat,req.params.entryName,data);
+                
             if (indexEnt != -1) {
                 data[indexList].headers[indexCat][req.params.categoryName].splice(indexEnt, 1);
                 res.sendStatus(200);
@@ -351,3 +365,28 @@ exports.deleteEntry = function (req, res) {
         res.sendStatus(404);
     }
 }
+
+exports.test = function (req, res) {
+    let data = getData("Test2");
+    let Lind=GetListIndex("ESO Dungeons",data)
+    let Cind=GetCatIndex(Lind,"To-Do",data);
+    let Eind=GetEntIndex(Lind,Cind,"Spindelclutch I",data);
+    console.log(Eind)
+    res.sendStatus(200);
+}
+
+let GetListIndex = function (name, data) {
+    let search = [];
+    data.forEach(ele => search.push(ele.name));
+    return search.findIndex(ele => ele === name);
+};
+let GetCatIndex = function (list,name, data) {
+    let search=[];
+    data[list].headers.forEach(ele=>search.push(Object.keys(ele)[0]))
+    return search.findIndex(ele=>ele===name)
+};
+let GetEntIndex = function (list,cat,name, data) {
+    let search=[];
+    Object.values(data[list].headers[cat])[0].forEach(ele=>search.push(ele.name));
+    return search.findIndex(ele=>ele===name);
+};

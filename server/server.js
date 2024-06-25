@@ -136,6 +136,7 @@ app.post('/list/:listName/:categoryName',authenticateToken, endpoints.createEntr
 app.put('/list/:listName',authenticateToken, endpoints.updateLists);
 app.put('/list/:listName/:categoryName',authenticateToken, endpoints.updateCategorys);
 app.put('/list/:listName/:categoryName/:entryName',authenticateToken,endpoints.updateEntry);
+app.put('/list/:listName/:categoryName/:entryName/change',endpoints.changeCategory);
 
 app.delete('/list/:listName',authenticateToken, endpoints.deleteList);
 app.delete('/list/:listName/:categoryName',authenticateToken, endpoints.deleteCategory);
@@ -156,7 +157,7 @@ app.get('/weather/weatherandtemp/:city', weather.getWeatherAndTemperature);
 app.get('/anime', animes.getRecommendedAnimes);
 app.get('/manga', mangas.getRecommendedMagas);
 
-
+app.get('/test',endpoints.test)
 
 /* ------------------------------------------------------------------------------------------------------------ */
 //User Login

@@ -1,7 +1,7 @@
 var fs = require('fs')
 
 exports.writeFile = function (path, data) {
-    console.log("Saving file: "+path)
+    //console.log("Saving file: "+path)
     fs.writeFile(path, JSON.stringify(data), (err) => {
         if (err) {
             console.log("Error writing data");
@@ -12,7 +12,7 @@ exports.writeFile = function (path, data) {
 
 exports.readFile = function (path) {
     let result;
-    console.log("Reading file: "+path)
+    //console.log("Reading file: "+path)
     try {
         result = fs.readFileSync(path);
     } catch (error) {

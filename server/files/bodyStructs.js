@@ -21,3 +21,5 @@ put_List = [{ name: "New List Name", picture: "New Pic", weather: "Sunny" }]
 put_Category = [{ name: "New Category Name" }]
 
 put_Entry = [{ name: "New entry name1", rating: "10 / 10", description: "Descripton", deadline: "30.03.2024", calendar: "yes", }]
+
+put_ChangeCategory={newCat:"New Category name"}

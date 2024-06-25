@@ -1,5 +1,5 @@
-const fileManager = require('../files/fileManager');
-const weather = require('../files/Ext-APIs/weather');
+const fileManager = require('./fileManager');
+const weather = require('./files/Ext-APIs/weather');
 const e = require('express');
 
 // Alles -> Listen -> Header -> Categories -> Entries

@@ -283,7 +283,8 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
 
   //If we have an Auth Header -> return auth header token portion
-  const token = req.cookies.accessToken;
+  let  token = req.cookies.accessToken;
+  if(!token) token = authHeader && authHeader.split(' ')[1];
   //If not ->return unauthorized
   if (token == null) return res.sendStatus(401)
 

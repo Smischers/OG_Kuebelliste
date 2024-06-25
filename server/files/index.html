@@ -117,7 +117,7 @@
         fetchItems() {
           let fetchedItems = [];
 
-          fetch("/list")
+          fetch("/listIcons")
             .then(res => res.json())
             .then(data => {
               fetchedItems = data;

@@ -1,7 +1,8 @@
 var fs = require('fs')
 
+// Writes JSON Data into File 
 exports.writeFile = function (path, data) {
-    //console.log("Saving file: "+path)
+
     fs.writeFile(path, JSON.stringify(data), (err) => {
         if (err) {
             console.log("Error writing data");
@@ -9,10 +10,10 @@ exports.writeFile = function (path, data) {
         }
     });
 }
-
+// Gets JSON Data from File 
 exports.readFile = function (path) {
     let result;
-    //console.log("Reading file: "+path)
+
     try {
         result = fs.readFileSync(path);
     } catch (error) {

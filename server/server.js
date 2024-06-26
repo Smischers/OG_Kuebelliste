@@ -133,8 +133,6 @@ app.get('/weather/weatherandtemp/:city', weather.getWeatherAndTemperature);
 app.get('/anime', animes.getRecommendedAnimes);
 app.get('/manga', mangas.getRecommendedMagas);
 
-app.get('/test',endpoints.test)
-
 /* ------------------------------------------------------------------------------------------------------------ */
 
 /**

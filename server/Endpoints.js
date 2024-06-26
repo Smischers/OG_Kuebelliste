@@ -34,6 +34,15 @@ function saveData(username, data) {
     fileManager.writeFile(pathing, data);
 }
 
+async function getWeather() {
+    let city = "Vienna";
+    let w = await weather.getCurrentWeather(city);
+    if (w === "Clear" || w === "Clouds")
+        return "clear";
+    else
+        return "rain"
+}
+
 //GET-Endpoints
 
 // Gets the entire file
@@ -47,7 +56,6 @@ exports.getList = function (req, res) {
         console.log("File not found");
     }
 }
-
 // Gets certain List by Name
 exports.getListByName = function (req, res) {
     let path = req.user.name;
@@ -75,15 +83,24 @@ exports.getListNamesIcons = async function (req, res) {
     let path = req.user.name;
     let data = getData(path);
     if (data.length !== 0) { // Does the file exist
-        let keys = Object.keys(data)
-        let nameIcons = [];
+        let nameIcons = []; //Array used for the return value
+        let w = await getWeather(); //Gets weather from API
 
-        // Sortierung per wetter 
-        let w = await weather.getCurrentWeather("Vienna");
+        // Sorts array by weather 
+        data.sort((a, b) => {
+            if (a.weather === w && a.weather !== b.weather)
+                return -1;
+            else if (a.weather === b.weather)
+                return 0;
+            else
+                return 1;
+        });
 
-        for (let i = 0; i < keys.length; i++) {
-            nameIcons[i] = { name: data[keys[i]].name, picture: data[keys[i]].picture } // Iterate over every List and get Data 
-        }
+        //pushes the new elements into nameIcons[] in the sorted order
+        data.forEach(ele => {
+            nameIcons.push({ name: ele.name, picture: ele.picture });
+        })
+
         res.send(nameIcons) // Return Listname + Picture in Array of Objects
     } else {
         res.send([]);
@@ -91,7 +108,6 @@ exports.getListNamesIcons = async function (req, res) {
     }
 
 }
-
 // Returns name of categories + image + weather of one list
 exports.getListDetails = function (req, res) {
     let path = req.user.name;
@@ -145,15 +161,15 @@ exports.getEntry = function (req, res) {
     }
 
     let entryIndex = GetEntIndex(listIndex, categoryIndex, req.params.entryName, data);
-
-    if (entryIndex != -1) {
+    if(entryIndex===-1){
+        console.log("Entry not found");
+        res.sendStatus(404);
+        return;
+    }
         let currentCategories = data[listIndex].headers;
         let category = currentCategories[categoryIndex][req.params.categoryName];
         res.send(category[entryIndex]);
-    } else {
-        console.log("Entry not found");
-        res.sendStatus(404);
-    }
+
 }
 
 //POST-Endpoints
@@ -172,13 +188,11 @@ exports.createList = function (req, res) {
             data.push(req.body);
             data[data.length - 1].headers = [];
 
-            console.log("Added new List");
-            console.log(req.body);
-
             res.sendStatus(201);
             saveData(path, data);  // Writes into File
         }
     } else {  // If file does not exist
+        //Create new File
         data = [];
         data.push(req.body);
         console.log(req.body);
@@ -188,29 +202,25 @@ exports.createList = function (req, res) {
         saveData(path, data);
     }
 }
-
-// Creates a new Category
 exports.createCategory = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
     let listIndex = GetListIndex(req.params.listName, data);
     let newCategoryName = req.body[0].name;
 
-    if (listIndex == -1) {
+    if (listIndex === -1) {
         console.log("List not found");
         res.sendStatus(404);
+        return;
+    }
+
+    let categoryIndex = GetCatIndex(listIndex, newCategoryName, data)
+    if (categoryIndex == -1) {
+        data[listIndex].headers.push({ [newCategoryName]: [] });
+        res.sendStatus(201);
     } else {
-        let categoryIndex = GetCatIndex(listIndex, newCategoryName, data)
-        if (categoryIndex == -1) {
-            data[listIndex].headers.push({ [newCategoryName]: [] });
-            res.sendStatus(201);
-            console.log("Created new Category");
-            console.log(req.body);
-            saveData(path, data);
-        } else {
-            console.log("Category already exists");
-            res.sendStatus(400);
-        }
+        console.log("Category already exists");
+        res.sendStatus(400);
     }
 }
 exports.createEntry = function (req, res) {
@@ -218,26 +228,27 @@ exports.createEntry = function (req, res) {
     let data = getData(path);
     let listIndex = GetListIndex(req.params.listName, data);
 
-    if (listIndex != -1) {
-        let categoryIndex = GetCatIndex(listIndex, req.params.categoryName, data);
-
-        if (categoryIndex != -1) {
-            let currentCategories = data[listIndex].headers;
-            let category = currentCategories[categoryIndex][req.params.categoryName];
-
-            category.push(req.body[0]);
-            console.log("Created Entry");
-
-            res.sendStatus(201);
-            saveData(path, data);
-        } else {
-            console.log("Category not found");
-            res.sendStatus(404);
-        }
-    } else {
+    if (listIndex === -1) {
         console.log("List not found");
         res.sendStatus(404);
+        return;
     }
+
+    let categoryIndex = GetCatIndex(listIndex, req.params.categoryName, data);
+
+    if (categoryIndex != -1) {
+        let currentCategories = data[listIndex].headers;
+        let category = currentCategories[categoryIndex][req.params.categoryName];
+
+        category.push(req.body[0]);
+
+        res.sendStatus(201);
+        saveData(path, data);
+    } else {
+        console.log("Category not found");
+        res.sendStatus(404);
+    }
+
 }
 
 //PUT-Endpoints
@@ -256,7 +267,6 @@ exports.updateLists = function (req, res) {
         selectedList.weather = inputObject.weather;
 
         saveData(path, data)
-        console.log(selectedList);
         res.sendStatus(200);
     } else {
         console.log("List not found");
@@ -285,7 +295,6 @@ exports.updateCategorys = function (req, res) {
             Object.defineProperty(selectedCategory, new_key, Object.getOwnPropertyDescriptor(selectedCategory, old_key));
             delete selectedCategory[old_key]; // Creates a Copy of Category and creates a new key and deletes the old one 
         }
-        console.log(data[listIndex].headers);
         saveData(path, data);
     } else {
         console.log("Category not found");
@@ -295,70 +304,69 @@ exports.updateCategorys = function (req, res) {
 exports.updateEntry = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
+
     let listIndex = GetListIndex(req.params.listName, data);
-
-    if (listIndex != -1) {
-        let categoryIndex = GetCatIndex(listIndex, req.params.categoryName, data);
-
-        if (categoryIndex != -1) {
-            let entryIndex = GetEntIndex(listIndex, categoryIndex, req.params.entryName, data);
-
-            if (entryIndex != -1) {
-                let category = data[listIndex].headers[categoryIndex][req.params.categoryName];
-
-                category[entryIndex] = req.body[0]; // Set entry to body 
-                res.sendStatus(200);
-                console.log("Updated Entry");
-                console.log(data[listIndex].headers[categoryIndex]);
-
-                saveData(path, data);
-            } else {
-                console.log("Entry not found");
-                res.sendStatus(404);
-            }
-        } else {
-            console.log("Category not found");
-            res.sendStatus(404);
-        }
-    } else {
+    if (listIndex === -1) {
         console.log("List not found");
         res.sendStatus(404);
+        return;
     }
+
+    let categoryIndex = GetCatIndex(listIndex, req.params.categoryName, data);
+    if (categoryIndex === -1) {
+        console.log("Category not found");
+        res.sendStatus(404);
+        return;
+    }
+
+    let entryIndex = GetEntIndex(listIndex, categoryIndex, req.params.entryName, data);
+    if (entryIndex === -1) {
+        console.log("Entry not found");
+        res.sendStatus(404);
+        return;
+    }
+
+    let category = data[listIndex].headers[categoryIndex][req.params.categoryName];
+
+    category[entryIndex] = req.body[0]; // Set entry to body 
+    res.sendStatus(200);
+
+    saveData(path, data);
 }
 exports.changeCategory = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
+
     let listIndex = GetListIndex(req.params.listName, data);
-
-    if (listIndex != -1) {
-        let categoryIndex = GetCatIndex(listIndex, req.params.categoryName, data);
-        let indexChange = GetCatIndex(listIndex, req.body.newCat, data);
-
-        if (categoryIndex != -1 || indexChange != -1) {
-            let entryIndex = GetEntIndex(listIndex, categoryIndex, req.params.entryName, data);
-
-            if (entryIndex != -1) {
-                let selectedCategory = data[listIndex].headers[categoryIndex][req.params.categoryName];
-
-                let tmp = selectedCategory[entryIndex];  // Gets current Entry temp
-                selectedCategory.splice(entryIndex, 1); // Removes current Entry
-
-                data[listIndex].headers[indexChange][req.body.newCat].push(tmp); // Pushes back in 
-                res.sendStatus(200);
-                console.log("Changed Entry Category");
-                saveData(path, data);
-            } else {
-                console.log("Entry not found");
-                res.sendStatus(404);
-            }
-        } else {
-            console.log("Category not found");
-            res.sendStatus(404);
-        }
-    } else {
+    if (listIndex === -1) {
         console.log("List not found");
         res.sendStatus(404);
+        return;
     }
+
+    let categoryIndex = GetCatIndex(listIndex, req.params.categoryName, data);
+    let indexChange = GetCatIndex(listIndex, req.body.newCat, data);
+    if (categoryIndex === -1 || indexChange === -1) {
+        console.log("Category not found");
+        res.sendStatus(404);
+        return;
+    }
+
+    let entryIndex = GetEntIndex(listIndex, categoryIndex, req.params.entryName, data);
+    if (entryIndex === -1) {
+        console.log("Entry not found");
+        res.sendStatus(404);
+        return;
+    }
+    let selectedCategory = data[listIndex].headers[categoryIndex][req.params.categoryName];
+    let newCategory = data[listIndex].headers[indexChange][req.body.newCat];
+    let tmp = selectedCategory[entryIndex];  // Gets current Entry temp
+
+    selectedCategory.splice(entryIndex, 1); // Removes current Entry
+
+    newCategory.push(tmp); // Pushes back in 
+    res.sendStatus(200);
+    saveData(path, data);
 }
 
 
@@ -377,65 +385,56 @@ exports.deleteList = function (req, res) {
         res.sendStatus(404);
     }
 }
-
-// Delete Category
 exports.deleteCategory = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
+
     let listIndex = GetListIndex(req.params.listName, data);
-
-    if (listIndex != -1) {
-        let categoryIndex = GetCatIndex(listIndex, re.params.categoryName, data);
-
-        if (categoryIndex != -1) {
-            let allCategories = data[listIndex].headers;
-            allCategories.splice(categoryIndex, 1);
-            saveData(path, data);
-        } else {
-            console.log("Category not found");
-            res.sendStatus(404);
-        }
-    } else {
+    if (listIndex === -1) {
         console.log("List not found");
         res.sendStatus(404);
+        return;
     }
+
+    let categoryIndex = GetCatIndex(listIndex, req.params.categoryName, data);
+    if (categoryIndex === -1) {
+        console.log("Category not found");
+        res.sendStatus(404);
+        return;
+    }
+
+    let allCategories = data[listIndex].headers;
+    allCategories.splice(categoryIndex, 1);
+    saveData(path, data);
 }
 exports.deleteEntry = function (req, res) {
     let path = req.user.name;
     let data = getData(path);
+
     let listIndex = GetListIndex(req.params.listName, data);
-
-    if (listIndex != -1) {
-        let categoryIndex = GetCatIndex(listIndex, req.params.categoryName, data);
-
-        if (categoryIndex != -1) {
-            let entryIndex = GetEntIndex(listIndex, categoryIndex, req.params.entryName, data);
-
-            if (entryIndex != -1) {
-                let currentCategory =  data[listIndex].headers[categoryIndex][req.params.categoryName];
-                
-                currentCategory.splice(entryIndex, 1);
-                res.sendStatus(200);
-                saveData(path, data);
-            } else {
-                console.log("Entry not found");
-                res.sendStatus(404);
-            }
-        } else {
-            console.log("Category not found");
-            res.sendStatus(404);
-        }
-    } else {
+    if (listIndex === -1) {
         console.log("List not found");
         res.sendStatus(404);
+        return;
     }
-}
 
-exports.test = function (req, res) {
-    let data = getData("Test2");
-    let Lind = GetListIndex("ESO Dungeons", data)
-    let Cind = GetCatIndex(Lind, "To-Do", data);
-    let Eind = GetEntIndex(Lind, Cind, "Spindelclutch I", data);
-    console.log(Eind)
+    let categoryIndex = GetCatIndex(listIndex, req.params.categoryName, data);
+    if (categoryIndex === -1) {
+        console.log("Category not found");
+        res.sendStatus(404);
+        return;
+    }
+
+    let entryIndex = GetEntIndex(listIndex, categoryIndex, req.params.entryName, data);
+    if (entryIndex === -1) {
+        console.log("Entry not found");
+        res.sendStatus(404);
+        return;
+    }
+
+    let currentCategory = data[listIndex].headers[categoryIndex][req.params.categoryName];
+
+    currentCategory.splice(entryIndex, 1);
     res.sendStatus(200);
+    saveData(path, data);
 }

@@ -140,7 +140,7 @@
           return null;
         },
         addToList(name, description, image) {
-          const truncatedName = name.length > 20 ? name.substring(0, 20) : name;
+          //const truncatedName = name.length > 20 ? name.substring(0, 20) : name;
 
           let listname = "ESO Dungeons";
           let listPicture = "https://assetsio.gnwcdn.com/elder-scrolls-online-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp";
@@ -180,7 +180,7 @@
                       'Content-Type': 'application/json'
                     },
                     body: JSON.stringify([{
-                      name: truncatedName,
+                      name: name,
                       rating: "0/0",
                       description: description,
                       deadline: "none",

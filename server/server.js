@@ -1,6 +1,3 @@
-//Source for User Login: https://www.youtube.com/watch?v=Ud5xKCYQTjM
-//Source for JWT: https://www.youtube.com/watch?v=mbsmsi7l3r4
-
 const express = require('express')
 const path = require('path')
 const fs = require('fs');
@@ -29,9 +26,6 @@ require('dotenv').config()
 
 //any incoming request with a JSON body will be parsed, and the resulting object will be accessible in req.body
 app.use(express.json())
-
-// Parse urlencoded bodies
-app.use(bodyParser.json());
 
 // Serve static content in directory 'files'
 app.use(express.static(path.join(__dirname, 'files')));
@@ -207,8 +201,6 @@ app.post('/register', async (req, res) => {
     //Salt makes every hashed password unique (at the beginn of the encr. passw.)
     const salt = await bcrypt.genSalt()
     const hashedPassword = await bcrypt.hash(req.body.psw, salt)
-    console.log('Salt: ' + salt)
-    console.log('Complete encrypted User Password: ' + hashedPassword)
     const user = { name: req.body.uname, password: hashedPassword }
 
     const users = getUsersFromUserFile();
@@ -219,8 +211,6 @@ app.post('/register', async (req, res) => {
     users.push(user)
     //Add to the users.json file
     fs.writeFileSync(userFilePath, JSON.stringify(users, null, 2));
-
-
     res.status(201).send()
   } catch {
     res.status(500).send()
@@ -239,18 +229,10 @@ function getUsersFromUserFile() {
 } 
 
 
-//User Session Management
-app.get('/posts', authenticateToken, (req, res) => {
-  //Only post the User which have access to
-  res.json(posts.filter(post => post.username === req.user.name))
-})
-
-
 //Login a particular User and check the User/Password
 app.post('/login', async (req, res) => {
   const users = getUsersFromUserFile();
   const user = users.find(user => user.name === req.body.uname)
-  console.log(user)
   if (user == null) {
     return res.status(400).send('Cannot find user')
   }
@@ -260,15 +242,10 @@ app.post('/login', async (req, res) => {
 
       //User from the database 
       const username = user.name
-      console.log('Username: ' + username)
       const userPayload = { name: username }
-      console.log('Payload:' + userPayload)
-      console.log('Successfull login')
       //Create a Access Token with the secret from .env File and save the username in it
       const accessToken = jwt.sign(userPayload, process.env.ACCESS_TOKEN_SECRET)
       res.json({ accessToken: accessToken })
-
-      console.log(accessToken)
 
     } else {
       res.send('Password is not correct')
@@ -278,6 +255,8 @@ app.post('/login', async (req, res) => {
   }
 })
 
+//Source for User Login: https://www.youtube.com/watch?v=Ud5xKCYQTjM
+//Source for JWT: https://www.youtube.com/watch?v=mbsmsi7l3r4
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']

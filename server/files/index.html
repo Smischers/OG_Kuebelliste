@@ -41,8 +41,8 @@
           <img src="resources/idea_home.jpg" alt="" class="slogan-img">
         </div>
 
-        <ul>
-          <div class="row center">
+        <div class="row center">
+          <ul>
             <li>
               <div class="center" v-for="row in rowChunks">
                 <div v-for="card in row" class="col s2.5">
@@ -64,9 +64,8 @@
                 </div>
               </div>
             </li>
-
-          </div>
-        </ul>
+          </ul>
+        </div>
       </template>
     </main>
     <template>
@@ -158,7 +157,7 @@
           .then(weather => weather.json())
           .then(data => this.weather = data)
           .catch(error => console.log(error))
-          
+
         if (this.hasAccessToken()) {
           this.fetchItems();
           window.addEventListener('resize', this.handleResize);

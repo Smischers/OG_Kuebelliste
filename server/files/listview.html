@@ -38,11 +38,11 @@
 
     <main>
       <template>
-      <!-- here comes data -->
-      <ul style="margin-top: 0px;">
+        <!-- here comes data -->
         <div class="row">
+          <ul style="margin-top: 0px;">
 
-          <li>
+            <li>
               <div class="center" v-for="list in items">
 
                 <div v-for="(value, category) in list" class="col s2.5" style="width: 100%; padding: 0">
@@ -72,8 +72,9 @@
                         <td class="trunc">{{ entry.description }}</td>
                         <td>{{ entry.deadline }}</td>
                         <td class="editItem" style="padding-right: 0;"><a
-                            :onclick="`onCalendarButtonClick('${ entry.name }', '${entry.deadline }')`" title="Add to calendar"><i
-                              class="material-icons valign-wrapper" style="font-size: 1.2em; cursor: pointer;">event</i></a></td>
+                            :onclick="`onCalendarButtonClick('${ entry.name }', '${entry.deadline }')`"
+                            title="Add to calendar"><i class="material-icons valign-wrapper"
+                              style="font-size: 1.2em; cursor: pointer;">event</i></a></td>
                         <td class="editItem"><a
                             :href="`listentryEdith.html?listName=${listName}&category=${category}&listEntry=${entry.name}`"
                             title="Edit this item"><i class="material-icons valign-wrapper"
@@ -84,11 +85,11 @@
                 </div>
 
               </div>
-          </li>
+            </li>
 
+          </ul>
         </div>
-      </ul>
-    </template>
+      </template>
     </main>
     <template>
       <!-- OUR FOOTER-->

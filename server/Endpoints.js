@@ -43,7 +43,7 @@ exports.getList = function (req, res) {
     if (!data.length !== 0) {
         res.send(data); // Sends entire file
     } else {
-        res.sendStatus(404);
+        res.send([]);
         console.log("File not found");
     }
 }
@@ -86,7 +86,7 @@ exports.getListNamesIcons = async function (req, res) {
         }
         res.send(nameIcons) // Return Listname + Picture in Array of Objects
     } else {
-        res.sendStatus(404);
+        res.send([]);
         console.log("File not found");
     }
 

@@ -31,10 +31,11 @@
                     title="Please enter a valid URL (e.g. http://example.com)">
 
                 <label for="weather"><b>Best for which weather?</b></label>
-                <select v-model="this.newWeather" name="weather" id="weather" style="display: block;" required>
-                    <option value="" disabled selected>Select weather</option>
-                    <option value="clear">Clear</option>
-                    <option value="rain">Rain</option>
+
+                <select v-model="newWeather" name="weather" id="weather" style="display: block;" required>
+                    <option value="" disabled >Select weather</option>
+                    <option value="Clear">Clear</option>
+                    <option value="Rain">Rain</option>
                 </select>
 
                 <button v-on:click=updateList() class="waves-effect waves-light btn cyan darken-3">Submit</button>
@@ -54,13 +55,14 @@
                 listName: "",
                 newListName: "",
                 newPicture: "",
-                newWeather: "clear",
+                newWeather: "",
             },
             methods: {
                 fetchList() {
                     fetch(`/list/${this.listName}/details`)
                         .then(response => response.json())
                         .then(data => {
+                            console.log(data.weather)
                             this.newPicture = data.image;
                             this.newWeather = data.weather;
                         })
@@ -89,11 +91,11 @@
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify([{ name: this.newListName, picture: this.newPicture }])
+                        body: JSON.stringify([{ name: this.newListName, picture: this.newPicture, weather: this.newWeather }])
                     })
                         .then(data => {
                             if (data.status === 200) {
-                                window.location.href = 'index.html';
+                                //window.location.href = 'index.html';
                             }
                         })
                         .catch(error => {

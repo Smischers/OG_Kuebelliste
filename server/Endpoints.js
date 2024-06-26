@@ -218,6 +218,7 @@ exports.createCategory = function (req, res) {
     if (categoryIndex == -1) {
         data[listIndex].headers.push({ [newCategoryName]: [] });
         res.sendStatus(201);
+        saveData(path,data);
     } else {
         console.log("Category already exists");
         res.sendStatus(400);
